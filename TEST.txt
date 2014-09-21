@@ -1,0 +1,3 @@
+We are making a multiplayer puzzle game
+
+I think it's best if we only put java files into this repository
