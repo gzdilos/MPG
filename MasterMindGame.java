@@ -6,17 +6,19 @@ public class MasterMindGame {
 	//Guesses is a 2D array, size is [Amount of guesses] [Solution size * 2]. 
 	//It stores the guessed colours as integers and
 	//stores the correct/partially correct/wrong result as a 2, 1 and 0 respectively.
-	public int [][] guesses;
-	public int guessAmt;
-	public int currGuess;
-	public int solutionSize;
+	private int [][] guesses;
+	private int guessAmt;
+	private int currGuess;
+	private int solutionSize;
+	private ArrayList<String> colourList;
+	
 	//Constants
-	public final static int RED = 1;
-	public final static int GREEN = 2;
-	public final static int BLUE = 3;
-	public final static int YELLOW = 4;
-	public final static int WHITE = 5;
-	public final static int BLACK = 6;
+	public final static int RED = 0;
+	public final static int GREEN = 1;
+	public final static int BLUE = 2;
+	public final static int YELLOW = 3;
+	public final static int WHITE = 4;
+	public final static int BLACK = 5;
 	 
 	//This code assumes colours cannot be repeated for the time being.
 	public MasterMindGame(ArrayList<Integer> answer, int guessAmount){
@@ -26,9 +28,22 @@ public class MasterMindGame {
 		finalSolution = answer;
 		currGuess = 0;
 		guesses = new int[guessAmount][solutionSize*2];
+		colourList = new ArrayList<String>();
+		addColours();
 	}
 	 
  
+	//Adds the colours of a colour list
+	private void addColours() {
+		colourList.add("red");
+		colourList.add("green");
+		colourList.add("blue");
+		colourList.add("yellow");
+		colourList.add("white");
+		colourList.add("black");
+	}
+
+
 	public boolean guessCheck(ArrayList<Integer> guess){
 		
 		//Check if solved by assuming it is solved and then disproving.
@@ -78,11 +93,18 @@ public class MasterMindGame {
 		return solved;
 	 }
 
+	//Returns the amount of max guess
 	public int getMaxGuessAmt() {
 		return guessAmt;
 	}
 	
+	//Returns the current amount of guesses
 	public int getCurGuessAmt() {
 		return currGuess;
+	}
+	
+	//Returns a colour list
+	public ArrayList<String> getColourList() {
+		return colourList;
 	}
 }

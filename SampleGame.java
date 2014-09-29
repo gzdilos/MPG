@@ -29,67 +29,14 @@ public class SampleGame {
 		System.out.println("Solution is");
 		printArray(sampleTest);
 		
+		AI ai = new AI(s, 0);
+		
+		ai.playGame();
 		//Call AI to run game
-		aiPlayGame(s);
+		//aiPlayGame(s);
 	}
 
-	private static void aiPlayGame(MasterMindGame s) {
-
-		int guessAmt = s.getMaxGuessAmt();
-		
-		int j = 0;
-		
-		while (j != guessAmt) {
-			makeAGuess(s, j);
-			j++;
-		}
-	}
-
-	private static void makeAGuess(MasterMindGame s, int j) {
-		Random randomGenerator = new Random();
-		
-		ArrayList<Integer> guess = new ArrayList<Integer>();
-
-		boolean temp;
-		
-		int i = 0;
-		
-	    while (i < 4) {
-	      int randomInt = randomGenerator.nextInt(6);
-	      
-	      if (containsColour(randomInt, guess)) {
-	    	  i--;
-	      } else {
-	    	  guess.add(randomInt);
-	      }
-	      i++;
-	    }
-	    
-	    System.out.println("Guess was " + (j+1));
-	    printArray(guess);
-	    temp = s.guessCheck(guess);
-	    
-	    System.out.println("Guess " + (j+1) + " was " + temp);
-
-	}
-
-	private static boolean containsColour(int randomInt, ArrayList<Integer> guess) {
-		boolean answer = false;
-		
-		int x = 0;
-		
-		while (x != guess.size() && answer == false) {
-			int temp = guess.get(x);
-			
-			if (temp == randomInt) {
-				answer = true;
-			}
-			x++;
-		}
-		
-		return answer;
-	}
-
+	//Prints the array
 	private static void printArray(ArrayList<Integer> guess) {
 		int i = 0;
 		
