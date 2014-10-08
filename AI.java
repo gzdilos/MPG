@@ -47,17 +47,23 @@ public class AI {
 	private void playEasyGame() {
 		int guessAmt = g.getMaxGuessAmt();
 		
+		ArrayList<ArrayList<Integer>> allGuesses = new ArrayList<ArrayList<Integer>>();
+		
 		int j = 0;
 		
 		while (j != guessAmt) {
-			makeAGuess(g, j);
+			boolean correct = makeAGuess(g, j, allGuesses);
+			
+			if (correct) {
+				//Stop guessing?
+				j = guessAmt;
+			}
 			j++;
 		}
 	}
 	
-	private void makeAGuess(MasterMindGame s, int j) {
+	private boolean makeAGuess(MasterMindGame s, int j, ArrayList<ArrayList<Integer>> allGuesses) {
 		Random randomGenerator = new Random();
-		
 		ArrayList<Integer> guess = new ArrayList<Integer>();
 
 		boolean temp;
@@ -73,6 +79,16 @@ public class AI {
 	      } else {
 	    	  guess.add(randomInt);
 	      }
+	      
+	      //Check if we made a guess that we already did
+	      if (isDuplicate(guess, allGuesses)) {
+	    	  //Reset
+	    	  i = 0;
+	      } else {
+	    	  //Add to list
+	    	  allGuesses.add(guess);
+	      }
+	      
 	      i++;
 	    }
 	    
@@ -81,9 +97,34 @@ public class AI {
 	    temp = s.guessCheck(guess);
 	    
 	    System.out.println("Guess " + (j+1) + " was " + temp);
-
+	    return temp;
 	}
 	
+	//Check if there is a duplicate guess
+	private boolean isDuplicate(ArrayList<Integer> guess, ArrayList<ArrayList<Integer>> allGuesses) {
+		boolean answer = false;
+		int i = 0;
+		
+		//Go through all the guesses made
+		while (i != allGuesses.size()) {
+			
+			int j = 0;
+			ArrayList<Integer> aGuess = allGuesses.get(i);
+			
+			boolean isSame = true;
+			//Check each entry in the guess to see if numbers are same
+			while (j != guess.size() && isSame == true) {
+				
+				if (guess.get(j) != aGuess.get(j)) {
+					isSame = false;
+				}
+				j++;
+			}
+			i++;
+		}
+		return answer;
+	}
+
 	//Checks if the guess has a colour that is the same
 	private static boolean containsColour(int randomInt, ArrayList<Integer> guess) {
 		boolean answer = false;

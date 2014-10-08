@@ -44,17 +44,17 @@ public class SampleGame {
 			int colour = guess.get(i);
 			
 			if (colour == RED) {
-				System.out.print("Red ");
+				System.out.print("red ");
 			} else if (colour == BLUE) {
-				System.out.print("Blue ");
+				System.out.print("blue ");
 			} else if (colour == GREEN) {
-				System.out.print("Green ");
+				System.out.print("green ");
 			} else if (colour == YELLOW) {
-				System.out.print("Yellow ");
+				System.out.print("yellow ");
 			} else if (colour == BLACK) {
-				System.out.print("Black ");
+				System.out.print("black ");
 			} else if (colour == WHITE) {
-				System.out.print("White ");
+				System.out.print("white ");
 			}
 			i++;
 		}
