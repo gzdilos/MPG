@@ -39,8 +39,49 @@ public class AI {
 
 	//Plays with a strategy
 	private void playMediumGame() {
-		// TODO Auto-generated method stub
+		// Try to get the colours needed
+		// Consider amount of colours and amount of guesses
+		int guessAmt = g.getMaxGuessAmt();
+		ArrayList<ArrayList<Integer>> allGuesses = new ArrayList<ArrayList<Integer>>();
 		
+		//Replace object with format of hints
+		ArrayList<Object> hints = new ArrayList<Object>();
+		
+		if (guessAmt < colourList.size() + 2) {
+			//Use a different strategy
+		} else {
+			//Guess all colours
+			ArrayList<Integer> allColours = getColours(allGuesses);
+		}
+		
+		// Organize those colours
+		// Make a guess on which colour is right position
+		
+	}
+
+	private ArrayList<Integer> getColours(ArrayList<ArrayList<Integer>> allGuesses) {
+		ArrayList<Integer> answer = new ArrayList<Integer>();
+		
+		int i = 0;
+		
+		while(i != colourList.size()) {
+			
+			int j = 0;
+			
+			while (j != g.getSolutionSize()) {
+				answer.add(i);
+				j++;
+			}
+			
+			//Check if this colour is contained
+			//Need to look at hints
+			
+			
+			i++;
+		}
+		
+		
+		return answer;
 	}
 
 	//Noob player
@@ -70,7 +111,7 @@ public class AI {
 		
 		int i = 0;
 		
-	    while (i < 4) {
+	    while (i < s.getSolutionSize()) {
 	      int randomInt = randomGenerator.nextInt(6);
 	      
 	      //Tries to choose a different colour each time

@@ -107,4 +107,9 @@ public class MasterMindGame {
 	public ArrayList<String> getColourList() {
 		return colourList;
 	}
+	
+	//Returns the guess solution size
+	public int getSolutionSize() {
+		return solutionSize;
+	}
 }
