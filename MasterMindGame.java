@@ -7,6 +7,7 @@ public class MasterMindGame {
 	//It stores the guessed colours as integers and
 	//stores the correct/partially correct/wrong result as a 2, 1 and 0 respectively.
 	private int [][] guesses;
+	private int [][] AIGuesses;
 	private int guessAmt;
 	private int currGuess;
 	private int solutionSize;
@@ -31,6 +32,8 @@ public class MasterMindGame {
 		finalSolution = answer;
 		currGuess = 0;
 		guesses = new int[guessAmount][solutionSize*2];
+		//Used my AI to cheat
+		AIGuesses = new int[guessAmount][solutionSize*2];
 		colourList = new ArrayList<String>();
 		addColours();
 		theGuess = new ArrayList<Integer>();
@@ -80,18 +83,21 @@ public class MasterMindGame {
 			//Check if the guess is the right colour AND position. Then check for the colour alone.
 			if (theGuess.get(iterator)== finalSolution.get(iterator)){
 				guesses[currGuess][iterator + solutionSize] = 2;
+				AIGuesses[currGuess][iterator + solutionSize] = 2;
 			} else if(finalSolution.contains(theGuess.get(iterator))){
 				guesses[currGuess][iterator + solutionSize] = 1;
+				AIGuesses[currGuess][iterator + solutionSize] = 1;
 				solved = false;
 			} else {
+				AIGuesses[currGuess][iterator + solutionSize] = 0;
 				solved = false;
-				 
 			}
 					
 			iterator++;
 		}
 		
 		currGuess++;
+		clearGuess();
 		
 		return solved;
 	 }
@@ -122,14 +128,30 @@ public class MasterMindGame {
 	}
 
 	//Adds to a guess
-	public void addToGuess(Integer colourSel) {
-		theGuess.add(colourSel);
+	public void addToGuess(Integer colourSel, int i) {
+		theGuess.add(colourSel, i);
 	}
 	
+	//Adds to end of a guess
+	public void addToEndGuess(Integer colourSel) {
+		theGuess.add(colourSel);
+	}
+		
 	//Clear the guess
 	public void clearGuess() {
 		theGuess = new ArrayList<Integer>();
 	}
+	
+	//Retrieve Guess
+	public ArrayList<Integer> getFullGuess() {
+		return theGuess;
+	}
+		
+	//Retrieve Solution
+	public ArrayList<Integer> getSolution() {
+		return finalSolution;
+	}
+		
 	
 	//Return an arraylist consisting of just the guess results.
 	public ArrayList<Integer> guessRes(){
@@ -137,9 +159,22 @@ public class MasterMindGame {
 	  
 		 int iterator = 0;
 		 while(iterator != solutionSize){
-				 retGuess.add(guesses[currGuess][iterator + solutionSize])	
+				 retGuess.add(guesses[currGuess][iterator + solutionSize]);	
 				 iterator++; 
 		 }
+		return retGuess;			  
+	 }
+	
+	//Return an arraylist for AI consisting of just the guess results.
+	public ArrayList<Integer> guessResAI(){
+		 ArrayList<Integer> retGuess = new ArrayList<Integer>();
+		  
+		 int iterator = 0;
+		 while(iterator != solutionSize){
+			 retGuess.add(AIGuesses[currGuess][iterator + solutionSize]);	
+			 iterator++; 
+		 }
+		 
 		return retGuess;			  
 	 }
 }

@@ -43,20 +43,206 @@ public class AI {
 		// Consider amount of colours and amount of guesses
 		int guessAmt = g.getMaxGuessAmt();
 		ArrayList<ArrayList<Integer>> allGuesses = new ArrayList<ArrayList<Integer>>();
-		
-		//Replace object with format of hints
-		ArrayList<Object> hints = new ArrayList<Object>();
+		ArrayList<Integer> allColours = new ArrayList<Integer>();
 		
 		if (guessAmt < colourList.size() + 2) {
 			//Use a different strategy
 		} else {
 			//Guess all colours
-			ArrayList<Integer> allColours = getColours(allGuesses);
+			allColours = getColours(allGuesses);
 		}
 		
 		// Organize those colours
 		// Make a guess on which colour is right position
+		if (allColours == null) {
+			//Got correct a solution
+		} else {
+			//Try a combination of the values as a guess
+			attemptCombinations(allGuesses, allColours);
+			
+		}
 		
+		
+	}
+
+	//Try different combinations since we have all the colours
+	private void attemptCombinations(ArrayList<ArrayList<Integer>> allGuesses,
+			ArrayList<Integer> allColours) {
+
+		int i = 0;
+		
+		allGuesses.add(allColours);
+		
+		while(i != allColours.size()) {
+			g.addToEndGuess(allColours.get(i));
+			i++;
+		}
+		
+		//First useful guess
+		boolean correct = g.guessCheck();
+		
+		if (!correct) {
+			//Hint from the guess result
+			int correctPos = getCorPos(allColours);
+			
+			while (correctPos != 4) {
+				if (correctPos == 0) {
+					//Case 0 correct
+					correctPos = zeroCor(allGuesses, allGuesses.size());
+				} else if (correctPos == 1) {
+					//Case 1 correct
+					correctPos = oneCor(allGuesses, allGuesses.size());
+				} else {
+					//Case 2 correct
+					correctPos = twoCor(allGuesses, allGuesses.size());
+				}
+			}
+		}
+		
+	}
+
+	//One colour is correct
+	private int oneCor(ArrayList<ArrayList<Integer>> allGuesses, int size) {
+		ArrayList<Integer> oldGuess = allGuesses.get(size - 1);
+		int amtCor = 0;
+		
+		ArrayList<Integer> hint = g.guessResAI();
+		
+		int j = 0;
+		int corPos = 0;
+		
+		while (j != hint.size()) {
+			if (hint.get(j) == 2) {
+				corPos = j;
+			}
+			j++;
+		}
+		
+		//Shuffle remaining values left
+		int i = 1;
+		
+		while (i != oldGuess.size()) {
+			if (i == corPos) {
+				//g.addToGuess(oldGuess.get(i));
+				i++;
+			} else {
+				g.addToEndGuess(oldGuess.get(i));
+			}
+			i++;
+		}
+		
+		if (corPos != 0) {
+			g.addToGuess(oldGuess.get(0), 0);
+		}
+		
+		g.addToGuess(oldGuess.get(corPos), corPos);
+		allGuesses.add(g.getFullGuess());
+		
+		boolean correct = g.guessCheck();
+		
+		if (correct) {
+			amtCor = 4;
+		} else {
+			amtCor = getCorPos(g.guessResAI());
+		}
+		
+		return amtCor;
+	}
+
+	//Two colours is correct
+	private int twoCor(ArrayList<ArrayList<Integer>> allGuesses, int size) {
+		ArrayList<Integer> oldGuess = allGuesses.get(size - 1);
+		int amtCor = 0;
+		
+		ArrayList<Integer> hint = g.guessResAI();
+		
+		int j = 0;
+		int corPos1 = -1;
+		int corPos2 = -1;
+		
+		while (j != hint.size()) {
+			if (hint.get(j) == 2 && corPos1 == -1) {
+				corPos1 = j;
+			} else if (hint.get(j) == 2){
+				corPos2 = j;
+			}
+			j++;
+		}
+		
+		int i = 0;
+		
+		while (i != g.getSolutionSize()) {
+			if (i == corPos1 || i == corPos2) {
+				i++;
+			} else {
+				g.addToEndGuess(oldGuess.get(i));
+			}
+			i++;
+		}
+		
+		if (corPos1 != 0 && corPos2 != 0) {
+			g.addToEndGuess(oldGuess.get(0));
+		}
+		g.addToGuess(oldGuess.get(corPos1), corPos1);
+		g.addToGuess(oldGuess.get(corPos2), corPos2);
+		
+		allGuesses.add(g.getFullGuess());
+		boolean correct = g.guessCheck();
+		
+		if (correct) {
+			amtCor = 4;
+		} else {
+			amtCor = getCorPos(g.guessResAI());
+		}
+		
+		return amtCor;
+	}
+
+	//Case 0 correct
+	//Bit shift answer
+	private int zeroCor(ArrayList<ArrayList<Integer>> allGuesses, int j) {
+
+		int i = 1;
+		int amtCor = 0;
+		ArrayList<Integer> oldGuess = allGuesses.get(j - 1);
+		
+		while (i != oldGuess.size()) {
+			g.addToEndGuess(i);
+			i++;
+		}
+		
+		g.addToEndGuess(oldGuess.get(0));
+		
+		allGuesses.add(g.getFullGuess());
+		
+		boolean correct = g.guessCheck();
+		
+		if (correct) {
+			//done?
+			amtCor = 4;
+		} else {
+			amtCor = getCorPos(g.guessResAI());
+		}
+		
+		return amtCor;
+	}
+
+	//Gets the amount of stuff in the correct position
+	private int getCorPos(ArrayList<Integer> allColours) {
+		ArrayList<Integer> hint = g.guessRes();
+		int i = 0;
+		int corPos = 0;
+		
+		i = 0;
+		
+		while (i != hint.size()) {
+			if (hint.get(i) == 2) {
+				corPos++;
+			}
+			i++;
+		}
+		
+		return corPos;
 	}
 
 	private ArrayList<Integer> getColours(ArrayList<ArrayList<Integer>> allGuesses) {
@@ -64,22 +250,44 @@ public class AI {
 		
 		int i = 0;
 		
-		while(i != colourList.size()) {
+		while(i != colourList.size() && (answer.size() != g.getSolutionSize())) {
 			
 			int j = 0;
 			
+			//Guess 4 of one colour
 			while (j != g.getSolutionSize()) {
-				answer.add(i);
+				g.addToEndGuess(j);
 				j++;
+			}
+			
+			//Do a check
+			boolean correct = g.guessCheck();
+			
+			//If correct then break
+			if (correct) {
+				answer = null;
+				break;
 			}
 			
 			//Check if this colour is contained
 			//Need to look at hints
+			//2 means correct pos
+			//1 means correct colour
+			ArrayList<Integer> hint = g.guessRes();
+			int x = 0;
 			
+			//If there was any correct colours we add to answer
+			while (x != hint.size()) {
+				answer.add(i);
+				x++;
+			}
 			
+			//If we have 3 right colours and its the last colour to check
+			if ((answer.size() == g.getSolutionSize() - 1) && (i == colourList.size() - 1)) {
+				answer.add(i + 1);
+			}
 			i++;
 		}
-		
 		
 		return answer;
 	}
@@ -133,7 +341,7 @@ public class AI {
 	    	  int p = 0;
 	    	  
 	    	  while (p != s.getSolutionSize()) {
-	    		  s.addToGuess(guess.get(p));
+	    		  s.addToGuess(guess.get(p), p);
 	    		  p++;
 	    	  }
 	    
