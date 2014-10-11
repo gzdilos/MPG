@@ -15,7 +15,7 @@ public class SampleGame {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+
 		ArrayList<Integer> sampleTest = new ArrayList<Integer>();
 		
 		sampleTest.add(BLACK);
@@ -26,12 +26,22 @@ public class SampleGame {
 		//Make a game
 		MasterMindGame s = new MasterMindGame(sampleTest, guessNum);
 		
-		System.out.println("Solution is");
-		printArray(sampleTest);
+		//Make  gui
+		GUI gui = new GUI(s);
 		
-		AI ai = new AI(s, 0);
+		//Gui gui = new Gui();
+		//gui.createStartScreen();
+		//gui.showStartScreen();
 		
-		ai.playGame();
+		//Create the gui
+		gui.createGUI();
+		
+		//System.out.println("Solution is");
+		//printArray(sampleTest);
+		
+		//AI ai = new AI(s, 0);
+		
+		//ai.playGame();
 		//Call AI to run game
 		//aiPlayGame(s);
 	}

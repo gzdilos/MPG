@@ -12,6 +12,9 @@ public class MasterMindGame {
 	private int solutionSize;
 	private ArrayList<String> colourList;
 	
+	//Store the current guess
+	private ArrayList<Integer> theGuess;
+	
 	//Constants
 	public final static int RED = 0;
 	public final static int GREEN = 1;
@@ -30,6 +33,7 @@ public class MasterMindGame {
 		guesses = new int[guessAmount][solutionSize*2];
 		colourList = new ArrayList<String>();
 		addColours();
+		theGuess = new ArrayList<Integer>();
 	}
 	 
  
@@ -42,16 +46,15 @@ public class MasterMindGame {
 		colourList.add("white");
 		colourList.add("black");
 	}
-
-
-	public boolean guessCheck(ArrayList<Integer> guess){
+	
+	public boolean guessCheck(){
 		
 		//Check if solved by assuming it is solved and then disproving.
 		boolean solved = true;
 		
 		//Check for invalid guesses.
 		//Probably should restrict user to the amount required
-		if (guess.size() != solutionSize) {
+		if (theGuess.size() != solutionSize) {
 			solved = false;
 		}
 			
@@ -67,7 +70,7 @@ public class MasterMindGame {
 		while (iterator != solutionSize){
 			//Set the guessed values, assume 0 is not a choosable colour.
 			//You mean you assume that you can't choose no colours
-			guesses[currGuess][iterator] = guess.get(iterator);
+			guesses[currGuess][iterator] = theGuess.get(iterator);
 			iterator++;
 		}
 		 
@@ -75,9 +78,9 @@ public class MasterMindGame {
 		 
 		while (iterator != solutionSize){
 			//Check if the guess is the right colour AND position. Then check for the colour alone.
-			if (guess.get(iterator)== finalSolution.get(iterator)){
+			if (theGuess.get(iterator)== finalSolution.get(iterator)){
 				guesses[currGuess][iterator + solutionSize] = 2;
-			} else if(finalSolution.contains(guess.get(iterator))){
+			} else if(finalSolution.contains(theGuess.get(iterator))){
 				guesses[currGuess][iterator + solutionSize] = 1;
 				solved = false;
 			} else {
@@ -108,8 +111,23 @@ public class MasterMindGame {
 		return colourList;
 	}
 	
+	//Returns a colour
+	public String getColourList(int i) {
+		return colourList.get(i);
+	}
+		
 	//Returns the guess solution size
 	public int getSolutionSize() {
 		return solutionSize;
+	}
+
+	//Adds to a guess
+	public void addToGuess(Integer colourSel) {
+		theGuess.add(colourSel);
+	}
+	
+	//Clear the guess
+	public void clearGuess() {
+		theGuess = new ArrayList<Integer>();
 	}
 }

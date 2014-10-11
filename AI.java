@@ -128,6 +128,8 @@ public class AI {
 	      } else {
 	    	  //Add to list
 	    	  allGuesses.add(guess);
+	    	  
+	    	  //Add the guess to the mmg
 	      }
 	      
 	      i++;
@@ -135,7 +137,7 @@ public class AI {
 	    
 	    System.out.println("Guess was " + (j+1));
 	    printArray(guess);
-	    temp = s.guessCheck(guess);
+	    temp = s.guessCheck();
 	    
 	    System.out.println("Guess " + (j+1) + " was " + temp);
 	    return temp;
