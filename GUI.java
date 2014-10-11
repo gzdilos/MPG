@@ -98,42 +98,54 @@ public class GUI extends JFrame{
 		//Set up inputs
 		button = new JButton();
 		button.setName("red");
-		button.setBackground(Color.red);		
+		button.setText("RED");
+		button.setBackground(Color.red);
+		button.setOpaque(true);
 		button.setPreferredSize(new Dimension(40, 40));			
 		button.addActionListener(inputHandler);			
 		inputGrid.add(button);			
 		
 		button = new JButton();
 		button.setName("green");
-		button.setBackground(Color.green);		
+		button.setText("GREEN");
+		button.setBackground(Color.green);	
+		button.setOpaque(true);
 		button.setPreferredSize(new Dimension(40, 40));			
 		button.addActionListener(inputHandler);			
 		inputGrid.add(button);		
 		
 		button = new JButton();
 		button.setName("blue");
-		button.setBackground(Color.blue);		
+		button.setBackground(Color.blue);
+		button.setText("BLUE");
+		button.setOpaque(true);
 		button.setPreferredSize(new Dimension(40, 40));			
 		button.addActionListener(inputHandler);			
 		inputGrid.add(button);		
 		
 		button = new JButton();
 		button.setName("yellow");
-		button.setBackground(Color.yellow);		
+		button.setText("YELLOW");
+		button.setBackground(Color.yellow);
+		button.setOpaque(true);
 		button.setPreferredSize(new Dimension(40, 40));			
 		button.addActionListener(inputHandler);			
 		inputGrid.add(button);		
 		
 		button = new JButton();
 		button.setName("white");
-		button.setBackground(Color.white);		
+		button.setText("WHITE");
+		button.setBackground(Color.white);
+		button.setOpaque(true);
 		button.setPreferredSize(new Dimension(40, 40));			
 		button.addActionListener(inputHandler);			
 		inputGrid.add(button);		
 		
 		button = new JButton();
 		button.setName("black");
-		button.setBackground(Color.black);		
+		button.setText("BLACK");
+		button.setBackground(Color.black);	
+		button.setOpaque(true);
 		button.setPreferredSize(new Dimension(40, 40));			
 		button.addActionListener(inputHandler);			
 		inputGrid.add(button);		

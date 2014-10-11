@@ -41,22 +41,34 @@ public class GridHandler implements ActionListener{
 		if (source.getText().contentEquals("clear")) {
 			if (colourSel == 0) {
 				source.setBackground(Color.red);
+				source.setOpaque(true);
+//				source.setText("RED");
 			} else if (colourSel == 1) {
 				source.setBackground(Color.green);
+				source.setOpaque(true);
+//				source.setText("GREEN");
 			} else if (colourSel == 2) {
 				source.setBackground(Color.blue);
+				source.setOpaque(true);
+//				source.setText("BLUE");
 			} else if (colourSel == 3) {
 				source.setBackground(Color.yellow);
+				source.setOpaque(true);
+//				source.setText("YELLOW");
 			} else if (colourSel == 4) {
 				source.setBackground(Color.white);
+				source.setOpaque(true);
+//				source.setText("WHITE");
 			} else if (colourSel == 5) {
 				source.setBackground(Color.black);
+				source.setOpaque(true);
+//				source.setText("BLACK");
 			}
 			
 			if (colourSel < 0) {
 				//Invalid colour
 			} else {
-				mmg.addToEndGuess(colourSel);
+				mmg.addToGuess(colourSel);
 				source.setText("");
 			}
 		} else {
