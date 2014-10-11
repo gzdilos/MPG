@@ -130,6 +130,13 @@ public class AI {
 	    	  allGuesses.add(guess);
 	    	  
 	    	  //Add the guess to the mmg
+	    	  int p = 0;
+	    	  
+	    	  while (p != s.getSolutionSize()) {
+	    		  s.addToGuess(guess.get(p));
+	    		  p++;
+	    	  }
+	    
 	      }
 	      
 	      i++;
