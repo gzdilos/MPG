@@ -130,4 +130,16 @@ public class MasterMindGame {
 	public void clearGuess() {
 		theGuess = new ArrayList<Integer>();
 	}
+	
+	//Return an arraylist consisting of just the guess results.
+	public ArrayList<Integer> guessRes(){
+		 ArrayList<Integer> retGuess = new ArrayList<Integer>();
+	  
+		 int iterator = 0;
+		 while(iterator != solutionSize){
+				 retGuess.add(guesses[currGuess][iterator + solutionSize])	
+				 iterator++; 
+		 }
+		return retGuess;			  
+	 }
 }
