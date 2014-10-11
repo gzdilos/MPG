@@ -21,7 +21,7 @@ public class Client {
 			serverIPAddress = InetAddress.getByName(serverName);
 
 		// get server port
-		int serverPort = 6789; 
+		int serverPort = 25000; 
 		//change above port number if required
 		if (args.length >= 2)
 		    serverPort = Integer.parseInt(args[1]);

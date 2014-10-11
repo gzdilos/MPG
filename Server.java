@@ -19,13 +19,21 @@ public class Server {
 		ServerSocket welcomeSocket = new ServerSocket(serverPort);
 
 		while (true){
-
-		    // accept connection from connection queue
 		    Socket connectionSocket = welcomeSocket.accept();
-		    System.out.println("connection from " + connectionSocket);
+		    System.out.println("connection from " + connectionSocket);	    
+		    //add this connection to our list of clients if we haven't already
 		    if (!clients.contains(connectionSocket))
 		    {
 		    	clients.add(connectionSocket);
+		    	//if this is the second client we have added, we notify all connected clients that a match is ready to begin
+		    	if (clients.size() == 2)
+		    	{
+		    		for (int i = 0; i < 2; i++)
+		    		{
+		    			DataOutputStream outToClient = new DataOutputStream(clients.get(i).getOutputStream());
+						outToClient.writeBytes("ready");
+		    		}
+		    	}
 		    }
 		    
 		    // create read stream to get input
