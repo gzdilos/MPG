@@ -63,42 +63,41 @@ public class MasterMindGame {
 			
 		if (currGuess == guessAmt) {
 			solved = false;
-		} else {
-		
-			//Assume these include hints
-			//Rondo's code
-			
-			int iterator = 0;
-			
-			while (iterator != solutionSize && solved == true){
-				//Set the guessed values, assume 0 is not a choosable colour.
-				//You mean you assume that you can't choose no colours
-				guesses[currGuess][iterator] = theGuess.get(iterator);
-				iterator++;
-			}
-			 
-			iterator = 0;
-			 
-			while (iterator != solutionSize && solved == true){
-				//Check if the guess is the right colour AND position. Then check for the colour alone.
-				if (theGuess.get(iterator)== finalSolution.get(iterator)){
-					guesses[currGuess][iterator + solutionSize] = 2;
-					AIGuesses[currGuess][iterator + solutionSize] = 2;
-				} else if(finalSolution.contains(theGuess.get(iterator))){
-					guesses[currGuess][iterator + solutionSize] = 1;
-					AIGuesses[currGuess][iterator + solutionSize] = 1;
-					solved = false;
-				} else {
-					AIGuesses[currGuess][iterator + solutionSize] = 0;
-					solved = false;
-				}
-						
-				iterator++;
-			}
-			
-			currGuess++;
-			clearGuess();
 		}
+		
+		//Assume these include hints
+		//Rondo's code
+		
+		int iterator = 0;
+		
+		while (iterator != solutionSize){
+			//Set the guessed values, assume 0 is not a choosable colour.
+			//You mean you assume that you can't choose no colours
+			guesses[currGuess][iterator] = theGuess.get(iterator);
+			iterator++;
+		}
+		 
+		iterator = 0;
+		 
+		while (iterator != solutionSize){
+			//Check if the guess is the right colour AND position. Then check for the colour alone.
+			if (theGuess.get(iterator)== finalSolution.get(iterator)){
+				guesses[currGuess][iterator + solutionSize] = 2;
+				AIGuesses[currGuess][iterator + solutionSize] = 2;
+			} else if(finalSolution.contains(theGuess.get(iterator))){
+				guesses[currGuess][iterator + solutionSize] = 1;
+				AIGuesses[currGuess][iterator + solutionSize] = 1;
+				solved = false;
+			} else {
+				AIGuesses[currGuess][iterator + solutionSize] = 0;
+				solved = false;
+			}
+					
+			iterator++;
+		}
+		
+		currGuess++;
+		clearGuess();
 		
 		return solved;
 	 }
@@ -158,11 +157,9 @@ public class MasterMindGame {
 	public ArrayList<Integer> guessRes(){
 		 ArrayList<Integer> retGuess = new ArrayList<Integer>();
 	  
-		 int oldGuess = currGuess - 1;
-		 
 		 int iterator = 0;
 		 while(iterator != solutionSize){
-				 retGuess.add(guesses[oldGuess][iterator + solutionSize]);	
+				 retGuess.add(guesses[currGuess][iterator + solutionSize]);	
 				 iterator++; 
 		 }
 		return retGuess;			  
@@ -172,51 +169,12 @@ public class MasterMindGame {
 	public ArrayList<Integer> guessResAI(){
 		 ArrayList<Integer> retGuess = new ArrayList<Integer>();
 		  
-		 int oldGuess = currGuess - 1;
-		 
 		 int iterator = 0;
 		 while(iterator != solutionSize){
-			 retGuess.add(AIGuesses[oldGuess][iterator + solutionSize]);	
+			 retGuess.add(AIGuesses[currGuess][iterator + solutionSize]);	
 			 iterator++; 
 		 }
 		 
 		return retGuess;			  
 	 }
-	
-	//
-	public String convertHintToString() {
-		ArrayList<Integer> retGuess = new ArrayList<Integer>();
-		StringBuilder s = new StringBuilder();
-		
-		int iterator = 0;
-		
-		int oldGuess = currGuess - 1;
-		//We will define B as correct colour correct position
-		//W as correct colour wrong position
-		while(iterator != solutionSize){
-			retGuess.add(guesses[oldGuess][iterator + solutionSize]);	
-			
-			if (guesses[oldGuess][iterator + solutionSize] == 2) {
-				s.append("B");
-				//System.out.println("adding B");
-			} else if (guesses[oldGuess][iterator + solutionSize] == 1) {
-				s.append("W");
-				//System.out.println("adding W");
-			} else {
-				s.append("X");
-				//System.out.println("adding X");
-			}
-			
-			iterator++; 
-		}
-		 
-		//System.out.println("solution size is " + solutionSize);
-		//System.out.println(s);
-		
-		String value = s.toString();
-		
-		System.out.println(value);
-		
-		return value;	
-	}
 }
