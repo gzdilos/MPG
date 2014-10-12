@@ -44,10 +44,22 @@ public class Server {
 		    // process input
 		    if (clientSentence.startsWith("connect"))
 		    {
-		    	
+		    	//do nothing, we just added the new client to our list of clients
 		    }else if (clientSentence.startsWith("initial"))
 		    {
-		    	
+		    	//if the message starts with 'initial', then we have received the set of colours that the other client needs to guess
+		    	//find the other client in our clients array
+		    	Socket sendTo;
+		    	if (connectionSocket.equals(clients.get(0)))
+		    	{
+		    		sendTo = clients.get(1);
+		    	}else
+		    	{
+		    		sendTo = clients.get(0);
+		    	}
+		    	//sending answer to the other client
+		    	DataOutputStream outToClient = new DataOutputStream(sendTo.getOutputStream());
+				outToClient.writeBytes(clientSentence);
 		    }
 
 		} // end of while (true)
