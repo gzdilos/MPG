@@ -8,7 +8,7 @@ public class GUI extends JFrame{
 	
 	private JButton button;
 	
-	//private JPanel pane;
+	private JPanel hintPanel;
 	
 	//private JButton pressme = new JButton("Press Me");
 	
@@ -41,6 +41,17 @@ public class GUI extends JFrame{
 		Integer i = 1;
 		Integer x = 0;
 		Integer y = 0;
+		
+		JPanel hintPanel = new JPanel();
+		hintPanel.setLayout(new GridLayout(8,1));
+		hintPanel.setPreferredSize(new Dimension (50,500));
+		for(int k = 0; k < 8; k++) {
+			button = new JButton();
+			button.setName("" + k);
+			button.setPreferredSize(new Dimension(50,50));
+			hintPanel.add(button, k);
+			button.setText(button.getName());
+		}
 		
 		GridHandler gridButtonHandler = new GridHandler(mmg, this);
 		//adding the input positions as buttons to the grid
@@ -186,6 +197,8 @@ public class GUI extends JFrame{
 		inputIndicator.add(title, BorderLayout.NORTH);		
 		inputIndicator.add(input, BorderLayout.SOUTH);		
 		this.inputIndicator = input;
+		
+		
 				
 		//initializing the final frame with an image
 		//ImageIcon bg = new ImageIcon("sudoku/images/puzzlebackground.png");
@@ -197,13 +210,14 @@ public class GUI extends JFrame{
 		finalFrame.setLayout(new BorderLayout());
 		
 		//adding panels to the window
-		finalFrame.add(gameGrid, BorderLayout.NORTH);	
-		finalFrame.add(inputPanel, BorderLayout.EAST);
+		finalFrame.add(gameGrid, BorderLayout.CENTER);	
+		finalFrame.add(inputPanel, BorderLayout.SOUTH);
+		finalFrame.add(hintPanel, BorderLayout.EAST);
 		finalFrame.add(miscButtons, BorderLayout.WEST);
-		finalFrame.add(inputIndicator, BorderLayout.CENTER);
+		finalFrame.add(inputIndicator, BorderLayout.NORTH);
 		finalFrame.setSize(700,700);	
 		
-		JFrame sudokuFrame = new JFrame("Mastermind - In Game");		//creating the sudoku window
+		JFrame sudokuFrame = new JFrame("Mastermind - In Game");		//creating the Mastermind window
 		sudokuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		//exit when the 'x' button is clicked
 		sudokuFrame.add(finalFrame);
 		sudokuFrame.pack();
@@ -253,5 +267,10 @@ public class GUI extends JFrame{
 		answer = mmg.guessCheck();
 		
 		return answer;
+	}
+	public void setHint(int row, String hintAnswer) {
+		System.out.println(this.hintPanel.getComponentCount());
+//		button = (JButton) this.hintPanel.getComponent(row);
+//		button.setText(hintAnswer);
 	}
 }

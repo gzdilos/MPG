@@ -41,9 +41,14 @@ public class MiscHandler implements ActionListener{
 				JLabel correctText = new JLabel(new ImageIcon("src/images/success.png"));
 				miscFrame.add(correctText, BorderLayout.CENTER);
 				miscFrame.setTitle("Success");
+				
+				//To hintPanel button
+				gui.setHint(0, "BBBB");
+				
 			}else
 			{
 				//Supply hints
+				gui.setHint(0, "XXXX");
 				
 			}
 			miscFrame.pack();
