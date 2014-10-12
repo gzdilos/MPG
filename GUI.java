@@ -269,8 +269,13 @@ public class GUI extends JFrame{
 		return answer;
 	}
 	public void setHint(int row, String hintAnswer) {
-		System.out.println(this.hintPanel.getComponentCount());
-//		button = (JButton) this.hintPanel.getComponent(row);
-//		button.setText(hintAnswer);
+		if(this.hintPanel == null) {
+			System.out.println("Null apparently");
+		}else {
+			System.out.println(this.hintPanel.getComponentCount());
+			button = (JButton) this.hintPanel.getComponent(row);
+			button.setText(hintAnswer);
+		}
+		
 	}
 }
