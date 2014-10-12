@@ -38,7 +38,7 @@ public class MiscHandler implements ActionListener{
 			//displaying appropriate message
 			if (correct == true)
 			{
-				JLabel correctText = new JLabel(new ImageIcon("src/images/success.png"));
+				JLabel correctText = new JLabel(new ImageIcon("images/success.png"));
 				miscFrame.add(correctText, BorderLayout.CENTER);
 				miscFrame.setTitle("Success");
 				miscFrame.pack();

@@ -19,6 +19,7 @@ public class SampleGame {
 		//Make a random solution
 		ArrayList<Integer> sampleTest = new ArrayList<Integer>();
 		
+		/*
 		Random randomGenerator = new Random();
 		
 		int i = 0;
@@ -34,12 +35,12 @@ public class SampleGame {
 	    	}
 	      
 	    	i++;
-	    }
+	    }*/
 	    
-		//sampleTest.add(BLACK);
-		//sampleTest.add(RED);
-		//sampleTest.add(GREEN);
-		//sampleTest.add(BLUE);
+		sampleTest.add(BLACK);
+		sampleTest.add(RED);
+		sampleTest.add(GREEN);
+		sampleTest.add(BLUE);
 		
 		//Make a game
 		MasterMindGame s = new MasterMindGame(sampleTest, guessNum);
