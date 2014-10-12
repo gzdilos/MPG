@@ -42,7 +42,7 @@ public class GUI extends JFrame{
 		Integer x = 0;
 		Integer y = 0;
 		
-		JPanel hintPanel = new JPanel();
+		hintPanel = new JPanel();
 		hintPanel.setLayout(new GridLayout(8,1));
 		hintPanel.setPreferredSize(new Dimension (50,500));
 		for(int k = 0; k < 8; k++) {
@@ -272,10 +272,10 @@ public class GUI extends JFrame{
 		if(this.hintPanel == null) {
 			System.out.println("Null apparently");
 		}else {
-			System.out.println(this.hintPanel.getComponentCount());
-			button = (JButton) this.hintPanel.getComponent(row);
+//			System.out.println(this.hintPanel.getComponentCount());
+			
+			button = (JButton) this.hintPanel.getComponent(7 - row);
 			button.setText(hintAnswer);
 		}
-		
 	}
 }
