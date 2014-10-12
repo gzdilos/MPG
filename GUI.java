@@ -174,18 +174,18 @@ public class GUI extends JFrame{
 		button = new JButton("Check");	
 		button.setPreferredSize(new Dimension(120, 70));		
 		button.addActionListener(miscButtonHandler);		
-		button.setBackground(Color.white);		
-		button.setOpaque(false);		
-		button.setContentAreaFilled(false);		
-		button.setBorderPainted(false);		
+		//button.setBackground(Color.white);		
+		//button.setOpaque(false);		
+		//button.setContentAreaFilled(false);		
+		//button.setBorderPainted(false);		
 		miscButtons.add(button);				
 		button = new JButton("Reset");		
 		button.setPreferredSize(new Dimension(120, 70));		
 		button.addActionListener(miscButtonHandler);
-		button.setBackground(Color.white);		
-		button.setOpaque(false);		
-		button.setContentAreaFilled(false);		
-		button.setBorderPainted(false);	
+		//button.setBackground(Color.white);		
+		//button.setOpaque(false);		
+		//button.setContentAreaFilled(false);		
+		//button.setBorderPainted(false);	
 		miscButtons.add(button);
 		
 		//creating label to indicate selected input	

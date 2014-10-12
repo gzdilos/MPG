@@ -16,12 +16,30 @@ public class SampleGame {
 	 */
 	public static void main(String[] args) {
 
+		//Make a random solution
 		ArrayList<Integer> sampleTest = new ArrayList<Integer>();
 		
-		sampleTest.add(BLACK);
-		sampleTest.add(RED);
-		sampleTest.add(GREEN);
-		sampleTest.add(BLUE);
+		Random randomGenerator = new Random();
+		
+		int i = 0;
+		
+	    while (i != 4) {
+	    	int randomInt = randomGenerator.nextInt(6);
+	      
+	    	//Tries to choose a different colour each time
+	    	if (containsColour(randomInt, sampleTest)) {
+	    		i--;
+	    	} else {
+	    		sampleTest.add(randomInt);
+	    	}
+	      
+	    	i++;
+	    }
+	    
+		//sampleTest.add(BLACK);
+		//sampleTest.add(RED);
+		//sampleTest.add(GREEN);
+		//sampleTest.add(BLUE);
 		
 		//Make a game
 		MasterMindGame s = new MasterMindGame(sampleTest, guessNum);
@@ -46,6 +64,24 @@ public class SampleGame {
 		//aiPlayGame(s);
 	}
 
+	//Checks if the guess has a colour that is the same
+	private static boolean containsColour(int randomInt, ArrayList<Integer> guess) {
+		boolean answer = false;
+				
+		int x = 0;
+				
+		while (x != guess.size() && answer == false) {
+			int temp = guess.get(x);
+				
+			if (temp == randomInt) {
+				answer = true;
+			}
+			x++;
+		}
+				
+		return answer;
+	}
+		
 	//Prints the array
 	private static void printArray(ArrayList<Integer> guess) {
 		int i = 0;
