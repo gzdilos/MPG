@@ -44,13 +44,15 @@ public class GUI extends JFrame{
 		
 		hintPanel = new JPanel();
 		hintPanel.setLayout(new GridLayout(8,1));
-		hintPanel.setPreferredSize(new Dimension (50,500));
+		hintPanel.setPreferredSize(new Dimension (80,500));
 		for(int k = 0; k < 8; k++) {
+			int m = 8-k;
 			button = new JButton();
-			button.setName("" + k);
+			button.setName("" + m);
 			button.setPreferredSize(new Dimension(50,50));
 			hintPanel.add(button, k);
 			button.setText(button.getName());
+			button.setEnabled(false);
 		}
 		
 		GridHandler gridButtonHandler = new GridHandler(mmg, this);
@@ -172,7 +174,7 @@ public class GUI extends JFrame{
 		MiscHandler miscButtonHandler = new MiscHandler(mmg, this);		
 		miscButtons.setLayout(new GridBagLayout());		
 		button = new JButton("Check");	
-		button.setPreferredSize(new Dimension(120, 70));		
+		button.setPreferredSize(new Dimension(100, 70));		
 		button.addActionListener(miscButtonHandler);		
 		//button.setBackground(Color.white);		
 		//button.setOpaque(false);		
@@ -180,7 +182,7 @@ public class GUI extends JFrame{
 		//button.setBorderPainted(false);		
 		miscButtons.add(button);				
 		button = new JButton("Reset");		
-		button.setPreferredSize(new Dimension(120, 70));		
+		button.setPreferredSize(new Dimension(100, 70));		
 		button.addActionListener(miscButtonHandler);
 		//button.setBackground(Color.white);		
 		//button.setOpaque(false);		
@@ -268,10 +270,11 @@ public class GUI extends JFrame{
 		
 		return answer;
 	}
+	
 	public void setHint(int row, String hintAnswer) {
 		if(this.hintPanel == null) {
 			System.out.println("Null apparently");
-		}else {
+		} else {
 //			System.out.println(this.hintPanel.getComponentCount());
 			
 			button = (JButton) this.hintPanel.getComponent(7 - row);
