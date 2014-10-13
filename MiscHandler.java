@@ -55,37 +55,34 @@ public class MiscHandler implements ActionListener{
 			
 		}
 		
-		//Not implemented yet
+		//Resets the board
 		if (event.getActionCommand() == "Reset")
 		{
 			this.gui.hidePuzzle();
-			int x = 0;
-			int y = 0;
 			
-			//Clear the board
-			/*
-			while (y < 9)
-			{
-				while (x < 9)
-				{
-					//setting value at position back to 0 if it is a changeable position
-					if (this.puzzle.canBeChanged(x, y) == true)
-					{
-						this.puzzle.clearPosition(x, y);
-					}
-					x++;
-				}
-				if (x >= 9)
-				{
-					y++;
-					x = 0;
-				}
-			}
-			*/
-			
-			this.gui.createGUI();
 			//refresh the gui
+			this.gui.createGUI();
+			
+			//Reset the game will generate new game with random values
+			puzzle.resetGame();
+			
 			this.gui.showPuzzle();
+		}
+		
+		//Clears the row
+		if (event.getActionCommand() == "Clear")
+		{
+			//this.gui.hidePuzzle();
+			int row = puzzle.getCurGuessAmt();
+			
+			gui.clearRow(row);
+			//refresh the gui
+			//this.gui.createGUI();
+					
+			//Reset the game will generate new game with random values
+			//puzzle.resetGame();
+					
+			//this.gui.showPuzzle();
 		}
 	}
 

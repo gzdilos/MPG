@@ -14,13 +14,16 @@ public class GUI extends JFrame{
 	
 	private JFrame gameGrid;
 	
+	//Holds the buttons
+	private JPanel gameButtonGrid;
+	
 	private MasterMindGame mmg;
 
 	//private JFrame startScreen;
 
 	private Integer inputToUse = -1;
 	
-	private int buttonLimit = 28;
+	//private int buttonLimit = 28;
 	
 	private JLabel inputIndicator;
 	
@@ -35,12 +38,12 @@ public class GUI extends JFrame{
 		//disabled buttons will have red text
 		//UIManager.put("Button.disabledText", Color.red);
 		//initializing the sudoku grid
-		JPanel gameGrid = new JPanel();
-		gameGrid.setLayout(new GridLayout(8,4));
-		gameGrid.setPreferredSize(new Dimension(500,500));
+		gameButtonGrid = new JPanel();
+		gameButtonGrid.setLayout(new GridLayout(8,4));
+		gameButtonGrid.setPreferredSize(new Dimension(500,500));
 		Integer i = 1;
 		Integer x = 0;
-		Integer y = 0;
+		//Integer y = 0;
 		
 		hintPanel = new JPanel();
 		hintPanel.setLayout(new GridLayout(8,1));
@@ -74,21 +77,23 @@ public class GUI extends JFrame{
 			//Give them a label?
 			String label = "";
 			label = label.concat(x.toString());
-			label = label.concat(y.toString());
+			//label = label.concat(y.toString());
 			button.setName(label);
+			//button.setText(label);
 			
 			//Set size
 			button.setPreferredSize(new Dimension(30, 30));
 			button.addActionListener(gridButtonHandler);
-			gameGrid.add(button);
+			gameButtonGrid.add(button);
 			i++;
 			
-			if (x < 4) {
-				x++;
-			} else {
-				x = 0;
-				y++;
-			}
+			x++;
+//			if (x < 4) {
+//				x++;
+//			} else {
+//				x = 0;
+//				y++;
+//			}
 		}
 				
 		JPanel inputLabel = new JPanel();
@@ -189,6 +194,15 @@ public class GUI extends JFrame{
 		//button.setContentAreaFilled(false);		
 		//button.setBorderPainted(false);	
 		miscButtons.add(button);
+		miscButtons.add(button);				
+		button = new JButton("Clear");		
+		button.setPreferredSize(new Dimension(100, 70));		
+		button.addActionListener(miscButtonHandler);
+		//button.setBackground(Color.white);		
+		//button.setOpaque(false);		
+		//button.setContentAreaFilled(false);		
+		//button.setBorderPainted(false);	
+		miscButtons.add(button);
 		
 		//creating label to indicate selected input	
 		JPanel inputIndicator = new JPanel();	
@@ -205,21 +219,21 @@ public class GUI extends JFrame{
 		//initializing the final frame with an image
 		//ImageIcon bg = new ImageIcon("sudoku/images/puzzlebackground.png");
 		JPanel finalFrame = new JPanel();
-		gameGrid.setOpaque(false);
+		gameButtonGrid.setOpaque(false);
 		inputPanel.setOpaque(false);
 		miscButtons.setOpaque(false);
 		inputIndicator.setOpaque(false);
 		finalFrame.setLayout(new BorderLayout());
 		
 		//adding panels to the window
-		finalFrame.add(gameGrid, BorderLayout.CENTER);	
+		finalFrame.add(gameButtonGrid, BorderLayout.CENTER);	
 		finalFrame.add(inputPanel, BorderLayout.SOUTH);
 		finalFrame.add(hintPanel, BorderLayout.EAST);
 		finalFrame.add(miscButtons, BorderLayout.WEST);
 		finalFrame.add(inputIndicator, BorderLayout.NORTH);
 		finalFrame.setSize(700,700);	
 		
-		JFrame sudokuFrame = new JFrame("Mastermind - In Game");		//creating the Mastermind window
+		JFrame sudokuFrame = new JFrame("Mastermind");		//creating the Mastermind window
 		sudokuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		//exit when the 'x' button is clicked
 		sudokuFrame.add(finalFrame);
 		sudokuFrame.pack();
@@ -271,6 +285,7 @@ public class GUI extends JFrame{
 		return answer;
 	}
 	
+	//Sets a hint to GUI
 	public void setHint(int row, String hintAnswer) {
 		if(this.hintPanel == null) {
 			System.out.println("Null apparently");
@@ -280,5 +295,24 @@ public class GUI extends JFrame{
 			button = (JButton) this.hintPanel.getComponent(7 - row);
 			button.setText(hintAnswer);
 		}
+	}
+	
+	//Clears a row
+	public void clearRow(int row) {
+			
+		int x = 0;
+		int y = 0;
+		
+		//Clear the colours
+		while (x != 4) {
+			y = row + x;
+			button = (JButton) this.gameButtonGrid.getComponent(31 - y);
+			button.setBackground(Color.gray);
+			x++;
+		}
+		
+		//Clear the guess
+		mmg.clearGuess();
+		
 	}
 }

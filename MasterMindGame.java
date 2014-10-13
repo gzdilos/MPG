@@ -1,8 +1,9 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 
 public class MasterMindGame {
-	ArrayList<Integer> finalSolution;
+	private ArrayList<Integer> finalSolution;
 	//Guesses is a 2D array, size is [Amount of guesses] [Solution size * 2]. 
 	//It stores the guessed colours as integers and
 	//stores the correct/partially correct/wrong result as a 2, 1 and 0 respectively.
@@ -17,12 +18,12 @@ public class MasterMindGame {
 	private ArrayList<Integer> theGuess;
 	
 	//Constants
-	public final static int RED = 0;
-	public final static int GREEN = 1;
-	public final static int BLUE = 2;
-	public final static int YELLOW = 3;
-	public final static int WHITE = 4;
-	public final static int BLACK = 5;
+	public final int RED = 0;
+	public final int GREEN = 1;
+	public final int BLUE = 2;
+	public final int YELLOW = 3;
+	public final int WHITE = 4;
+	public final int BLACK = 5;
 	 
 	//This code assumes colours cannot be repeated for the time being.
 	public MasterMindGame(ArrayList<Integer> answer, int guessAmount){
@@ -183,7 +184,7 @@ public class MasterMindGame {
 		return retGuess;			  
 	 }
 	
-	//
+	//Converts a hint to string
 	public String convertHintToString() {
 		ArrayList<Integer> retGuess = new ArrayList<Integer>();
 		StringBuilder s = new StringBuilder();
@@ -218,5 +219,57 @@ public class MasterMindGame {
 		System.out.println(value);
 		
 		return value;	
+	}
+	
+	//Resets the game
+	public void resetGame() {
+		generatePuzzle();
+		currGuess = 0;
+		guesses = new int[guessAmt][solutionSize*2];
+		//Used my AI to cheat
+		AIGuesses = new int[guessAmt][solutionSize*2];
+		colourList = new ArrayList<String>();
+		//addColours();
+		theGuess = new ArrayList<Integer>();
+	}
+	
+	//Randomly generate a new puzzle
+	public void generatePuzzle() {
+		ArrayList<Integer> sampleTest = new ArrayList<Integer>();
+		Random randomGenerator = new Random();
+		
+		int i = 0;
+		
+	    while (i != 4) {
+	    	int randomInt = randomGenerator.nextInt(6);
+	      
+	    	//Tries to choose a different colour each time
+	    	if (containsColour(randomInt, sampleTest)) {
+	    		i--;
+	    	} else {
+	    		sampleTest.add(randomInt);
+	    	}
+	      
+	    	i++;
+	    }
+	    
+	    finalSolution = sampleTest;
+	}
+	
+	private boolean containsColour(int randomInt, ArrayList<Integer> guess) {
+		boolean answer = false;
+				
+		int x = 0;
+				
+		while (x != guess.size() && answer == false) {
+			int temp = guess.get(x);
+				
+			if (temp == randomInt) {
+				answer = true;
+			}
+			x++;
+		}
+				
+		return answer;
 	}
 }
