@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;  //notice javax
 
 public class GUI extends JFrame{
@@ -56,6 +57,7 @@ public class GUI extends JFrame{
 			hintPanel.add(button, k);
 			button.setText(button.getName());
 			button.setEnabled(false);
+			button.setToolTipText("Hint for guess " + m);
 		}
 		
 		GridHandler gridButtonHandler = new GridHandler(mmg, this);
@@ -120,7 +122,8 @@ public class GUI extends JFrame{
 		button.setBackground(Color.red);
 		button.setOpaque(true);
 		button.setPreferredSize(new Dimension(40, 40));			
-		button.addActionListener(inputHandler);			
+		button.addActionListener(inputHandler);		
+		button.setToolTipText("Click on this button then on the grid to change the colour!");
 		inputGrid.add(button);			
 		
 		button = new JButton();
@@ -129,7 +132,8 @@ public class GUI extends JFrame{
 		button.setBackground(Color.green);	
 		button.setOpaque(true);
 		button.setPreferredSize(new Dimension(40, 40));			
-		button.addActionListener(inputHandler);			
+		button.addActionListener(inputHandler);		
+		button.setToolTipText("Click on this button then on the grid to change the colour!");
 		inputGrid.add(button);		
 		
 		button = new JButton();
@@ -138,7 +142,8 @@ public class GUI extends JFrame{
 		button.setText("BLUE");
 		button.setOpaque(true);
 		button.setPreferredSize(new Dimension(40, 40));			
-		button.addActionListener(inputHandler);			
+		button.addActionListener(inputHandler);	
+		button.setToolTipText("Click on this button then on the grid to change the colour!");
 		inputGrid.add(button);		
 		
 		button = new JButton();
@@ -147,7 +152,8 @@ public class GUI extends JFrame{
 		button.setBackground(Color.yellow);
 		button.setOpaque(true);
 		button.setPreferredSize(new Dimension(40, 40));			
-		button.addActionListener(inputHandler);			
+		button.addActionListener(inputHandler);	
+		button.setToolTipText("Click on this button then on the grid to change the colour!");
 		inputGrid.add(button);		
 		
 		button = new JButton();
@@ -156,7 +162,8 @@ public class GUI extends JFrame{
 		button.setBackground(Color.white);
 		button.setOpaque(true);
 		button.setPreferredSize(new Dimension(40, 40));			
-		button.addActionListener(inputHandler);			
+		button.addActionListener(inputHandler);	
+		button.setToolTipText("Click on this button then on the grid to change the colour!");
 		inputGrid.add(button);		
 		
 		button = new JButton();
@@ -166,6 +173,7 @@ public class GUI extends JFrame{
 		button.setOpaque(true);
 		button.setPreferredSize(new Dimension(40, 40));			
 		button.addActionListener(inputHandler);			
+		button.setToolTipText("Click on this button then on the grid to change the colour!");
 		inputGrid.add(button);		
 		
 		//input panel consists of the input grid and the input label		
@@ -177,10 +185,12 @@ public class GUI extends JFrame{
 		//making miscellaneous buttons		
 		JPanel miscButtons	= new JPanel();		
 		MiscHandler miscButtonHandler = new MiscHandler(mmg, this);		
-		miscButtons.setLayout(new GridBagLayout());		
+		miscButtons.setLayout(new GridLayout(3,3));
+		//miscButtons.setSize(new Dimension(100, 300));
 		button = new JButton("Check");	
 		button.setPreferredSize(new Dimension(100, 70));		
-		button.addActionListener(miscButtonHandler);		
+		button.addActionListener(miscButtonHandler);	
+		button.setToolTipText("Click on this button to check if you are correct!");
 		//button.setBackground(Color.white);		
 		//button.setOpaque(false);		
 		//button.setContentAreaFilled(false);		
@@ -189,15 +199,17 @@ public class GUI extends JFrame{
 		button = new JButton("Reset");		
 		button.setPreferredSize(new Dimension(100, 70));		
 		button.addActionListener(miscButtonHandler);
+		button.setToolTipText("Click on this button to reset the whole puzzle!");
 		//button.setBackground(Color.white);		
 		//button.setOpaque(false);		
 		//button.setContentAreaFilled(false);		
 		//button.setBorderPainted(false);	
 		miscButtons.add(button);
-		miscButtons.add(button);				
+		//miscButtons.add(button);				
 		button = new JButton("Clear");		
 		button.setPreferredSize(new Dimension(100, 70));		
 		button.addActionListener(miscButtonHandler);
+		button.setToolTipText("Click on this button to clear your current guess!");
 		//button.setBackground(Color.white);		
 		//button.setOpaque(false);		
 		//button.setContentAreaFilled(false);		
