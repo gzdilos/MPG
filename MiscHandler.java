@@ -41,18 +41,18 @@ public class MiscHandler implements ActionListener{
 				JLabel correctText = new JLabel(new ImageIcon("images/success.png"));
 				miscFrame.add(correctText, BorderLayout.CENTER);
 				miscFrame.setTitle("Success");
-				
+				miscFrame.pack();
+				miscFrame.setVisible(true);
 				//To hintPanel button
-				gui.setHint(0, "BBBB");
+				gui.setHint(puzzle.getCurGuessAmt() - 1, "BBBB");
 				
 			}else
 			{
 				//Supply hints
-				gui.setHint(0, "XXXX");
-				
+				System.out.println("Wrong");
+				gui.setHint(puzzle.getCurGuessAmt() - 1, puzzle.convertHintToString());
 			}
-			miscFrame.pack();
-			miscFrame.setVisible(true);
+			
 		}
 		
 		//Not implemented yet
