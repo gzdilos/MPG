@@ -101,13 +101,13 @@ public class AI {
 			while (correctPos != 4) {
 				if (correctPos == 0) {
 					//Case 0 correct
-					correctPos = zeroCor(allGuesses, allGuesses.size());
+					correctPos = zeroCor(allGuesses.size());
 				} else if (correctPos == 1) {
 					//Case 1 correct
-					correctPos = oneCor(allGuesses, allGuesses.size());
+					correctPos = oneCor(allGuesses.size());
 				} else {
 					//Case 2 correct
-					correctPos = twoCor(allGuesses, allGuesses.size());
+					correctPos = twoCor(allGuesses.size());
 				}
 			}
 		}
@@ -115,7 +115,7 @@ public class AI {
 	}
 
 	//One colour is correct
-	private int oneCor(ArrayList<ArrayList<Integer>> allGuesses, int size) {
+	private int oneCor(int size) {
 		ArrayList<Integer> oldGuess = allGuesses.get(size - 1);
 		int amtCor = 0;
 		
@@ -163,7 +163,7 @@ public class AI {
 	}
 
 	//Two colours is correct
-	private int twoCor(ArrayList<ArrayList<Integer>> allGuesses, int size) {
+	private int twoCor(int size) {
 		ArrayList<Integer> oldGuess = allGuesses.get(size - 1);
 		int amtCor = 0;
 		
@@ -213,7 +213,7 @@ public class AI {
 
 	//Case 0 correct
 	//Bit shift answer
-	private int zeroCor(ArrayList<ArrayList<Integer>> allGuesses, int j) {
+	private int zeroCor(int j) {
 
 		int i = 1;
 		int amtCor = 0;

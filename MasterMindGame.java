@@ -131,7 +131,13 @@ public class MasterMindGame {
 
 	//Adds to a guess
 	public void addToGuess(Integer colourSel, int i) {
-		theGuess.add(colourSel, i);
+		if (theGuess.size() < i) {
+			addToEndGuess(colourSel);
+		} else {
+			theGuess.add(colourSel, i);
+		}
+		
+		
 	}
 	
 	//Adds to end of a guess

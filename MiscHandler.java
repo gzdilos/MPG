@@ -33,27 +33,31 @@ public class MiscHandler implements ActionListener{
 		
 		if (event.getActionCommand() == "Check")
 		{
-			//calling checkPuzzle method to determine whether puzzle is solved
-			boolean correct = gui.currGuess();
-			//displaying appropriate message
-			if (correct == true)
-			{
-				JLabel correctText = new JLabel(new ImageIcon("images/success.png"));
-				miscFrame.add(correctText, BorderLayout.CENTER);
-				miscFrame.setTitle("Success");
-				miscFrame.pack();
-				miscFrame.setVisible(true);
-				//To hintPanel button
-				gui.setHint(puzzle.getCurGuessAmt() - 1, "BBBB");
-				
-			}else
-			{
-				//Supply hints
-				System.out.println("Wrong");
-				gui.setHint(puzzle.getCurGuessAmt() - 1, puzzle.convertHintToString());
-				gui.unlockNextRow(puzzle.getCurGuessAmt());
+			//If they don't have enough guesses
+			if (puzzle.getFullGuess().size() != 4) {
+				gui.showError();
+			} else {
+				//calling checkPuzzle method to determine whether puzzle is solved
+				boolean correct = gui.currGuess();
+				//displaying appropriate message
+				if (correct == true)
+				{
+					JLabel correctText = new JLabel(new ImageIcon("images/success.png"));
+					miscFrame.add(correctText, BorderLayout.CENTER);
+					miscFrame.setTitle("Success");
+					miscFrame.pack();
+					miscFrame.setVisible(true);
+					//To hintPanel button
+					gui.setHint(puzzle.getCurGuessAmt() - 1, "BBBB");
+					
+				}else
+				{
+					//Supply hints
+					System.out.println("Wrong");
+					gui.setHint(puzzle.getCurGuessAmt() - 1, puzzle.convertHintToString());
+					gui.unlockNextRow(puzzle.getCurGuessAmt());
+				}
 			}
-			
 		}
 		
 		//Resets the board

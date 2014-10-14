@@ -56,7 +56,7 @@ public class SampleGame {
 		gui.createGUI();
 		
 		//System.out.println("Solution is");
-		//printArray(sampleTest);
+		printArray(sampleTest);
 		
 		//AI ai = new AI(s, 0);
 		

@@ -46,7 +46,7 @@ public class GUI extends JFrame{
 		gameButtonGrid.setPreferredSize(new Dimension(500,500));
 		Integer i = 1;
 		Integer x = 0;
-		//Integer y = 0;
+		Integer y = 0;
 		
 		hintPanel = new JPanel();
 		hintPanel.setLayout(new GridLayout(8,1));
@@ -81,7 +81,7 @@ public class GUI extends JFrame{
 			//Give them a label?
 			String label = "";
 			label = label.concat(x.toString());
-			//label = label.concat(y.toString());
+			label = label.concat(y.toString());
 			button.setName(label);
 			//button.setText(label);
 			
@@ -91,16 +91,17 @@ public class GUI extends JFrame{
 			gameButtonGrid.add(button);
 			i++;
 			
+			//Lock buttons above the guess row
 			if (i < 30) {
 				button.setEnabled(false);
 			}
-			x++;
-//			if (x < 4) {
-//				x++;
-//			} else {
-//				x = 0;
-//				y++;
-//			}
+			
+			if (x < 3) {
+				x++;
+			} else {
+				x = 0;
+				y++;
+			}
 		}
 				
 		JPanel inputLabel = new JPanel();
@@ -364,5 +365,15 @@ public class GUI extends JFrame{
 		
 		//Clear the guess
 		mmg.clearGuess();
+	}
+
+	//Not enough guesses
+	public void guessError() {
+		JOptionPane.showMessageDialog(null, "You don't have enough guesses!", "Error Code 1", JOptionPane.ERROR_MESSAGE);
+	}
+
+	//Can't click on the same thing twice
+	public void showError() {
+		JOptionPane.showMessageDialog(null, "You need to clear first before you can change the colour!", "Error Code 2", JOptionPane.ERROR_MESSAGE);
 	}
 }

@@ -35,8 +35,16 @@ public class GridHandler implements ActionListener{
 		
 		//obtaining the x and y coordinates of the button from the label
 		JButton source = (JButton) event.getSource();
-
+		String s = source.getName();
+		//System.out.println("Y is "+ source.getY());
+		
 		Integer colourSel = this.gui.getInputToUse();
+		char[] coordinates = s.toCharArray();
+		int xCoordinate = coordinates[0] - 48;
+		//int yCoordinate = coordinates[1] - 48;
+		//System.out.println("Coordinate is " + xCoordinate + ", " + yCoordinate);
+		//changing required value
+		//this.puzzle.changeValueAtPosition(xCoordinate, yCoordinate, this.gui.getInputToUse());
 		
 		if (source.getText().contentEquals("clear")) {
 			if (colourSel == 0) {
@@ -70,11 +78,11 @@ public class GridHandler implements ActionListener{
 			if (colourSel < 0) {
 				//Invalid colour
 			} else {
-				mmg.addToEndGuess(colourSel);
+				mmg.addToGuess(colourSel, xCoordinate);
 				source.setText("");
 			}
 		} else {
-			
+			gui.showError();
 		}
 		
 		//String newValue = this.gui.getInputToUse().toString();
