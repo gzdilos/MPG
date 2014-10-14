@@ -48,6 +48,7 @@ public class GridHandler implements ActionListener{
 				source.setBackground(Color.green);
 				source.setOpaque(true);
 //				source.setText("GREEN");
+				//System.out.println("Set to green");
 			} else if (colourSel == 2) {
 				source.setBackground(Color.blue);
 				source.setOpaque(true);

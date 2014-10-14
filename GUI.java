@@ -9,6 +9,8 @@ public class GUI extends JFrame{
 	
 	private JButton button;
 	
+	private JCheckBox checkBox;
+	
 	private JPanel hintPanel;
 	
 	//private JButton pressme = new JButton("Press Me");
@@ -89,6 +91,9 @@ public class GUI extends JFrame{
 			gameButtonGrid.add(button);
 			i++;
 			
+			if (i < 30) {
+				button.setEnabled(false);
+			}
 			x++;
 //			if (x < 4) {
 //				x++;
@@ -185,7 +190,7 @@ public class GUI extends JFrame{
 		//making miscellaneous buttons		
 		JPanel miscButtons	= new JPanel();		
 		MiscHandler miscButtonHandler = new MiscHandler(mmg, this);		
-		miscButtons.setLayout(new GridLayout(3,3));
+		miscButtons.setLayout(new GridLayout(2,3));
 		//miscButtons.setSize(new Dimension(100, 300));
 		button = new JButton("Check");	
 		button.setPreferredSize(new Dimension(100, 70));		
@@ -215,6 +220,8 @@ public class GUI extends JFrame{
 		//button.setContentAreaFilled(false);		
 		//button.setBorderPainted(false);	
 		miscButtons.add(button);
+		checkBox = new JCheckBox("Allow duplicates");
+		miscButtons.add(checkBox);
 		
 		//creating label to indicate selected input	
 		JPanel inputIndicator = new JPanel();	
@@ -320,11 +327,42 @@ public class GUI extends JFrame{
 			y = row + x;
 			button = (JButton) this.gameButtonGrid.getComponent(31 - y);
 			button.setBackground(Color.gray);
+			button.setText("clear");
 			x++;
 		}
 		
 		//Clear the guess
 		mmg.clearGuess();
 		
+	}
+
+	//Unlock the next row of buttons
+	public void unlockNextRow(int curGuessAmt) {
+		int x = 0;
+		int y = 0;
+		
+		//Clear the colours
+		while (x != 4) {
+			y = curGuessAmt*4 + x;
+			button = (JButton) this.gameButtonGrid.getComponent(31 - y);
+			//button.setBackground(Color.gray);
+			button.setEnabled(true);
+			button.setText("clear");
+			x++;
+		}
+		
+		x = 0;
+		
+		while (x != 4) {
+			y = curGuessAmt - 1 + x;
+			button = (JButton) this.gameButtonGrid.getComponent(31 - y);
+			//button.setBackground(Color.gray);
+			button.setEnabled(false);
+			button.setText("clear");
+			x++;
+		}
+		
+		//Clear the guess
+		mmg.clearGuess();
 	}
 }

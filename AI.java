@@ -7,10 +7,13 @@ public class AI {
 	private MasterMindGame g;
 	private int difficulty;
 	private ArrayList<String> colourList;
+	private ArrayList<ArrayList<Integer>> allGuesses;
 	
 	private final int EASY = 0;
 	private final int MEDIUM = 1;
 	private final int HARD = 2;
+	
+	private int curAIMove;
 	//Define difficulty
 	//0 is easy
 	//1 is medium
@@ -19,6 +22,8 @@ public class AI {
 		this.g = g;
 		this.difficulty = difficulty;
 		colourList = g.getColourList();
+		allGuesses = new ArrayList<ArrayList<Integer>>();
+		curAIMove = 0;
 	}
 	
 	public void playGame() {
@@ -37,19 +42,28 @@ public class AI {
 		
 	}
 
+	//Get one move of AI
+	public ArrayList<Integer> getAIMove() {
+		int i = curAIMove;
+		
+		curAIMove++;
+		
+		return allGuesses.get(i);
+	}
+	
 	//Plays with a strategy
 	private void playMediumGame() {
 		// Try to get the colours needed
 		// Consider amount of colours and amount of guesses
 		int guessAmt = g.getMaxGuessAmt();
-		ArrayList<ArrayList<Integer>> allGuesses = new ArrayList<ArrayList<Integer>>();
+		//ArrayList<ArrayList<Integer>> allGuesses = new ArrayList<ArrayList<Integer>>();
 		ArrayList<Integer> allColours = new ArrayList<Integer>();
 		
 		if (guessAmt < colourList.size() + 2) {
 			//Use a different strategy
 		} else {
 			//Guess all colours
-			allColours = getColours(allGuesses);
+			allColours = getColours();
 		}
 		
 		// Organize those colours
@@ -58,7 +72,7 @@ public class AI {
 			//Got correct a solution
 		} else {
 			//Try a combination of the values as a guess
-			attemptCombinations(allGuesses, allColours);
+			attemptCombinations(allColours);
 			
 		}
 		
@@ -66,8 +80,7 @@ public class AI {
 	}
 
 	//Try different combinations since we have all the colours
-	private void attemptCombinations(ArrayList<ArrayList<Integer>> allGuesses,
-			ArrayList<Integer> allColours) {
+	private void attemptCombinations(ArrayList<Integer> allColours) {
 
 		int i = 0;
 		
@@ -245,7 +258,7 @@ public class AI {
 		return corPos;
 	}
 
-	private ArrayList<Integer> getColours(ArrayList<ArrayList<Integer>> allGuesses) {
+	private ArrayList<Integer> getColours() {
 		ArrayList<Integer> answer = new ArrayList<Integer>();
 		
 		int i = 0;
@@ -296,12 +309,12 @@ public class AI {
 	private void playEasyGame() {
 		int guessAmt = g.getMaxGuessAmt();
 		
-		ArrayList<ArrayList<Integer>> allGuesses = new ArrayList<ArrayList<Integer>>();
+		//ArrayList<ArrayList<Integer>> allGuesses = new ArrayList<ArrayList<Integer>>();
 		
 		int j = 0;
 		
 		while (j != guessAmt) {
-			boolean correct = makeAGuess(g, j, allGuesses);
+			boolean correct = makeAGuess(g, j);
 			
 			if (correct) {
 				//Stop guessing?
@@ -311,7 +324,7 @@ public class AI {
 		}
 	}
 	
-	private boolean makeAGuess(MasterMindGame s, int j, ArrayList<ArrayList<Integer>> allGuesses) {
+	private boolean makeAGuess(MasterMindGame s, int j) {
 		Random randomGenerator = new Random();
 		ArrayList<Integer> guess = new ArrayList<Integer>();
 
@@ -330,7 +343,7 @@ public class AI {
 	      }
 	      
 	      //Check if we made a guess that we already did
-	      if (isDuplicate(guess, allGuesses)) {
+	      if (isDuplicate(guess)) {
 	    	  //Reset
 	    	  i = 0;
 	      } else {
@@ -359,7 +372,7 @@ public class AI {
 	}
 	
 	//Check if there is a duplicate guess
-	private boolean isDuplicate(ArrayList<Integer> guess, ArrayList<ArrayList<Integer>> allGuesses) {
+	private boolean isDuplicate(ArrayList<Integer> guess) {
 		boolean answer = false;
 		int i = 0;
 		

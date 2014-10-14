@@ -51,6 +51,7 @@ public class MiscHandler implements ActionListener{
 				//Supply hints
 				System.out.println("Wrong");
 				gui.setHint(puzzle.getCurGuessAmt() - 1, puzzle.convertHintToString());
+				gui.unlockNextRow(puzzle.getCurGuessAmt());
 			}
 			
 		}
