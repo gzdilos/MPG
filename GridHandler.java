@@ -78,7 +78,7 @@ public class GridHandler implements ActionListener{
 			if (colourSel < 0) {
 				//Invalid colour
 			} else {
-				mmg.addToGuess(colourSel, xCoordinate);
+				mmg.addGuessPos(colourSel, xCoordinate);
 				source.setText("");
 			}
 		} else {

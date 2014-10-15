@@ -354,7 +354,7 @@ public class AI {
 	    	  int p = 0;
 	    	  
 	    	  while (p != s.getSolutionSize()) {
-	    		  s.addToGuess(guess.get(p), p);
+	    		  s.addToEndGuess(guess.get(p));
 	    		  p++;
 	    	  }
 	    

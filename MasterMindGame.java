@@ -17,6 +17,9 @@ public class MasterMindGame {
 	//Store the current guess
 	private ArrayList<Integer> theGuess;
 	
+	//Store locations for GUI of guess
+	private ArrayList<Integer> pos;
+	
 	//Constants
 	public final int RED = 0;
 	public final int GREEN = 1;
@@ -38,6 +41,7 @@ public class MasterMindGame {
 		colourList = new ArrayList<String>();
 		addColours();
 		theGuess = new ArrayList<Integer>();
+		pos = new ArrayList<Integer>();
 	}
 	 
  
@@ -131,15 +135,74 @@ public class MasterMindGame {
 
 	//Adds to a guess
 	public void addToGuess(Integer colourSel, int i) {
-		if (theGuess.size() < i) {
-			addToEndGuess(colourSel);
-		} else {
-			theGuess.add(colourSel, i);
-		}
-		
-		
+		theGuess.add(i, colourSel);
 	}
 	
+	//Used by grid handler to remember positions
+	public void addGuessPos(Integer colourSel, int i) {
+		
+		//Add guess
+		theGuess.add(colourSel);
+		
+		//Add pos
+		pos.add(i);
+		
+		if (pos.size() == finalSolution.size()) {
+			rearrangeGuess();
+		}
+	}
+	
+	//Arrange the guess appropriately
+	private void rearrangeGuess() {
+		int i = 0;
+		ArrayList<Integer> temp = new ArrayList<Integer>();
+		
+		int lowest = 0;
+		//Perform selection sort
+		while (i != pos.size()) {
+			int newLow = pos.get(i);
+			
+			if (newLow != lowest) {
+				i++;
+			} else {
+				temp.add(theGuess.get(i));
+				theGuess.remove(i);
+				pos.remove(i);
+				lowest++;
+				i = 0;
+			}
+		}
+		
+		theGuess = temp;
+		//printArray(theGuess);
+	}
+
+
+	private void printArray(ArrayList<Integer> theGuess2) {
+		int i = 0;
+		
+		while (i != theGuess2.size()) {
+			int colour = theGuess2.get(i);
+			
+			if (colour == RED) {
+				System.out.print("red ");
+			} else if (colour == BLUE) {
+				System.out.print("blue ");
+			} else if (colour == GREEN) {
+				System.out.print("green ");
+			} else if (colour == YELLOW) {
+				System.out.print("yellow ");
+			} else if (colour == BLACK) {
+				System.out.print("black ");
+			} else if (colour == WHITE) {
+				System.out.print("white ");
+			}
+			i++;
+		}
+		System.out.println();
+	}
+
+
 	//Adds to end of a guess
 	public void addToEndGuess(Integer colourSel) {
 		theGuess.add(colourSel);
@@ -237,6 +300,7 @@ public class MasterMindGame {
 		colourList = new ArrayList<String>();
 		//addColours();
 		theGuess = new ArrayList<Integer>();
+		pos = new ArrayList<Integer>();
 	}
 	
 	//Randomly generate a new puzzle
