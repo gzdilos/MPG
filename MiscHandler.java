@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,10 +20,16 @@ public class MiscHandler implements ActionListener{
 	 */
 	private GUI gui;
 
-	public MiscHandler(MasterMindGame puzzle, GUI gui)
+	//Add AI
+	private AI ai;
+	
+	private boolean noClear = false;
+	
+	public MiscHandler(MasterMindGame puzzle, GUI gui, AI ai)
 	{
 		this.puzzle = puzzle;
 		this.gui = gui;
+		this.ai = ai;
 	}
 	/* (non-Javadoc)
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
@@ -40,8 +47,7 @@ public class MiscHandler implements ActionListener{
 				//calling checkPuzzle method to determine whether puzzle is solved
 				boolean correct = gui.currGuess();
 				//displaying appropriate message
-				if (correct == true)
-				{
+				if (correct == true) {
 					JLabel correctText = new JLabel(new ImageIcon("images/success.png"));
 					miscFrame.add(correctText, BorderLayout.CENTER);
 					miscFrame.setTitle("Success");
@@ -49,13 +55,21 @@ public class MiscHandler implements ActionListener{
 					miscFrame.setVisible(true);
 					//To hintPanel button
 					gui.setHint(puzzle.getCurGuessAmt() - 1, "BBBB");
+					//gui.setClearButton();
+					noClear = true;
 					
-				}else
-				{
+				} else {
 					//Supply hints
 					System.out.println("Wrong");
 					gui.setHint(puzzle.getCurGuessAmt() - 1, puzzle.convertHintToString());
 					gui.unlockNextRow(puzzle.getCurGuessAmt());
+					
+					
+				}
+				
+				if (ai != null) {
+					gui.setAIHint(puzzle.convertAHintToString(ai.getAIHint()), ai.curHint());
+					gui.setAIMove(ai.getAIMove(), ai.curMove());
 				}
 			}
 		}
@@ -78,9 +92,14 @@ public class MiscHandler implements ActionListener{
 		if (event.getActionCommand() == "Clear")
 		{
 			//this.gui.hidePuzzle();
-			int row = puzzle.getCurGuessAmt();
-			
-			gui.clearRow(row);
+			if (noClear) {
+				JButton source = (JButton) event.getSource();
+				source.setEnabled(false);
+			} else {
+				int row = puzzle.getCurGuessAmt();
+				
+				gui.clearRow(row);
+			}
 			//refresh the gui
 			//this.gui.createGUI();
 					

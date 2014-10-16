@@ -16,53 +16,101 @@ public class SampleGame {
 	 */
 	public static void main(String[] args) {
 
-		//Make a random solution
+		boolean firstTest = runTests();
+		
+		firstTest = false;
+		
+		if (firstTest == true) {
+			//Make a random solution
+			ArrayList<Integer> sampleTest = new ArrayList<Integer>();
+			
+			/*
+			Random randomGenerator = new Random();
+			
+			int i = 0;
+			
+		    while (i != 4) {
+		    	int randomInt = randomGenerator.nextInt(6);
+		      
+		    	//Tries to choose a different colour each time
+		    	if (containsColour(randomInt, sampleTest)) {
+		    		i--;
+		    	} else {
+		    		sampleTest.add(randomInt);
+		    	}
+		      
+		    	i++;
+		    }*/
+		    
+			sampleTest.add(BLACK);
+			sampleTest.add(RED);
+			sampleTest.add(GREEN);
+			sampleTest.add(BLUE);
+			
+			//Make  gui
+			GUI gui = new GUI();
+			
+			MasterMindGame s = new MasterMindGame(sampleTest, guessNum);
+			MasterMindGame s2 = new MasterMindGame(sampleTest, guessNum);
+			
+			gui.setGame(s);
+			
+			//Set AI as easy
+			AI ai = new AI(s2, 0);
+			ai.playGame();
+			
+			gui.setAI(ai);
+			//Gui gui = new Gui();
+			//gui.createStartScreen();
+			//gui.showStartScreen();
+			
+			//Create the gui
+			gui.createGUI();
+			
+			
+			//System.out.println("Solution is");
+			printArray(sampleTest);
+		
+		}
+	}
+
+	private static boolean runTests() {
+		boolean answer = true;
+		
 		ArrayList<Integer> sampleTest = new ArrayList<Integer>();
-		
-		/*
-		Random randomGenerator = new Random();
-		
-		int i = 0;
-		
-	    while (i != 4) {
-	    	int randomInt = randomGenerator.nextInt(6);
-	      
-	    	//Tries to choose a different colour each time
-	    	if (containsColour(randomInt, sampleTest)) {
-	    		i--;
-	    	} else {
-	    		sampleTest.add(randomInt);
-	    	}
-	      
-	    	i++;
-	    }*/
 	    
 		sampleTest.add(BLACK);
 		sampleTest.add(RED);
 		sampleTest.add(GREEN);
 		sampleTest.add(BLUE);
 		
-		//Make a game
-		MasterMindGame s = new MasterMindGame(sampleTest, guessNum);
+		MasterMindGame newGame = new MasterMindGame(sampleTest, 8);
 		
-		//Make  gui
-		GUI gui = new GUI(s);
+		newGame.addToEndGuess(RED);
+		newGame.addToEndGuess(BLACK);
+		newGame.addToEndGuess(BLUE);
+		newGame.addToEndGuess(GREEN);
 		
-		//Gui gui = new Gui();
-		//gui.createStartScreen();
-		//gui.showStartScreen();
+		newGame.guessCheck();
 		
-		//Create the gui
-		gui.createGUI();
+		ArrayList<Integer> hints = newGame.guessRes();
 		
-		//System.out.println("Solution is");
-		printArray(sampleTest);
+		int i = 0;
 		
-		//AI ai = new AI(s, 0);
+		while (i != hints.size()) {
+			if (hints.get(i) != 1) {
+				answer = false;
+			}
+			i++;
+		}
 		
-		//ai.playGame();
-		//Call AI to run game
-		//aiPlayGame(s);
+		if (answer) {
+			System.out.println("Passed test 1!");
+		} else {
+			System.out.println("Failed test 1!");
+		}
+		
+		return answer;
 	}
 
 	//Checks if the guess has a colour that is the same

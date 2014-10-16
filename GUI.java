@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 import javax.swing.*;  //notice javax
 
@@ -11,7 +12,11 @@ public class GUI extends JFrame{
 	
 	private JCheckBox checkBox;
 	
+	//Store hints
 	private JPanel hintPanel;
+	
+	//Store p2 hints
+	private JPanel p2hintPanel;
 	
 	//private JButton pressme = new JButton("Press Me");
 	
@@ -20,6 +25,10 @@ public class GUI extends JFrame{
 	//Holds the buttons
 	private JPanel gameButtonGrid;
 	
+	//Hold the p2 buttons
+	private JPanel p2gameButtonGrid;
+	
+	//Mastermind game
 	private MasterMindGame mmg;
 
 	//private JFrame startScreen;
@@ -28,11 +37,24 @@ public class GUI extends JFrame{
 	
 	//private int buttonLimit = 28;
 	
+	//Show the input selected
 	private JLabel inputIndicator;
 	
+	//Show that the board is not used
+	private JLabel player2;
+
+	//AI
+	private AI ai;
+	
 	//Constructor for GUI
-	public GUI(MasterMindGame game) {
-		mmg = game;
+	public GUI() {
+		//mmg = game;
+		ai = null;
+	}
+	
+	//Set the game
+	public void setGame(MasterMindGame s) {
+		mmg = s;
 	}
 	
 	//Creates the gui
@@ -43,19 +65,19 @@ public class GUI extends JFrame{
 		//initializing the sudoku grid
 		gameButtonGrid = new JPanel();
 		gameButtonGrid.setLayout(new GridLayout(8,4));
-		gameButtonGrid.setPreferredSize(new Dimension(500,500));
+		gameButtonGrid.setPreferredSize(new Dimension(320,320));
 		Integer i = 1;
 		Integer x = 0;
 		Integer y = 0;
 		
 		hintPanel = new JPanel();
 		hintPanel.setLayout(new GridLayout(8,1));
-		hintPanel.setPreferredSize(new Dimension (80,500));
+		hintPanel.setPreferredSize(new Dimension (80,320));
 		for(int k = 0; k < 8; k++) {
 			int m = 8-k;
 			button = new JButton();
 			button.setName("" + m);
-			button.setPreferredSize(new Dimension(50,50));
+			button.setPreferredSize(new Dimension(40,40));
 			hintPanel.add(button, k);
 			button.setText(button.getName());
 			button.setEnabled(false);
@@ -189,8 +211,16 @@ public class GUI extends JFrame{
 		inputPanel.add(inputGrid, BorderLayout.CENTER);
 			
 		//making miscellaneous buttons		
-		JPanel miscButtons	= new JPanel();		
-		MiscHandler miscButtonHandler = new MiscHandler(mmg, this);		
+		JPanel miscButtons	= new JPanel();	
+		MiscHandler miscButtonHandler = null;
+		
+		//Check if versing ai
+		if (ai != null) {
+			miscButtonHandler = new MiscHandler(mmg, this, ai);	
+		} else {
+			miscButtonHandler = new MiscHandler(mmg, this, null);	
+		}
+		
 		miscButtons.setLayout(new GridLayout(2,3));
 		//miscButtons.setSize(new Dimension(100, 300));
 		button = new JButton("Check");	
@@ -223,6 +253,7 @@ public class GUI extends JFrame{
 		miscButtons.add(button);
 		checkBox = new JCheckBox("Allow duplicates");
 		miscButtons.add(checkBox);
+		miscButtons.setPreferredSize(new Dimension(260, 200));
 		
 		//creating label to indicate selected input	
 		JPanel inputIndicator = new JPanel();	
@@ -233,11 +264,8 @@ public class GUI extends JFrame{
 		inputIndicator.add(title, BorderLayout.NORTH);		
 		inputIndicator.add(input, BorderLayout.SOUTH);		
 		this.inputIndicator = input;
-		
-		
 				
-		//initializing the final frame with an image
-		//ImageIcon bg = new ImageIcon("sudoku/images/puzzlebackground.png");
+		//initializing the final frame
 		JPanel finalFrame = new JPanel();
 		gameButtonGrid.setOpaque(false);
 		inputPanel.setOpaque(false);
@@ -253,15 +281,124 @@ public class GUI extends JFrame{
 		finalFrame.add(inputIndicator, BorderLayout.NORTH);
 		finalFrame.setSize(700,700);	
 		
-		JFrame sudokuFrame = new JFrame("Mastermind");		//creating the Mastermind window
-		sudokuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		//exit when the 'x' button is clicked
-		sudokuFrame.add(finalFrame);
-		sudokuFrame.pack();
-		sudokuFrame.setResizable(false);
-		this.gameGrid = sudokuFrame;
+		//creating label to waste space
+		JPanel player2Panel = new JPanel();	
+		JLabel name = new JLabel("Player:");	
+		name.setForeground(Color.black);
+		JLabel label = new JLabel("2");
+		label.setForeground(Color.black);		
+		player2Panel.add(name, BorderLayout.NORTH);		
+		player2Panel.add(label, BorderLayout.SOUTH);		
+				
+		//Create a space waster
+		JPanel temp = new JPanel();
+		JLabel t = new JLabel();
+		temp.add(t, BorderLayout.CENTER);
+		temp.setPreferredSize(new Dimension(200, 210));
+		
+		JPanel temp2 = new JPanel();
+		JLabel t2 = new JLabel();
+		temp2.add(t2, BorderLayout.CENTER);
+		temp2.setLayout(new GridLayout(3, 3));
+		temp2.setPreferredSize(new Dimension(50, 200));
+		
+		//initialize player 2 frame
+		JPanel p2Panel = new JPanel();
+		initialisep2Grid();
+		p2gameButtonGrid.setOpaque(false);
+		p2hintPanel.setOpaque(false);
+		player2Panel.setOpaque(false);
+		temp.setOpaque(false);
+		temp2.setOpaque(false);
+		p2Panel.setLayout(new BorderLayout());
+		
+		//Add to frame
+		p2Panel.add(p2gameButtonGrid, BorderLayout.CENTER);
+		p2Panel.add(p2hintPanel, BorderLayout.EAST);
+		p2Panel.add(player2Panel, BorderLayout.NORTH);
+		p2Panel.add(temp, BorderLayout.SOUTH);
+		p2Panel.add(temp2, BorderLayout.WEST);
+		p2Panel.setSize(700,700);	
+		
+		JFrame mastermindFrame = new JFrame("Mastermind");
+		mastermindFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+		mastermindFrame.setLayout(new BorderLayout());
+		mastermindFrame.add(finalFrame, BorderLayout.WEST);
+		mastermindFrame.add(p2Panel, BorderLayout.CENTER);
+		mastermindFrame.pack();
+		mastermindFrame.setResizable(true);
+		this.gameGrid = mastermindFrame;
 		
 		//Make the grid for mastermind
 		this.gameGrid.setVisible(true);
+	}
+
+	//Initialises the player 2 grid
+	private void initialisep2Grid() {
+
+		Integer x = 0;
+		Integer y = 0;
+		int i = 1;
+		
+		GridLayout newGrid = new GridLayout(8, 4);
+		p2gameButtonGrid = new JPanel();
+		p2gameButtonGrid.setLayout(newGrid);
+		p2gameButtonGrid.setPreferredSize(new Dimension(320,320));
+		//System.out.println("Rows is " + newGrid.getRows());
+		//System.out.println("Columns is " + newGrid.getColumns());
+		//adding the buttons to the grid
+		while (i <= 32) {
+			
+			button = new JButton();
+			//Dummy used to make sure user doesn't double click
+			button.setText("clear");
+			button.setForeground(Color.gray);
+			button.setBackground(Color.gray);
+			
+			//button.setOpaque(false);
+			//button.setContentAreaFilled(false);
+			//button.setBorderPainted(false);
+			
+			//Give them a label?
+			String label = "";
+			label = label.concat(x.toString());
+			label = label.concat(y.toString());
+			button.setName(label);
+			//button.setText(label);
+			
+			//Set size
+			button.setPreferredSize(new Dimension(30, 30));
+			//ActionListener gridButtonHandler = null;
+			//button.addActionListener(gridButtonHandler);
+			p2gameButtonGrid.add(button);
+			i++;
+			
+			//Lock buttons above the guess row
+			button.setEnabled(false);
+			
+			if (x < 3) {
+				x++;
+			} else {
+				x = 0;
+				y++;
+			}
+		}
+		
+		//Set up hints for player 2
+		p2hintPanel = new JPanel();
+		p2hintPanel.setLayout(new GridLayout(8,1));
+		p2hintPanel.setPreferredSize(new Dimension (80,320));
+		for(int k = 0; k < 8; k++) {
+			int m = 8-k;
+			button = new JButton();
+			button.setName("" + m);
+			button.setPreferredSize(new Dimension(40,40));
+			p2hintPanel.add(button, k);
+			button.setText(button.getName());
+			button.setEnabled(false);
+			//button.setToolTipText("Hint for guess " + m);
+		}
+		
 	}
 
 	public void setInputToUse (Integer input)
@@ -376,4 +513,69 @@ public class GUI extends JFrame{
 	public void showError() {
 		JOptionPane.showMessageDialog(null, "You need to clear first before you can change the colour!", "Error Code 2", JOptionPane.ERROR_MESSAGE);
 	}
+
+	//Sets ai
+	public void setAI(AI ai) {
+		this.ai = ai;
+	}
+
+	//Sets the AI hint to the hint
+	public void setAIHint(String aiHint, int row) {
+		if (this.p2hintPanel == null) {
+			System.out.println("Null apparently");
+		} else {
+//			System.out.println(this.hintPanel.getComponentCount());
+			
+			button = (JButton) this.p2hintPanel.getComponent(7 - row);
+			button.setText(aiHint);
+		}
+	}
+
+	//Sets the ai move
+	public void setAIMove(ArrayList<Integer> aiMove, int curMove) {
+		int x = 0;
+		int y = 0;
+		
+		//Clear the colours
+		while (x != 4) {
+			y = curMove*4 + x;
+			button = (JButton) this.p2gameButtonGrid.getComponent(31 - y);
+			//button.setBackground(Color.gray);
+			//button.setEnabled(true);
+			//button.setText("clear");
+			button.setText("");
+			
+			int colourSel = aiMove.get(x);
+			
+			if (colourSel == 0) {
+				button.setBackground(Color.red);
+				button.setOpaque(true);
+					//System.out.println("Set to red");
+//					source.setText("RED");
+			} else if (colourSel == 1) {
+				button.setBackground(Color.green);
+				button.setOpaque(true);
+//					source.setText("GREEN");
+					//System.out.println("Set to green");
+			} else if (colourSel == 2) {
+				button.setBackground(Color.blue);
+				button.setOpaque(true);
+//					source.setText("BLUE");
+			} else if (colourSel == 3) {
+				button.setBackground(Color.yellow);
+				button.setOpaque(true);
+//					source.setText("YELLOW");
+			} else if (colourSel == 4) {
+				button.setBackground(Color.white);
+				button.setOpaque(true);
+//					source.setText("WHITE");
+			} else if (colourSel == 5) {
+				button.setBackground(Color.black);
+				button.setOpaque(true);
+//					source.setText("BLACK");
+			}
+			x++;
+		}
+	}
+
 }

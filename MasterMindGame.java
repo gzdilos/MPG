@@ -211,6 +211,7 @@ public class MasterMindGame {
 	//Clear the guess
 	public void clearGuess() {
 		theGuess = new ArrayList<Integer>();
+		pos = new ArrayList<Integer>();
 	}
 	
 	//Retrieve Guess
@@ -231,10 +232,15 @@ public class MasterMindGame {
 		 int oldGuess = currGuess - 1;
 		 
 		 int iterator = 0;
+		 System.out.println("Solution size is " + solutionSize);
 		 while(iterator != solutionSize){
-				 retGuess.add(guesses[oldGuess][iterator + solutionSize]);	
+				 retGuess.add(guesses[oldGuess][iterator + solutionSize]);
+				 System.out.println("Guess hint is " + guesses[oldGuess][iterator + solutionSize]);
+				 
 				 iterator++; 
 		 }
+		 
+		 
 		return retGuess;			  
 	 }
 	
@@ -290,6 +296,42 @@ public class MasterMindGame {
 		return value;	
 	}
 	
+	//Converts a hint to string
+	public String convertAHintToString(ArrayList<Integer> theHint) {
+		StringBuilder s = new StringBuilder();
+			
+		int i = 0;
+
+		//We will define B as correct colour correct position
+		//               W as correct colour wrong position
+		
+		while(i != theHint.size()){
+			int val = theHint.get(i);	
+				
+			if (val == 2) {
+				s.append("B");
+				//System.out.println("adding B");
+			} else if (val == 1) {
+				s.append("W");
+				//System.out.println("adding W");
+			} else {
+				s.append("X");
+				//System.out.println("adding X");
+			}
+				
+			i++; 
+		}
+			 
+		//System.out.println("solution size is " + solutionSize);
+		//System.out.println(s);
+			
+		String value = s.toString();
+			
+		System.out.println(value);
+			
+		return value;	
+	}
+		
 	//Resets the game
 	public void resetGame() {
 		generatePuzzle();

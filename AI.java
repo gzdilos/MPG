@@ -8,12 +8,16 @@ public class AI {
 	private int difficulty;
 	private ArrayList<String> colourList;
 	private ArrayList<ArrayList<Integer>> allGuesses;
+	private ArrayList<ArrayList<Integer>> allHints;
 	
 	private final int EASY = 0;
 	private final int MEDIUM = 1;
 	private final int HARD = 2;
 	
+	//Gives current AI move
 	private int curAIMove;
+	//Gives current AI hint
+	private int curAIHint;
 	//Define difficulty
 	//0 is easy
 	//1 is medium
@@ -23,6 +27,7 @@ public class AI {
 		this.difficulty = difficulty;
 		colourList = g.getColourList();
 		allGuesses = new ArrayList<ArrayList<Integer>>();
+		allHints = new ArrayList<ArrayList<Integer>>();
 		curAIMove = 0;
 	}
 	
@@ -49,6 +54,15 @@ public class AI {
 		curAIMove++;
 		
 		return allGuesses.get(i);
+	}
+	
+	//Get one move of AI
+	public ArrayList<Integer> getAIHint() {
+		int i = curAIHint;
+			
+		curAIHint++;
+			
+		return allHints.get(i);
 	}
 	
 	//Plays with a strategy
@@ -155,8 +169,10 @@ public class AI {
 		
 		if (correct) {
 			amtCor = 4;
+			allHints.add(g.guessRes());
 		} else {
 			amtCor = getCorPos(g.guessResAI());
+			allHints.add(g.guessRes());
 		}
 		
 		return amtCor;
@@ -204,8 +220,10 @@ public class AI {
 		
 		if (correct) {
 			amtCor = 4;
+			allHints.add(g.guessRes());
 		} else {
 			amtCor = getCorPos(g.guessResAI());
+			allHints.add(g.guessRes());
 		}
 		
 		return amtCor;
@@ -233,8 +251,10 @@ public class AI {
 		if (correct) {
 			//done?
 			amtCor = 4;
+			allHints.add(g.guessRes());
 		} else {
 			amtCor = getCorPos(g.guessResAI());
+			allHints.add(g.guessRes());
 		}
 		
 		return amtCor;
@@ -287,6 +307,7 @@ public class AI {
 			//2 means correct pos
 			//1 means correct colour
 			ArrayList<Integer> hint = g.guessRes();
+			allHints.add(hint);
 			int x = 0;
 			
 			//If there was any correct colours we add to answer
@@ -298,6 +319,7 @@ public class AI {
 			//If we have 3 right colours and its the last colour to check
 			if ((answer.size() == g.getSolutionSize() - 1) && (i == colourList.size() - 1)) {
 				answer.add(i + 1);
+				i++;
 			}
 			i++;
 		}
@@ -314,7 +336,7 @@ public class AI {
 		int j = 0;
 		
 		while (j != guessAmt) {
-			boolean correct = makeAGuess(g, j);
+			boolean correct = makeAGuess(j);
 			
 			if (correct) {
 				//Stop guessing?
@@ -324,7 +346,7 @@ public class AI {
 		}
 	}
 	
-	private boolean makeAGuess(MasterMindGame s, int j) {
+	private boolean makeAGuess(int j) {
 		Random randomGenerator = new Random();
 		ArrayList<Integer> guess = new ArrayList<Integer>();
 
@@ -332,9 +354,10 @@ public class AI {
 		
 		int i = 0;
 		
-	    while (i < s.getSolutionSize()) {
+	    while (i < g.getSolutionSize() + 1) {
 	      int randomInt = randomGenerator.nextInt(6);
 	      
+	      //System.out.println("Guess is " + randomInt);
 	      //Tries to choose a different colour each time
 	      if (containsColour(randomInt, guess)) {
 	    	  i--;
@@ -342,30 +365,38 @@ public class AI {
 	    	  guess.add(randomInt);
 	      }
 	      
-	      //Check if we made a guess that we already did
-	      if (isDuplicate(guess)) {
-	    	  //Reset
-	    	  i = 0;
-	      } else {
-	    	  //Add to list
-	    	  allGuesses.add(guess);
-	    	  
-	    	  //Add the guess to the mmg
-	    	  int p = 0;
-	    	  
-	    	  while (p != s.getSolutionSize()) {
-	    		  s.addToEndGuess(guess.get(p));
-	    		  p++;
-	    	  }
-	    
+	      //When we got a full guess
+	      if (guess.size() == 4) {
+	    	//Check if we made a guess that we already did
+		      if (isDuplicate(guess)) {
+		    	  //Reset
+		    	  i = 0;
+		      } else {
+		    	  //Add to list
+		    	  allGuesses.add(guess);
+		    	  
+		    	  //Add the guess to the mmg
+		    	  int p = 0;
+		    	  
+		    	  while (p != g.getSolutionSize()) {
+		    		  g.addToEndGuess(guess.get(p));
+		    		  p++;
+		    	  }
+		    	  
+		    	  //Stop adding
+		    	  i = 5;
+		      }
 	      }
-	      
 	      i++;
 	    }
 	    
 	    System.out.println("Guess was " + (j+1));
 	    printArray(guess);
-	    temp = s.guessCheck();
+	    temp = g.guessCheck();
+	    
+	    ArrayList<Integer> hints = g.guessRes();;
+	    
+	    allHints.add(hints);
 	    
 	    System.out.println("Guess " + (j+1) + " was " + temp);
 	    return temp;
@@ -427,4 +458,17 @@ public class AI {
 		}
 		System.out.println();
 	}
+
+	//Returns the current hint
+	public int curHint() {
+		// TODO Auto-generated method stub
+		return curAIHint - 1;
+	}
+
+	//Returns the current move
+	public int curMove() {
+		// TODO Auto-generated method stub
+		return curAIMove - 1;
+	}
+	
 }
