@@ -84,7 +84,7 @@ public class MiscHandler implements ActionListener{
 			
 			//Reset the game will generate new game with random values
 			puzzle.resetGame();
-			
+			ai.resetGame();
 			this.gui.showPuzzle();
 		}
 		

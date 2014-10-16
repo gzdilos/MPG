@@ -470,5 +470,9 @@ public class AI {
 		// TODO Auto-generated method stub
 		return curAIMove - 1;
 	}
+
+	public void resetGame() {
+		g.resetGame();
+	}
 	
 }

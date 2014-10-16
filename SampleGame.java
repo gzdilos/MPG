@@ -18,7 +18,7 @@ public class SampleGame {
 
 		boolean firstTest = runTests();
 		
-		firstTest = false;
+		//firstTest = false;
 		
 		if (firstTest == true) {
 			//Make a random solution
@@ -74,6 +74,7 @@ public class SampleGame {
 		}
 	}
 
+	//Test the system
 	private static boolean runTests() {
 		boolean answer = true;
 		

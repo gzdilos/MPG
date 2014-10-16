@@ -462,7 +462,7 @@ public class GUI extends JFrame{
 		
 		//Clear the colours
 		while (x != 4) {
-			y = row + x;
+			y = 4 * row + x;
 			button = (JButton) this.gameButtonGrid.getComponent(31 - y);
 			button.setBackground(Color.gray);
 			button.setText("clear");
@@ -485,7 +485,7 @@ public class GUI extends JFrame{
 			button = (JButton) this.gameButtonGrid.getComponent(31 - y);
 			//button.setBackground(Color.gray);
 			button.setEnabled(true);
-			button.setText("clear");
+			//button.setText("clear");
 			x++;
 		}
 		
@@ -496,7 +496,7 @@ public class GUI extends JFrame{
 			button = (JButton) this.gameButtonGrid.getComponent(31 - y);
 			//button.setBackground(Color.gray);
 			button.setEnabled(false);
-			button.setText("clear");
+			//button.setText("clear");
 			x++;
 		}
 		

@@ -84,7 +84,7 @@ public class MasterMindGame {
 			 
 			iterator = 0;
 			 
-			while (iterator != solutionSize && solved == true){
+			while (iterator != solutionSize){
 				//Check if the guess is the right colour AND position. Then check for the colour alone.
 				if (theGuess.get(iterator)== finalSolution.get(iterator)){
 					guesses[currGuess][iterator + solutionSize] = 2;
