@@ -18,7 +18,7 @@ public class SampleGame {
 
 		boolean firstTest = runTests();
 		
-		firstTest = true;
+		firstTest = false;
 		
 		if (firstTest == true) {
 			//Make a random solution
@@ -50,12 +50,13 @@ public class SampleGame {
 			//Make  gui
 			GUI gui = new GUI();
 			
+			boolean useDuplicate = false;
 			//May create difficulties 
 			//Easy = 10 guesses
 			//Medium = 8 guesses
 			//Hard = 6 guesses
-			MasterMindGame s = new MasterMindGame(sampleTest, guessNum);
-			MasterMindGame s2 = new MasterMindGame(sampleTest, guessNum);
+			MasterMindGame s = new MasterMindGame(sampleTest, guessNum, useDuplicate);
+			MasterMindGame s2 = new MasterMindGame(sampleTest, guessNum, useDuplicate);
 			
 			gui.setGame(s);
 			
@@ -98,7 +99,7 @@ public class SampleGame {
 		sampleTest.add(GREEN);
 		sampleTest.add(BLUE);
 		
-		MasterMindGame newGame = new MasterMindGame(sampleTest, 8);
+		MasterMindGame newGame = new MasterMindGame(sampleTest, 8, true);
 		int i = 0;
 		
 		//Try first test
