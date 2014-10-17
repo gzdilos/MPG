@@ -116,14 +116,6 @@ public class MiscHandler implements ActionListener{
 					gui.clearRow(row);
 				}
 			}
-			
-			//refresh the gui
-			//this.gui.createGUI();
-					
-			//Reset the game will generate new game with random values
-			//puzzle.resetGame();
-					
-			//this.gui.showPuzzle();
 		}
 	}
 

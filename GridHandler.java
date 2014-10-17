@@ -27,24 +27,16 @@ public class GridHandler implements ActionListener{
 		this.gui = gui;
 	}
 		
-	/* (non-Javadoc)
-	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-	 */
+	//Event for when a grid button is pressed
 	public void actionPerformed(ActionEvent event) {
 		
-		
-		//obtaining the x and y coordinates of the button from the label
 		JButton source = (JButton) event.getSource();
 		String s = source.getName();
-		//System.out.println("Y is "+ source.getY());
 		
+		//Get coordinates of label
 		Integer colourSel = this.gui.getInputToUse();
 		char[] coordinates = s.toCharArray();
 		int xCoordinate = coordinates[0] - 48;
-		//int yCoordinate = coordinates[1] - 48;
-		//System.out.println("Coordinate is " + xCoordinate + ", " + yCoordinate);
-		//changing required value
-		//this.puzzle.changeValueAtPosition(xCoordinate, yCoordinate, this.gui.getInputToUse());
 		
 		if (source.getText().contentEquals("clear")) {
 			if (colourSel == 0) {
@@ -85,17 +77,6 @@ public class GridHandler implements ActionListener{
 			gui.showError();
 		}
 		
-		//String newValue = this.gui.getInputToUse().toString();
-		//source.setText(newValue);
-		
-		//coordinates are in the label of the button
-		//String label = source.getName();
-		//char[] coordinates = label.toCharArray();
-		//int xCoordinate = coordinates[0] - 48;
-		//int yCoordinate = coordinates[1] - 48;
-		//System.out.println("setting (" + xCoordinate + ", " + yCoordinate + ") to " + this.gui.getInputToUse());
-		//changing required value
-		//this.puzzle.changeValueAtPosition(xCoordinate, yCoordinate, this.gui.getInputToUse());
 	}
 
 }

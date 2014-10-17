@@ -10,7 +10,8 @@ public class GUI extends JFrame{
 	
 	private JButton button;
 	
-	private JCheckBox checkBox;
+	//Check for duplicate
+	//private JCheckBox checkBox;
 	
 	//Store hints
 	private JPanel hintPanel;
@@ -18,7 +19,6 @@ public class GUI extends JFrame{
 	//Store p2 hints
 	private JPanel p2hintPanel;
 	
-	//private JButton pressme = new JButton("Press Me");
 	//Frame for grid
 	private JFrame gameGrid;
 	
@@ -32,6 +32,7 @@ public class GUI extends JFrame{
 	private MasterMindGame mmg;
 
 	//private JFrame startScreen;
+	
 	//Input
 	private Integer inputToUse = -1;
 	
@@ -51,6 +52,7 @@ public class GUI extends JFrame{
 	//AI
 	private AI ai;
 
+	//Panel for input
 	private JPanel inputLabel;
 	
 	//Constructor for GUI
@@ -67,9 +69,7 @@ public class GUI extends JFrame{
 	//Creates the gui
 	public void createGUI() {
 		
-		//disabled buttons will have red text
-		//UIManager.put("Button.disabledText", Color.red);
-		//initializing the sudoku grid
+		//initializing the game grid
 		gameButtonGrid = new JPanel();
 		gameButtonGrid.setLayout(new GridLayout(mmg.getMaxGuessAmt(),4));
 		gameButtonGrid.setPreferredSize(new Dimension(320,320));
@@ -93,20 +93,14 @@ public class GUI extends JFrame{
 		}
 		
 		GridHandler gridButtonHandler = new GridHandler(mmg, this);
-		//adding the input positions as buttons to the grid
+		//adding the buttons to the grid
 		while (i <= mmg.getMaxGuessAmt() * 4) {
 			
-			//using the value from the puzzle as the text displayed on the button
-			//Integer value = puzzle.getValueAtPosition(x, y);
 			button = new JButton();
 			//Dummy used to make sure user doesn't double click
 			button.setText("clear");
 			button.setForeground(Color.gray);
 			button.setBackground(Color.gray);
-			
-			//button.setOpaque(false);
-			//button.setContentAreaFilled(false);
-			//button.setBorderPainted(false);
 			
 			//Give them a label?
 			String label = "";
@@ -135,15 +129,9 @@ public class GUI extends JFrame{
 		}
 				
 		inputLabel = new JPanel();
-		//label = new JLabel("Selected input: ");
-				
-		
 		//making room for the input label	
 		inputLabel.setLayout(new FlowLayout());
-		//inputLabel.setOpaque(false);
 		inputLabel.setForeground(Color.white);		
-		//inputLabel.add(label);
-		
 		
 		//creating label to indicate selected input	
 		JPanel inputLabel = new JPanel();	
@@ -154,16 +142,15 @@ public class GUI extends JFrame{
 		inputLabel.add(title, BorderLayout.NORTH);		
 		inputLabel.add(input, BorderLayout.SOUTH);		
 		this.inputIndicator = input;
-				
-		JPanel inputGrid = new JPanel();
 		
-		//making the input grid
+		//Making the input grid
+		JPanel inputGrid = new JPanel();
 		inputGrid.setLayout(new GridLayout(3,3));
 		inputGrid.setPreferredSize(new Dimension(200,200));
 		inputGrid.setOpaque(false);
+		
 		InputColourHandler inputHandler = new InputColourHandler(this);
-		
-		
+
 		//Set up inputs
 		button = new JButton();
 		button.setName("red");
@@ -242,38 +229,30 @@ public class GUI extends JFrame{
 			miscButtonHandler = new MiscHandler(mmg, this, null);	
 		}
 		
-		miscButtons.setLayout(new GridLayout(2,3));
+		miscButtons.setLayout(new GridLayout(1,3));
 		//miscButtons.setSize(new Dimension(100, 300));
+		
 		button = new JButton("Check");	
 		button.setPreferredSize(new Dimension(100, 70));		
 		button.addActionListener(miscButtonHandler);	
-		button.setToolTipText("Click on this button to check if you are correct!");
-		//button.setBackground(Color.white);		
-		//button.setOpaque(false);		
-		//button.setContentAreaFilled(false);		
-		//button.setBorderPainted(false);		
-		miscButtons.add(button);				
+		button.setToolTipText("Click on this button to check if you are correct!");		
+		miscButtons.add(button);		
+		
 		button = new JButton("Reset");		
 		button.setPreferredSize(new Dimension(100, 70));		
 		button.addActionListener(miscButtonHandler);
 		button.setToolTipText("Click on this button to reset the whole puzzle!");
-		//button.setBackground(Color.white);		
-		//button.setOpaque(false);		
-		//button.setContentAreaFilled(false);		
-		//button.setBorderPainted(false);	
 		miscButtons.add(button);
-		//miscButtons.add(button);				
+		
 		button = new JButton("Clear");		
 		button.setPreferredSize(new Dimension(100, 70));		
 		button.addActionListener(miscButtonHandler);
 		button.setToolTipText("Click on this button to clear your current guess!");
-		//button.setBackground(Color.white);		
-		//button.setOpaque(false);		
-		//button.setContentAreaFilled(false);		
-		//button.setBorderPainted(false);	
 		miscButtons.add(button);
-		checkBox = new JCheckBox("Allow duplicates");
-		miscButtons.add(checkBox);
+		
+		//Duplicate here!!!
+		//checkBox = new JCheckBox("Allow duplicates");
+		//miscButtons.add(checkBox);
 		miscButtons.setPreferredSize(new Dimension(260, 200));
 		
 		//creating label to indicate selected input	
@@ -281,8 +260,9 @@ public class GUI extends JFrame{
 		JLabel timerLabel = new JLabel("Time is: ");	
 		timerLabel.setForeground(Color.black);
 		inputTimer = new JLabel("0 sec passed");
-		TimerHandler tHandle = new TimerHandler(this);
+		
 		//Timer updates every second
+		TimerHandler tHandle = new TimerHandler(this);
 		Timer t = new Timer(1000, tHandle);
 		t.start();
 		t.setRepeats(true);
@@ -290,7 +270,6 @@ public class GUI extends JFrame{
 		timerLabel.setForeground(Color.black);		
 		timerPanel.add(timerLabel, BorderLayout.NORTH);		
 		timerPanel.add(inputTimer, BorderLayout.SOUTH);		
-		//this.inputIndicator = input;
 				
 		//initializing the final frame
 		JPanel finalFrame = new JPanel();
@@ -371,9 +350,7 @@ public class GUI extends JFrame{
 		p2gameButtonGrid = new JPanel();
 		p2gameButtonGrid.setLayout(newGrid);
 		p2gameButtonGrid.setPreferredSize(new Dimension(320,320));
-		//System.out.println("Rows is " + newGrid.getRows());
-		//System.out.println("Columns is " + newGrid.getColumns());
-		//adding the buttons to the grid
+
 		while (i <= mmg.getMaxGuessAmt()*4) {
 			
 			button = new JButton();
@@ -382,25 +359,18 @@ public class GUI extends JFrame{
 			button.setForeground(Color.gray);
 			button.setBackground(Color.gray);
 			
-			//button.setOpaque(false);
-			//button.setContentAreaFilled(false);
-			//button.setBorderPainted(false);
-			
 			//Give them a label?
 			String label = "";
 			label = label.concat(x.toString());
 			label = label.concat(y.toString());
 			button.setName(label);
-			//button.setText(label);
 			
 			//Set size
 			button.setPreferredSize(new Dimension(30, 30));
-			//ActionListener gridButtonHandler = null;
-			//button.addActionListener(gridButtonHandler);
 			p2gameButtonGrid.add(button);
 			i++;
 			
-			//Lock buttons above the guess row
+			//Lock all buttons for second player
 			button.setEnabled(false);
 			
 			if (x < 3) {
@@ -415,19 +385,8 @@ public class GUI extends JFrame{
 		p2hintPanel = new JPanel();
 		p2hintPanel.setLayout(new GridLayout(mmg.getMaxGuessAmt() * 2,2));
 		p2hintPanel.setPreferredSize(new Dimension (80,320));
-//		for(int k = 0; k < mmg.getMaxGuessAmt(); k++) {
-//			int m = mmg.getMaxGuessAmt()-k;
-//			button = new JButton();
-//			button.setName("" + m);
-//			button.setPreferredSize(new Dimension(40,40));
-//			p2hintPanel.add(button, k);
-//			button.setText(button.getName());
-//			button.setEnabled(false);
-//			//button.setToolTipText("Hint for guess " + m);
-//		}
 		
 		for(int k = 0; k < mmg.getMaxGuessAmt() * 4; k++) {
-			//int m = mmg.getMaxGuessAmt()*4-k;
 			int mod = mmg.getMaxGuessAmt() - k/4;
 			button = new JButton();
 			button.setName("" + mod);
