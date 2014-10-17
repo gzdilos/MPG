@@ -30,60 +30,21 @@ public class MasterMindGame {
 	 
 	//This code assumes colours cannot be repeated for the time being.
 	public MasterMindGame(ArrayList<Integer> answer, int guessAmount){
-		
-		//Don't generate a puzzle with invalid input
-		if (answer == null || answer.size() < 4) {
-			generateSampleGame();
-		} else {
-			finalSolution = new ArrayList<Integer>();
-			finalSolution = answer;
-			solutionSize = answer.size();
-			
-		}
-		
-		//Store guess amt
+		solutionSize = answer.size();
 		guessAmt = guessAmount;
+		finalSolution = new ArrayList<Integer>();
+		finalSolution = answer;
 		currGuess = 0;
-		
-		//Used for GUI
-		theGuess = new ArrayList<Integer>();
-		pos = new ArrayList<Integer>();
-		
-		//Assume guess amount
 		guesses = new int[guessAmount][solutionSize*2];
-		//Used by my AI to cheat
+		//Used my AI to cheat
 		AIGuesses = new int[guessAmount][solutionSize*2];
-		
-		//Store colours
 		colourList = new ArrayList<String>();
 		addColours();
+		theGuess = new ArrayList<Integer>();
+		pos = new ArrayList<Integer>();
 	}
 	 
-	//Generate a sample game if not input given
-	private void generateSampleGame() {
-		
-		Random randomGenerator = new Random();
-		
-		int i = 0;
-		
-	    while (i != 4) {
-	    	int randomInt = randomGenerator.nextInt(6);
-	      
-	    	//Tries to choose a different colour each time
-	    	if (containsColour(randomInt, finalSolution)) {
-	    		i--;
-	    	} else {
-	    		finalSolution.add(randomInt);
-	    	}
-	      
-	    	i++;
-	    }
-	    
-	    solutionSize = finalSolution.size();
-	    
-	}
-
-
+ 
 	//Adds the colours of a colour list
 	private void addColours() {
 		colourList.add("red");
@@ -114,7 +75,7 @@ public class MasterMindGame {
 			
 			int iterator = 0;
 			
-			while (iterator != solutionSize){
+			while (iterator != solutionSize && solved == true){
 				//Set the guessed values, assume 0 is not a choosable colour.
 				//You mean you assume that you can't choose no colours
 				guesses[currGuess][iterator] = theGuess.get(iterator);
@@ -424,4 +385,63 @@ public class MasterMindGame {
 				
 		return answer;
 	}
+	
+	 public boolean guessCheckDup(ArrayList<Integer> guess){
+	 //Check for invalid guesses.
+	 if (guess.size() != solutionSize) return false;
+	 if(currGuess == guessAmt) return false;
+	 int iterator = 0;
+	 ArrayList<Integer> tempAns = new ArrayList<Integer>();
+	 ArrayList<Integer> tempGuess = new ArrayList<Integer>();
+	
+	 //This time, solved is a loopbreak, so it gets a rename.
+	 boolean loopBreak = false;
+	 
+	 while(iterator != solutionSize){
+		 //Set the guessed values, assume 0 is not a choosable colour.
+		 guesses[currGuess][iterator] = guess.get(iterator);
+		 tempAns.add(finalSolution.get(iterator));
+		 tempGuess.add(guess.get(iterator));
+		 iterator++;
+	 }
+	 iterator = solutionSize - 1;;
+	 
+	 //This requires some reverse traversal so it will actually work as intended. Else tempAns.remove(iterator) will fail on a correct guess.
+	 while(iterator != -1){
+		 //Check if the guess is the right colour AND position. Then modify the guess so we do not mess things up.
+		 //This time, we store the guess and answer in temporary array lists and remove the element when we come across it, so it will give false results from duplicates.
+		 if(guess.get(iterator)== finalSolution.get(iterator)){
+			 guesses[currGuess][iterator + solutionSize] = 2;
+			 tempAns.remove(iterator);
+			 tempGuess.remove(iterator);
+			 retGuess.add(2);
+		 }
+		 iterator--;
+	 }
+	 //This if statement is only true for one case, when the guess was correct.
+	 if(tempAns.size() == 0) return true;
+	 
+	 iterator = tempGuess.size() - 1;
+	 int iterator2 = tempAns.size() -1;
+	 while(iterator != -1){
+	 
+		 //Iterate through the answer, using this instead of .contains to mitigate integer and .remove issues.
+		 while(iterator2 != -1 && loopBreak == false){
+		
+			 if(tempAns.get(iterator2) == tempGuess.get(iterator)){
+				 guesses[currGuess][iterator + solutionSize] = 1;
+				 tempGuess.remove(iterator);
+				 tempAns.remove(iterator2);
+				 loopBreak = true;
+			 }
+			iterator2 --;
+		 }
+		 
+		 //Check through the remaining guesses.
+		 iterator2 = tempAns.size()-1;
+		 iterator--;
+		 loopBreak = false;
+	 }
+	 return false;
+ }
 }
