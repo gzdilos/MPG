@@ -404,7 +404,7 @@ public class MasterMindGame {
 		 tempGuess.add(guess.get(iterator));
 		 iterator++;
 	 }
-	 iterator = solutionSize - 1;;
+	 iterator = solutionSize - 1;
 	 
 	 //This requires some reverse traversal so it will actually work as intended. Else tempAns.remove(iterator) will fail on a correct guess.
 	 while(iterator != -1){
