@@ -229,7 +229,7 @@ public class GUI extends JFrame{
 			miscButtonHandler = new MiscHandler(mmg, this, null);	
 		}
 		
-		miscButtons.setLayout(new GridLayout(1,3));
+		miscButtons.setLayout(new GridLayout(3,1));
 		//miscButtons.setSize(new Dimension(100, 300));
 		
 		button = new JButton("Check");	

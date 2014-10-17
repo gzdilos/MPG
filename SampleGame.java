@@ -18,7 +18,7 @@ public class SampleGame {
 
 		boolean firstTest = runTests();
 		
-		firstTest = false;
+		firstTest = true;
 		
 		if (firstTest == true) {
 			//Make a random solution
