@@ -9,7 +9,6 @@ public class TimerHandler implements ActionListener{
 		this.gui = gui2;
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		//System.out.println("Action :OOO");
 		gui.setTimer();

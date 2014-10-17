@@ -29,6 +29,7 @@ public class AI {
 		allGuesses = new ArrayList<ArrayList<Integer>>();
 		allHints = new ArrayList<ArrayList<Integer>>();
 		curAIMove = 0;
+		curAIHint = 0;
 	}
 	
 	public void playGame() {
@@ -278,6 +279,7 @@ public class AI {
 		return corPos;
 	}
 
+	//Get the colours of the solution
 	private ArrayList<Integer> getColours() {
 		ArrayList<Integer> answer = new ArrayList<Integer>();
 		
@@ -392,11 +394,17 @@ public class AI {
 	    
 	    System.out.println("Guess was " + (j+1));
 	    printArray(guess);
+	    //ArrayList<Integer> guessMade = g.getFullGuess();
+	    //System.out.println("Guess inputed was " + (j+1));
+	    //printArray(guessMade);
 	    temp = g.guessCheck();
 	    
 	    ArrayList<Integer> hints = g.guessRes();;
 	    
 	    allHints.add(hints);
+	    
+	    //System.out.println("Hints was " + (j+1));
+	    //printArray(hints);
 	    
 	    System.out.println("Guess " + (j+1) + " was " + temp);
 	    return temp;
@@ -461,13 +469,11 @@ public class AI {
 
 	//Returns the current hint
 	public int curHint() {
-		// TODO Auto-generated method stub
 		return curAIHint - 1;
 	}
 
 	//Returns the current move
 	public int curMove() {
-		// TODO Auto-generated method stub
 		return curAIMove - 1;
 	}
 
@@ -479,6 +485,11 @@ public class AI {
 		curAIMove = 0;
 		curAIHint = 0;
 		this.playGame();
+	}
+	
+	//Returns a winning move if there was one
+	public int winMove() {
+		return allGuesses.size();
 	}
 	
 }

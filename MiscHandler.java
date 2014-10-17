@@ -39,6 +39,7 @@ public class MiscHandler implements ActionListener{
 	public void actionPerformed(ActionEvent event) 
 	{
 		JFrame miscFrame = new JFrame();
+		JButton source = (JButton) event.getSource();
 		
 		if (event.getActionCommand() == "Check")
 		{
@@ -56,33 +57,68 @@ public class MiscHandler implements ActionListener{
 				//displaying appropriate message
 				if (correct == true) {
 					//JLabel correctText = new JLabel(new ImageIcon("images/success.png"));
-					JPanel text = new JPanel();
-					JLabel correctText = new JLabel("Congratulations! You solved the puzzle!");
-					JLabel time = new JLabel("Time taken is " + this.gui.getMin() + " min " + this.gui.getSec() + " sec!");
-					text.add(correctText, BorderLayout.NORTH);
-					text.add(time, BorderLayout.SOUTH);
-					miscFrame.add(text, BorderLayout.CENTER);
-					miscFrame.setTitle("Success");
-					miscFrame.pack();
-					miscFrame.setVisible(true);
-					miscFrame.setSize(new Dimension(300, 300));
-					//To hintPanel button
-					gui.setHint(puzzle.getCurGuessAmt() - 1, puzzle.guessRes());
-					//gui.setClearButton();
-					noClear = true;
+					if (!noClear) {
+						JPanel text = new JPanel();
+						JLabel correctText = new JLabel("Congratulations! You solved the puzzle!");
+						JLabel time = new JLabel("Time taken is " + this.gui.getMin() + " min " + this.gui.getSec() + " sec!");
+						text.add(correctText, BorderLayout.NORTH);
+						text.add(time, BorderLayout.SOUTH);
+						miscFrame.add(text, BorderLayout.CENTER);
+						miscFrame.setTitle("Success");
+						miscFrame.pack();
+						miscFrame.setVisible(true);
+						miscFrame.setSize(new Dimension(300, 300));
+						//To hintPanel button
+						gui.setHint(puzzle.getCurGuessAmt() - 1, puzzle.guessRes());
+						//gui.setClearButton();
+						noClear = true;
+						
+						//Disable button and stop counter
+						source.setEnabled(false);
+						this.gui.disableTime();
+					} 
 					
 				} else {
+					//Max guesses used
+					if (puzzle.getCurGuessAmt() >= 8) {
+						JPanel text = new JPanel();
+						JLabel correctText = new JLabel("You did not manage to solve the puzzle!");
+						JLabel time = new JLabel("Time taken is " + this.gui.getMin() + " min " + this.gui.getSec() + " sec!");
+						text.add(correctText, BorderLayout.NORTH);
+						text.add(time, BorderLayout.SOUTH);
+						miscFrame.add(text, BorderLayout.CENTER);
+						miscFrame.setTitle("Success");
+						miscFrame.pack();
+						miscFrame.setVisible(true);
+						miscFrame.setSize(new Dimension(300, 300));
+						
+						noClear = true;
+						
+						//Disable button and stop counter
+						source.setEnabled(false);
+						this.gui.disableTime();
+					} else {
+						
+						//System.out.println("Wrong");
+						//gui.setHint(puzzle.getCurGuessAmt() - 1, puzzle.guessRes());
+						
+						if (puzzle.getCurGuessAmt() != 8) {
+							gui.unlockNextRow(puzzle.getCurGuessAmt());
+						}
+						
+					}
+					
 					//Supply hints
 					System.out.println("Wrong");
 					gui.setHint(puzzle.getCurGuessAmt() - 1, puzzle.guessRes());
-					gui.unlockNextRow(puzzle.getCurGuessAmt());
-					
-					
 				}
 				
 				if (ai != null) {
-					gui.setAIHint(ai.getAIHint(), ai.curHint());
-					gui.setAIMove(ai.getAIMove(), ai.curMove());
+					int x = ai.curMove() + 1;
+					if (x < ai.winMove()) {
+						gui.setAIHint(ai.getAIHint(), ai.curHint());
+						gui.setAIMove(ai.getAIMove(), ai.curMove());
+					}
 				}
 			}
 		}
@@ -94,6 +130,7 @@ public class MiscHandler implements ActionListener{
 			
 			//refresh the gui
 			this.gui.createGUI();
+			this.gui.restartTimer();
 			
 			//Reset the game will generate new game with random values
 			puzzle.resetGame();
@@ -113,15 +150,14 @@ public class MiscHandler implements ActionListener{
 		if (event.getActionCommand() == "Clear")
 		{
 			//this.gui.hidePuzzle();
-			if (puzzle.getFullGuess().size() == 0) {
-				gui.showEmptyError();
+			if (noClear) {
+				//JButton source = (JButton) event.getSource();
+				source.setEnabled(false);
 			} else {
-				if (noClear) {
-					JButton source = (JButton) event.getSource();
-					source.setEnabled(false);
+				if (puzzle.getFullGuess().size() == 0) {
+					gui.showEmptyError();
 				} else {
 					int row = puzzle.getCurGuessAmt();
-					
 					gui.clearRow(row);
 				}
 			}

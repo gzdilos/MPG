@@ -58,6 +58,9 @@ public class GUI extends JFrame{
 	//Control for timer to only initiate once
 	private boolean timerSet;
 	
+	//Global timer
+	Timer t;
+	
 	//Constructor for GUI
 	public GUI() {
 		//mmg = game;
@@ -234,22 +237,22 @@ public class GUI extends JFrame{
 		}
 		
 		miscButtons.setLayout(new GridLayout(3,1));
-		//miscButtons.setSize(new Dimension(100, 300));
+		miscButtons.setPreferredSize(new Dimension(100, 180));
 		
 		button = new JButton("Check");	
-		button.setPreferredSize(new Dimension(100, 70));		
+		button.setPreferredSize(new Dimension(100, 50));		
 		button.addActionListener(miscButtonHandler);	
 		button.setToolTipText("Click on this button to check if you are correct!");		
 		miscButtons.add(button);		
 		
 		button = new JButton("Reset");		
-		button.setPreferredSize(new Dimension(100, 70));		
+		button.setPreferredSize(new Dimension(100, 50));		
 		button.addActionListener(miscButtonHandler);
 		button.setToolTipText("Click on this button to reset the whole puzzle!");
 		miscButtons.add(button);
 		
 		button = new JButton("Clear");		
-		button.setPreferredSize(new Dimension(100, 70));		
+		button.setPreferredSize(new Dimension(100, 50));		
 		button.addActionListener(miscButtonHandler);
 		button.setToolTipText("Click on this button to clear your current guess!");
 		miscButtons.add(button);
@@ -257,7 +260,7 @@ public class GUI extends JFrame{
 		//Duplicate here!!!
 		//checkBox = new JCheckBox("Allow duplicates");
 		//miscButtons.add(checkBox);
-		miscButtons.setPreferredSize(new Dimension(260, 200));
+		//miscButtons.setPreferredSize(new Dimension(230, 150));
 		
 		//creating label to indicate selected input	
 		JPanel timerPanel = new JPanel();	
@@ -610,7 +613,7 @@ public class GUI extends JFrame{
 			//button.setText("clear");
 			button.setText("");
 			
-			int colourSel = aiMove.get(x);
+			int colourSel = aiMove.get(3 - x);
 			
 			if (colourSel == 0) {
 				button.setBackground(Color.red);
@@ -664,7 +667,7 @@ public class GUI extends JFrame{
 	public void setupTimer() {
 		//Timer updates every second
 		TimerHandler tHandle = new TimerHandler(this);
-		Timer t = new Timer(1000, tHandle);
+		t = new Timer(1000, tHandle);
 		t.start();
 		t.setRepeats(true);
 	}
@@ -677,6 +680,21 @@ public class GUI extends JFrame{
 	//Return minutes passed
 	public int getMin() {
 		return minPassed;
+	}
+
+	//Stops timer
+	public void disableTime() {
+		t.stop();
+	}
+	
+	//Restart the timer
+	public void restartTimer() {
+		//Check if its running first
+		if (t.isRunning()) {
+			
+		} else {
+			t.restart();
+		}
 	}
 
 }
