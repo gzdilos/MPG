@@ -43,7 +43,12 @@ public class MiscHandler implements ActionListener{
 		{
 			//If they don't have enough guesses
 			if (puzzle.getFullGuess().size() != 4) {
-				gui.showError();
+				if (puzzle.getFullGuess().size() == 0) {
+					gui.playfulError();
+				} else {
+					//gui.showError();
+					gui.guessError();
+				}
 			} else {
 				//calling checkPuzzle method to determine whether puzzle is solved
 				boolean correct = gui.currGuess();
@@ -99,14 +104,19 @@ public class MiscHandler implements ActionListener{
 		if (event.getActionCommand() == "Clear")
 		{
 			//this.gui.hidePuzzle();
-			if (noClear) {
-				JButton source = (JButton) event.getSource();
-				source.setEnabled(false);
+			if (puzzle.getFullGuess().size() == 0) {
+				gui.showEmptyError();
 			} else {
-				int row = puzzle.getCurGuessAmt();
-				
-				gui.clearRow(row);
+				if (noClear) {
+					JButton source = (JButton) event.getSource();
+					source.setEnabled(false);
+				} else {
+					int row = puzzle.getCurGuessAmt();
+					
+					gui.clearRow(row);
+				}
 			}
+			
 			//refresh the gui
 			//this.gui.createGUI();
 					

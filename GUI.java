@@ -549,6 +549,16 @@ public class GUI extends JFrame{
 		JOptionPane.showMessageDialog(null, "You need to clear first before you can change the colour!", "Error Code 2", JOptionPane.ERROR_MESSAGE);
 	}
 
+	//Clicked check when guess was empty
+	public void playfulError() {
+		JOptionPane.showMessageDialog(null, "You didn't even try to guess :(!", "Error Code 3", JOptionPane.ERROR_MESSAGE);
+	}
+	
+	//Clicked clear when guess was empty
+	public void showEmptyError() {
+		JOptionPane.showMessageDialog(null, "No point clearing it when it's empty", "Error Code 4", JOptionPane.ERROR_MESSAGE);
+	}
+	
 	//Sets ai
 	public void setAI(AI ai) {
 		this.ai = ai;
@@ -641,5 +651,7 @@ public class GUI extends JFrame{
 			x++;
 		}
 	}
+
+	
 
 }
