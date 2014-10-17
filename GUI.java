@@ -71,17 +71,18 @@ public class GUI extends JFrame{
 		Integer y = 0;
 		
 		hintPanel = new JPanel();
-		hintPanel.setLayout(new GridLayout(mmg.getMaxGuessAmt(),1));
+		hintPanel.setLayout(new GridLayout(mmg.getMaxGuessAmt()*2,2));
 		hintPanel.setPreferredSize(new Dimension (80,320));
-		for(int k = 0; k < mmg.getMaxGuessAmt(); k++) {
-			int m = mmg.getMaxGuessAmt()-k;
+		for(int k = 0; k < mmg.getMaxGuessAmt() * 4; k++) {
+			//int m = mmg.getMaxGuessAmt()*4-k;
+			int mod = mmg.getMaxGuessAmt() - k/4;
 			button = new JButton();
-			button.setName("" + m);
-			button.setPreferredSize(new Dimension(40,40));
+			button.setName("" + mod);
+			button.setPreferredSize(new Dimension(10,10)); //was 40, 40
 			hintPanel.add(button, k);
 			button.setText(button.getName());
 			button.setEnabled(false);
-			button.setToolTipText("Hint for guess " + m);
+			button.setToolTipText("Hint for guess " + mod);
 		}
 		
 		GridHandler gridButtonHandler = new GridHandler(mmg, this);
@@ -386,19 +387,30 @@ public class GUI extends JFrame{
 		
 		//Set up hints for player 2
 		p2hintPanel = new JPanel();
-		p2hintPanel.setLayout(new GridLayout(mmg.getMaxGuessAmt(),1));
+		p2hintPanel.setLayout(new GridLayout(mmg.getMaxGuessAmt() * 2,2));
 		p2hintPanel.setPreferredSize(new Dimension (80,320));
-		for(int k = 0; k < mmg.getMaxGuessAmt(); k++) {
-			int m = mmg.getMaxGuessAmt()-k;
+//		for(int k = 0; k < mmg.getMaxGuessAmt(); k++) {
+//			int m = mmg.getMaxGuessAmt()-k;
+//			button = new JButton();
+//			button.setName("" + m);
+//			button.setPreferredSize(new Dimension(40,40));
+//			p2hintPanel.add(button, k);
+//			button.setText(button.getName());
+//			button.setEnabled(false);
+//			//button.setToolTipText("Hint for guess " + m);
+//		}
+		
+		for(int k = 0; k < mmg.getMaxGuessAmt() * 4; k++) {
+			//int m = mmg.getMaxGuessAmt()*4-k;
+			int mod = mmg.getMaxGuessAmt() - k/4;
 			button = new JButton();
-			button.setName("" + m);
-			button.setPreferredSize(new Dimension(40,40));
+			button.setName("" + mod);
+			button.setPreferredSize(new Dimension(10,10)); //was 40, 40
 			p2hintPanel.add(button, k);
 			button.setText(button.getName());
 			button.setEnabled(false);
-			//button.setToolTipText("Hint for guess " + m);
+			button.setToolTipText("Hint for guess " + mod);
 		}
-		
 	}
 
 	public void setInputToUse (Integer input)
@@ -443,14 +455,34 @@ public class GUI extends JFrame{
 	}
 	
 	//Sets a hint to GUI
-	public void setHint(int row, String hintAnswer) {
+	public void setHint(int row, ArrayList<Integer> hints) {
 		if(this.hintPanel == null) {
 			System.out.println("Null apparently");
 		} else {
 //			System.out.println(this.hintPanel.getComponentCount());
-			int hintval = mmg.getMaxGuessAmt() - 1;
-			button = (JButton) this.hintPanel.getComponent(hintval - row);
-			button.setText(hintAnswer);
+			int hintval = mmg.getMaxGuessAmt()*4 - 1;
+			
+			int i = 0;
+			
+			while (i != 4) {
+				button = (JButton) this.hintPanel.getComponent(hintval - row - i);
+				//button.setText(hintAnswer);
+				if (hints.get(i) == 2) {
+					button.setBackground(Color.black);
+					button.setToolTipText("This means one of your colours is correct and in the correct position!");
+				} else if (hints.get(i) == 1) {
+					button.setBackground(Color.white);
+					button.setToolTipText("This means one of your colours is correct and in the wrong position!");
+				} else {
+					button.setBackground(Color.gray);
+					button.setToolTipText("This means one of your colours is not correct and not in the correct position!");
+
+				}
+				
+				button.setText("");
+				i++;
+			}
+			
 		}
 	}
 	
@@ -523,14 +555,41 @@ public class GUI extends JFrame{
 	}
 
 	//Sets the AI hint to the hint
-	public void setAIHint(String aiHint, int row) {
+	public void setAIHint(ArrayList<Integer> arrayList, int row) {
 		if (this.p2hintPanel == null) {
 			System.out.println("Null apparently");
 		} else {
 //			System.out.println(this.hintPanel.getComponentCount());
-			int t = mmg.getMaxGuessAmt() - 1;
-			button = (JButton) this.p2hintPanel.getComponent(t - row);
-			button.setText(aiHint);
+//			int t = mmg.getMaxGuessAmt() - 1;
+//			button = (JButton) this.p2hintPanel.getComponent(t - row);
+//			button.setText(aiHint);
+			System.out.println(this.p2hintPanel.getComponentCount());
+			int hintval = mmg.getMaxGuessAmt()*4 - 1;
+			
+			System.out.println(arrayList.size());
+			
+			
+			int i = 0;
+			
+			while (i != 4) {
+				button = (JButton) this.p2hintPanel.getComponent(hintval - row - i);
+				//button.setText(hintAnswer);
+				System.out.println(arrayList.get(i));
+				if (arrayList.get(i) == 2) {
+					button.setBackground(Color.black);
+					button.setToolTipText("This means one of your colours is correct and in the correct position!");
+				} else if (arrayList.get(i) == 1) {
+					button.setBackground(Color.white);
+					button.setToolTipText("This means one of your colours is correct and in the wrong position!");
+				} else {
+					button.setBackground(Color.gray);
+					button.setToolTipText("This means one of your colours is not correct and not in the correct position!");
+
+				}
+				
+				button.setText("");
+				i++;
+			}
 		}
 	}
 

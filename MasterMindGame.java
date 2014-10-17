@@ -30,21 +30,60 @@ public class MasterMindGame {
 	 
 	//This code assumes colours cannot be repeated for the time being.
 	public MasterMindGame(ArrayList<Integer> answer, int guessAmount){
-		solutionSize = answer.size();
+		
+		//Don't generate a puzzle with invalid input
+		if (answer == null || answer.size() < 4) {
+			generateSampleGame();
+		} else {
+			finalSolution = new ArrayList<Integer>();
+			finalSolution = answer;
+			solutionSize = answer.size();
+			
+		}
+		
+		//Store guess amt
 		guessAmt = guessAmount;
-		finalSolution = new ArrayList<Integer>();
-		finalSolution = answer;
 		currGuess = 0;
-		guesses = new int[guessAmount][solutionSize*2];
-		//Used my AI to cheat
-		AIGuesses = new int[guessAmount][solutionSize*2];
-		colourList = new ArrayList<String>();
-		addColours();
+		
+		//Used for GUI
 		theGuess = new ArrayList<Integer>();
 		pos = new ArrayList<Integer>();
+		
+		//Assume guess amount
+		guesses = new int[guessAmount][solutionSize*2];
+		//Used by my AI to cheat
+		AIGuesses = new int[guessAmount][solutionSize*2];
+		
+		//Store colours
+		colourList = new ArrayList<String>();
+		addColours();
 	}
 	 
- 
+	//Generate a sample game if not input given
+	private void generateSampleGame() {
+		
+		Random randomGenerator = new Random();
+		
+		int i = 0;
+		
+	    while (i != 4) {
+	    	int randomInt = randomGenerator.nextInt(6);
+	      
+	    	//Tries to choose a different colour each time
+	    	if (containsColour(randomInt, finalSolution)) {
+	    		i--;
+	    	} else {
+	    		finalSolution.add(randomInt);
+	    	}
+	      
+	    	i++;
+	    }
+	    
+	    solutionSize = finalSolution.size();
+	    
+	}
+
+
 	//Adds the colours of a colour list
 	private void addColours() {
 		colourList.add("red");
@@ -75,7 +114,7 @@ public class MasterMindGame {
 			
 			int iterator = 0;
 			
-			while (iterator != solutionSize && solved == true){
+			while (iterator != solutionSize){
 				//Set the guessed values, assume 0 is not a choosable colour.
 				//You mean you assume that you can't choose no colours
 				guesses[currGuess][iterator] = theGuess.get(iterator);

@@ -55,21 +55,21 @@ public class MiscHandler implements ActionListener{
 					miscFrame.pack();
 					miscFrame.setVisible(true);
 					//To hintPanel button
-					gui.setHint(puzzle.getCurGuessAmt() - 1, "BBBB");
+					gui.setHint(puzzle.getCurGuessAmt() - 1, puzzle.guessRes());
 					//gui.setClearButton();
 					noClear = true;
 					
 				} else {
 					//Supply hints
 					System.out.println("Wrong");
-					gui.setHint(puzzle.getCurGuessAmt() - 1, puzzle.convertHintToString());
+					gui.setHint(puzzle.getCurGuessAmt() - 1, puzzle.guessRes());
 					gui.unlockNextRow(puzzle.getCurGuessAmt());
 					
 					
 				}
 				
 				if (ai != null) {
-					gui.setAIHint(puzzle.convertAHintToString(ai.getAIHint()), ai.curHint());
+					gui.setAIHint(ai.getAIHint(), ai.curHint());
 					gui.setAIMove(ai.getAIMove(), ai.curMove());
 				}
 			}
@@ -89,6 +89,7 @@ public class MiscHandler implements ActionListener{
 			//If ai was being played
 			if (ai != null) {
 				ai.resetGame();
+				//ai.playGame();
 			}
 			
 			this.gui.showPuzzle();

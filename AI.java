@@ -471,10 +471,14 @@ public class AI {
 		return curAIMove - 1;
 	}
 
+	//Reset the ai game and play a new game
 	public void resetGame() {
 		g.resetGame();
+		allGuesses = new ArrayList<ArrayList<Integer>>();
+		allHints = new ArrayList<ArrayList<Integer>>();
 		curAIMove = 0;
 		curAIHint = 0;
+		this.playGame();
 	}
 	
 }
