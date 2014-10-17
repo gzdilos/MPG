@@ -14,7 +14,7 @@ public class Client {
 	private static int serverPort;
 	private static InetAddress serverIPAddress;
 	private static Socket clientSocket;
-	public static void main(String[] args) throws Exception {
+	public static int Connect(String[] args) throws Exception {
 		serverName = "localhost";
 		if (args.length >= 1)
 		    serverName = args[0];
@@ -35,21 +35,16 @@ public class Client {
 		String sentenceFromServer;
 		sentenceFromServer = inFromServer.readLine();
 		//check that the message is simply a "ready" message, otherwise an error has occurred
-		if (!sentenceFromServer.equals("ready"))
+		if (!sentenceFromServer.startsWith("ready"))
 		{
 			System.out.println("Expecting 'ready' message and received different information");
-			return;
+			return 5;
 		}
+		//the integer after "ready" tells us whether we go first or second
+		String messageDetails[] = sentenceFromServer.split(" ");
+		return Integer.parseInt(messageDetails[1]);
 		
-		//now we need to prompt the user to select a colour sequence for the other player to guess
-		//using the sendInitial method
-		
-		//how to decide who goes first?
-		while(true)
-		{
-			//prompt user to make a guess and call the makeMove function
-			//update our back end accordingly based on the move we receive from the other play
-		}
+		//now we are ready to send an initial combination for the other player to guess
 	}
 	
 	//sends initial colour combination to the server for the other client to guess and returns our initial colour combination we need to guess

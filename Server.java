@@ -31,7 +31,9 @@ public class Server {
 		    		for (int i = 0; i < 2; i++)
 		    		{
 		    			DataOutputStream outToClient = new DataOutputStream(clients.get(i).getOutputStream());
-						outToClient.writeBytes("ready");
+		    			//the number after "ready" tells the client to go first or second
+		    			String readyMessage = new String("ready " + i);
+						outToClient.writeBytes(readyMessage);
 		    		}
 		    	}
 		    }
