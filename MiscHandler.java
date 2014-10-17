@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -54,11 +55,17 @@ public class MiscHandler implements ActionListener{
 				boolean correct = gui.currGuess();
 				//displaying appropriate message
 				if (correct == true) {
-					JLabel correctText = new JLabel(new ImageIcon("images/success.png"));
-					miscFrame.add(correctText, BorderLayout.CENTER);
+					//JLabel correctText = new JLabel(new ImageIcon("images/success.png"));
+					JPanel text = new JPanel();
+					JLabel correctText = new JLabel("Congratulations! You solved the puzzle!");
+					JLabel time = new JLabel("Time taken is " + this.gui.getMin() + " min " + this.gui.getSec() + " sec!");
+					text.add(correctText, BorderLayout.NORTH);
+					text.add(time, BorderLayout.SOUTH);
+					miscFrame.add(text, BorderLayout.CENTER);
 					miscFrame.setTitle("Success");
 					miscFrame.pack();
 					miscFrame.setVisible(true);
+					miscFrame.setSize(new Dimension(300, 300));
 					//To hintPanel button
 					gui.setHint(puzzle.getCurGuessAmt() - 1, puzzle.guessRes());
 					//gui.setClearButton();
@@ -90,6 +97,8 @@ public class MiscHandler implements ActionListener{
 			
 			//Reset the game will generate new game with random values
 			puzzle.resetGame();
+			
+			this.gui.setGame(puzzle);
 			
 			//If ai was being played
 			if (ai != null) {

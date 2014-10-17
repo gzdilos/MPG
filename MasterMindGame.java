@@ -447,7 +447,7 @@ public class MasterMindGame {
 		}
 		
 		iterator = solutionSize - 1;
-		System.out.println("Before loop " + tempAns.size());
+		//System.out.println("Before loop " + tempAns.size());
 		//This requires some reverse traversal so it will actually work as intended. Else tempAns.remove(iterator) will fail on a correct guess.
 		while(iterator != -1){
 			//Check if the guess is the right colour AND position. Then modify the guess so we do not mess things up.
@@ -461,7 +461,7 @@ public class MasterMindGame {
 			iterator--;
 		}
 		
-		System.out.println("After loop " + tempAns.size());
+		//System.out.println("After loop " + tempAns.size());
 		//This if statement is only true for one case, when the guess was correct.
 		if (tempAns.size() == 0) {
 			currGuess++;

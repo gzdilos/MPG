@@ -16,9 +16,9 @@ public class SampleGame {
 	 */
 	public static void main(String[] args) {
 
-		boolean firstTest = runTests();
-		
-		firstTest = false;
+		boolean firstTest = runTestsDup();
+		firstTest = runTests();
+		firstTest = true;
 		
 		if (firstTest == true) {
 			//Make a random solution
@@ -79,8 +79,7 @@ public class SampleGame {
 		}
 	}
 
-	//Test the system
-	private static boolean runTests() {
+	private static boolean runTestsDup() {
 		boolean answer = false;
 		
 		//Measures the amt of each type of hint
@@ -95,9 +94,9 @@ public class SampleGame {
 	    
 		//Solution
 		sampleTest.add(BLACK);
-		sampleTest.add(RED);
+		sampleTest.add(BLACK);
 		sampleTest.add(GREEN);
-		sampleTest.add(BLUE);
+		sampleTest.add(GREEN);
 		
 		MasterMindGame newGame = new MasterMindGame(sampleTest, 8, true);
 		int i = 0;
@@ -143,7 +142,7 @@ public class SampleGame {
 		
 		//Try Next Test
 		newGame.addToEndGuess(BLACK);
-		newGame.addToEndGuess(RED);
+		newGame.addToEndGuess(GREEN);
 		newGame.addToEndGuess(RED);
 		newGame.addToEndGuess(RED);
 		
@@ -163,14 +162,14 @@ public class SampleGame {
 			i++;
 		}
 		
-		//Should have 2 twos
-		if (twos == 2) {
+		//Should have 1 twos and 1 ones
+		if (twos == 1 && ones == 1) {
 			System.out.println("Passed test 2!");
 			answer = true;
 		} else {
 			System.out.println("Failed test 2!");
 			System.out.println("Received twos " + twos +" ones " + ones + " zeros " + zeros);
-			System.out.println("Should be twos 2");
+			System.out.println("Should be twos 1 ones 1");
 		}
 		
 		//Reset values
@@ -200,14 +199,14 @@ public class SampleGame {
 			i++;
 		}
 				
-		//Should have 2 ones
-		if (ones == 2) {
+		//Should have 4 ones
+		if (ones == 4) {
 			System.out.println("Passed test 3!");
 			answer = true;
 		} else {
 			System.out.println("Failed test 3!");
 			System.out.println("Received twos " + twos +" ones " + ones + " zeros " + zeros);
-			System.out.println("Should be ones 2");
+			System.out.println("Should be ones 4");
 		}
 			
 		
@@ -218,9 +217,9 @@ public class SampleGame {
 						
 		//Try Next Test
 		newGame.addToEndGuess(BLACK);
-		newGame.addToEndGuess(RED);
+		newGame.addToEndGuess(BLACK);
 		newGame.addToEndGuess(GREEN);
-		newGame.addToEndGuess(BLUE);
+		newGame.addToEndGuess(GREEN);
 						
 		//Check
 		newGame.guessCheckDup();
@@ -275,12 +274,221 @@ public class SampleGame {
 			i++;	
 		}
 								
-		//Should have 4 ones
-		if (ones == 4) {
+		//Should have 2 twos
+		if (twos == 2) {
 			System.out.println("Passed test 5!");
 			answer = true;
 		} else {
 			System.out.println("Failed test 5!");
+			System.out.println("Received twos " + twos +" ones " + ones + " zeros " + zeros);
+			System.out.println("Should be twos 2");
+		}
+		
+		return answer;
+	}
+
+	//Test the system
+	private static boolean runTests() {
+		boolean answer = false;
+		
+		//Measures the amt of each type of hint
+		//2 cor color cor pos
+		//1 cor color wro pos
+		//0 wro color wro pos
+		int twos = 0;
+		int ones = 0;
+		int zeros = 0;
+		
+		ArrayList<Integer> sampleTest = new ArrayList<Integer>();
+	    
+		//Solution
+		sampleTest.add(BLACK);
+		sampleTest.add(RED);
+		sampleTest.add(GREEN);
+		sampleTest.add(BLUE);
+		
+		MasterMindGame newGame = new MasterMindGame(sampleTest, 8, true);
+		int i = 0;
+		
+		//Try first test
+		while (i != 4) {
+			newGame.addToEndGuess(WHITE);
+			i++;
+		}
+		//Do the check
+		newGame.guessCheckDup();
+		//Get hints
+		ArrayList<Integer> hints = newGame.guessRes();
+		
+		i = 0;
+		
+		//Count the ones zeros and twos
+		while (i != hints.size()) {
+			if (hints.get(i) == 0) {
+				zeros++;
+			} else if (hints.get(i)==1) {
+				ones++;
+			} else {
+				twos++;
+			}
+			i++;
+		}
+		
+		//Should have 4 zeros
+		if (zeros == 4) {
+			System.out.println("Passed test 6!");
+			answer = true;
+		} else {
+			System.out.println("Failed test 6!");
+			System.out.println("Received twos " + twos +" ones " + ones + " zeros " + zeros);
+			System.out.println("Should be zeros 4");
+		}
+	
+		//Reset values
+		ones = 0;
+		twos = 0;
+		zeros = 0;
+		
+		//Try Next Test
+		newGame.addToEndGuess(BLACK);
+		newGame.addToEndGuess(RED);
+		newGame.addToEndGuess(RED);
+		newGame.addToEndGuess(RED);
+		
+		//Check
+		newGame.guessCheckDup();
+		hints = newGame.guessRes();
+		
+		i = 0;
+		while (i != hints.size()) {
+			if (hints.get(i) == 0) {
+				zeros++;
+			} else if (hints.get(i)==1) {
+				ones++;
+			} else {
+				twos++;
+			}
+			i++;
+		}
+		
+		//Should have 2 twos
+		if (twos == 2) {
+			System.out.println("Passed test 7!");
+			answer = true;
+		} else {
+			System.out.println("Failed test 7!");
+			System.out.println("Received twos " + twos +" ones " + ones + " zeros " + zeros);
+			System.out.println("Should be twos 2");
+		}
+		
+		//Reset values
+		ones = 0;
+		twos = 0;
+		zeros = 0;
+				
+		//Try Next Test
+		newGame.addToEndGuess(GREEN);
+		newGame.addToEndGuess(GREEN);
+		newGame.addToEndGuess(BLACK);
+		newGame.addToEndGuess(BLACK);
+				
+		//Check
+		newGame.guessCheckDup();
+		hints = newGame.guessRes();
+				
+		i = 0;
+		while (i != hints.size()) {
+			if (hints.get(i) == 0) {
+				zeros++;
+			} else if (hints.get(i)==1) {
+				ones++;
+			} else {
+				twos++;
+			}
+			i++;
+		}
+				
+		//Should have 2 ones
+		if (ones == 2) {
+			System.out.println("Passed test 8!");
+			answer = true;
+		} else {
+			System.out.println("Failed test 8!");
+			System.out.println("Received twos " + twos +" ones " + ones + " zeros " + zeros);
+			System.out.println("Should be ones 2");
+		}
+			
+		
+		//Reset values
+		ones = 0;
+		twos = 0;
+		zeros = 0;
+						
+		//Try Next Test
+		newGame.addToEndGuess(BLACK);
+		newGame.addToEndGuess(RED);
+		newGame.addToEndGuess(GREEN);
+		newGame.addToEndGuess(BLUE);
+						
+		//Check
+		newGame.guessCheckDup();
+		hints = newGame.guessRes();
+						
+		i = 0;
+		while (i != hints.size()) {
+			if (hints.get(i) == 0) {
+				zeros++;
+			} else if (hints.get(i)==1) {
+				ones++;
+			} else {
+				twos++;
+			}
+			i++;	
+		}
+						
+		//Should have 4 twos
+		if (twos == 4) {
+			System.out.println("Passed test 9!");
+			answer = true;
+		} else {
+			System.out.println("Failed test 9!");
+			System.out.println("Received twos " + twos +" ones " + ones + " zeros " + zeros);
+			System.out.println("Should be twos 4");
+		}
+		
+		//Reset values
+		ones = 0;
+		twos = 0;
+		zeros = 0;
+								
+		//Try Next Test
+		newGame.addToEndGuess(RED);
+		newGame.addToEndGuess(BLACK);
+		newGame.addToEndGuess(BLUE);
+		newGame.addToEndGuess(GREEN);
+								
+		//Check
+		newGame.guessCheckDup();
+		hints = newGame.guessRes();
+								
+		i = 0;
+		while (i != hints.size()) {
+			if (hints.get(i) == 0) {
+				zeros++;
+			} else if (hints.get(i)==1) {
+				ones++;
+			} else {
+				twos++;
+			}
+			i++;	
+		}
+								
+		//Should have 4 ones
+		if (ones == 4) {
+			System.out.println("Passed test 10!");
+			answer = true;
+		} else {
+			System.out.println("Failed test 10!");
 			System.out.println("Received twos " + twos +" ones " + ones + " zeros " + zeros);
 			System.out.println("Should be ones 4");
 		}

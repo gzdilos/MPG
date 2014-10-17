@@ -55,10 +55,14 @@ public class GUI extends JFrame{
 	//Panel for input
 	private JPanel inputLabel;
 	
+	//Control for timer to only initiate once
+	private boolean timerSet;
+	
 	//Constructor for GUI
 	public GUI() {
 		//mmg = game;
 		ai = null;
+		timerSet = false;
 	}
 	
 	//Set the game
@@ -261,11 +265,13 @@ public class GUI extends JFrame{
 		timerLabel.setForeground(Color.black);
 		inputTimer = new JLabel("0 sec passed");
 		
-		//Timer updates every second
-		TimerHandler tHandle = new TimerHandler(this);
-		Timer t = new Timer(1000, tHandle);
-		t.start();
-		t.setRepeats(true);
+		//Only instantiate timer once
+		if (timerSet == false) {
+			setupTimer();
+			timerSet = true;
+		} else {
+			resetTimer();
+		}
 		
 		timerLabel.setForeground(Color.black);		
 		timerPanel.add(timerLabel, BorderLayout.NORTH);		
@@ -647,6 +653,30 @@ public class GUI extends JFrame{
 		inputTimer.setText(minPassed + " min " + secPassed + " sec");
 	}
 
+	//Reset the timer
+	public void resetTimer() {
+		secPassed = 0;
+		minPassed = 0;
+		inputTimer.setText(minPassed + " min " + secPassed + " sec");
+	}
 	
+	//Sets up timer
+	public void setupTimer() {
+		//Timer updates every second
+		TimerHandler tHandle = new TimerHandler(this);
+		Timer t = new Timer(1000, tHandle);
+		t.start();
+		t.setRepeats(true);
+	}
+
+	//Return seconds passed
+	public int getSec() {
+		return secPassed;
+	}
+
+	//Return minutes passed
+	public int getMin() {
+		return minPassed;
+	}
 
 }
