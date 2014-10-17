@@ -456,7 +456,7 @@ public class GUI extends JFrame{
 			int i = 0;
 			
 			while (i != 4) {
-				button = (JButton) this.hintPanel.getComponent(hintval - row - i);
+				button = (JButton) this.hintPanel.getComponent(hintval - row*4 - i);
 				//button.setText(hintAnswer);
 				if (hints.get(i) == 2) {
 					button.setBackground(Color.black);
@@ -573,7 +573,7 @@ public class GUI extends JFrame{
 			int i = 0;
 			
 			while (i != 4) {
-				button = (JButton) this.p2hintPanel.getComponent(hintval - row - i);
+				button = (JButton) this.p2hintPanel.getComponent(hintval - row*4 - i);
 				//button.setText(hintAnswer);
 				System.out.println(arrayList.get(i));
 				if (arrayList.get(i) == 2) {
