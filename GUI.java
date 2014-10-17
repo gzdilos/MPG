@@ -19,7 +19,7 @@ public class GUI extends JFrame{
 	private JPanel p2hintPanel;
 	
 	//private JButton pressme = new JButton("Press Me");
-	
+	//Frame for grid
 	private JFrame gameGrid;
 	
 	//Holds the buttons
@@ -32,10 +32,15 @@ public class GUI extends JFrame{
 	private MasterMindGame mmg;
 
 	//private JFrame startScreen;
-
+	//Input
 	private Integer inputToUse = -1;
 	
-	//private int buttonLimit = 28;
+	//Timer
+	private JLabel inputTimer;
+	
+	//Int for timer
+	private int secPassed = 0;
+	private int minPassed = 0;
 	
 	//Show the input selected
 	private JLabel inputIndicator;
@@ -45,6 +50,8 @@ public class GUI extends JFrame{
 
 	//AI
 	private AI ai;
+
+	private JPanel inputLabel;
 	
 	//Constructor for GUI
 	public GUI() {
@@ -127,14 +134,27 @@ public class GUI extends JFrame{
 			}
 		}
 				
-		JPanel inputLabel = new JPanel();
-		label = new JLabel("");
+		inputLabel = new JPanel();
+		//label = new JLabel("Selected input: ");
 				
+		
 		//making room for the input label	
 		inputLabel.setLayout(new FlowLayout());
-		inputLabel.setOpaque(false);
+		//inputLabel.setOpaque(false);
 		inputLabel.setForeground(Color.white);		
-		inputLabel.add(label);
+		//inputLabel.add(label);
+		
+		
+		//creating label to indicate selected input	
+		JPanel inputLabel = new JPanel();	
+		JLabel title = new JLabel("Selected Input:");	
+		title.setForeground(Color.black);
+		JLabel input = new JLabel("None");
+		input.setForeground(Color.black);		
+		inputLabel.add(title, BorderLayout.NORTH);		
+		inputLabel.add(input, BorderLayout.SOUTH);		
+		this.inputIndicator = input;
+				
 		JPanel inputGrid = new JPanel();
 		
 		//making the input grid
@@ -257,14 +277,20 @@ public class GUI extends JFrame{
 		miscButtons.setPreferredSize(new Dimension(260, 200));
 		
 		//creating label to indicate selected input	
-		JPanel inputIndicator = new JPanel();	
-		JLabel title = new JLabel("Selected Input:");	
-		title.setForeground(Color.black);
-		JLabel input = new JLabel("None");
-		input.setForeground(Color.black);		
-		inputIndicator.add(title, BorderLayout.NORTH);		
-		inputIndicator.add(input, BorderLayout.SOUTH);		
-		this.inputIndicator = input;
+		JPanel timerPanel = new JPanel();	
+		JLabel timerLabel = new JLabel("Time is: ");	
+		timerLabel.setForeground(Color.black);
+		inputTimer = new JLabel("0 sec passed");
+		TimerHandler tHandle = new TimerHandler(this);
+		//Timer updates every second
+		Timer t = new Timer(1000, tHandle);
+		t.start();
+		t.setRepeats(true);
+		
+		timerLabel.setForeground(Color.black);		
+		timerPanel.add(timerLabel, BorderLayout.NORTH);		
+		timerPanel.add(inputTimer, BorderLayout.SOUTH);		
+		//this.inputIndicator = input;
 				
 		//initializing the final frame
 		JPanel finalFrame = new JPanel();
@@ -279,12 +305,12 @@ public class GUI extends JFrame{
 		finalFrame.add(inputPanel, BorderLayout.SOUTH);
 		finalFrame.add(hintPanel, BorderLayout.EAST);
 		finalFrame.add(miscButtons, BorderLayout.WEST);
-		finalFrame.add(inputIndicator, BorderLayout.NORTH);
+		finalFrame.add(timerPanel, BorderLayout.NORTH);
 		finalFrame.setSize(700,700);	
 		
 		//creating label to waste space
 		JPanel player2Panel = new JPanel();	
-		JLabel name = new JLabel("Player:");	
+		JLabel name = new JLabel("Player");	
 		name.setForeground(Color.black);
 		JLabel label = new JLabel("2");
 		label.setForeground(Color.black);		
@@ -293,9 +319,9 @@ public class GUI extends JFrame{
 				
 		//Create a space waster
 		JPanel temp = new JPanel();
-		JLabel t = new JLabel();
-		temp.add(t, BorderLayout.CENTER);
-		temp.setPreferredSize(new Dimension(200, 210));
+		JLabel t1 = new JLabel();
+		temp.add(t1, BorderLayout.CENTER);
+		temp.setPreferredSize(new Dimension(200, 230));
 		
 		JPanel temp2 = new JPanel();
 		JLabel t2 = new JLabel();
@@ -650,6 +676,16 @@ public class GUI extends JFrame{
 			}
 			x++;
 		}
+	}
+
+	//Change the input of timer
+	public void setTimer() {
+		secPassed++;
+		if (secPassed == 60) {
+			minPassed++;
+			secPassed = 0;
+		}
+		inputTimer.setText(minPassed + " min " + secPassed + " sec");
 	}
 
 	
