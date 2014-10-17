@@ -473,6 +473,8 @@ public class AI {
 
 	public void resetGame() {
 		g.resetGame();
+		curAIMove = 0;
+		curAIHint = 0;
 	}
 	
 }

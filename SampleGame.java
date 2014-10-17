@@ -50,6 +50,10 @@ public class SampleGame {
 			//Make  gui
 			GUI gui = new GUI();
 			
+			//May create difficulties 
+			//Easy = 10 guesses
+			//Medium = 8 guesses
+			//Hard = 6 guesses
 			MasterMindGame s = new MasterMindGame(sampleTest, guessNum);
 			MasterMindGame s2 = new MasterMindGame(sampleTest, guessNum);
 			

@@ -64,17 +64,17 @@ public class GUI extends JFrame{
 		//UIManager.put("Button.disabledText", Color.red);
 		//initializing the sudoku grid
 		gameButtonGrid = new JPanel();
-		gameButtonGrid.setLayout(new GridLayout(8,4));
+		gameButtonGrid.setLayout(new GridLayout(mmg.getMaxGuessAmt(),4));
 		gameButtonGrid.setPreferredSize(new Dimension(320,320));
 		Integer i = 1;
 		Integer x = 0;
 		Integer y = 0;
 		
 		hintPanel = new JPanel();
-		hintPanel.setLayout(new GridLayout(8,1));
+		hintPanel.setLayout(new GridLayout(mmg.getMaxGuessAmt(),1));
 		hintPanel.setPreferredSize(new Dimension (80,320));
-		for(int k = 0; k < 8; k++) {
-			int m = 8-k;
+		for(int k = 0; k < mmg.getMaxGuessAmt(); k++) {
+			int m = mmg.getMaxGuessAmt()-k;
 			button = new JButton();
 			button.setName("" + m);
 			button.setPreferredSize(new Dimension(40,40));
@@ -86,7 +86,7 @@ public class GUI extends JFrame{
 		
 		GridHandler gridButtonHandler = new GridHandler(mmg, this);
 		//adding the input positions as buttons to the grid
-		while (i <= 32) {
+		while (i <= mmg.getMaxGuessAmt() * 4) {
 			
 			//using the value from the puzzle as the text displayed on the button
 			//Integer value = puzzle.getValueAtPosition(x, y);
@@ -340,14 +340,14 @@ public class GUI extends JFrame{
 		Integer y = 0;
 		int i = 1;
 		
-		GridLayout newGrid = new GridLayout(8, 4);
+		GridLayout newGrid = new GridLayout(mmg.getMaxGuessAmt(), 4);
 		p2gameButtonGrid = new JPanel();
 		p2gameButtonGrid.setLayout(newGrid);
 		p2gameButtonGrid.setPreferredSize(new Dimension(320,320));
 		//System.out.println("Rows is " + newGrid.getRows());
 		//System.out.println("Columns is " + newGrid.getColumns());
 		//adding the buttons to the grid
-		while (i <= 32) {
+		while (i <= mmg.getMaxGuessAmt()*4) {
 			
 			button = new JButton();
 			//Dummy used to make sure user doesn't double click
@@ -386,10 +386,10 @@ public class GUI extends JFrame{
 		
 		//Set up hints for player 2
 		p2hintPanel = new JPanel();
-		p2hintPanel.setLayout(new GridLayout(8,1));
+		p2hintPanel.setLayout(new GridLayout(mmg.getMaxGuessAmt(),1));
 		p2hintPanel.setPreferredSize(new Dimension (80,320));
-		for(int k = 0; k < 8; k++) {
-			int m = 8-k;
+		for(int k = 0; k < mmg.getMaxGuessAmt(); k++) {
+			int m = mmg.getMaxGuessAmt()-k;
 			button = new JButton();
 			button.setName("" + m);
 			button.setPreferredSize(new Dimension(40,40));
@@ -448,8 +448,8 @@ public class GUI extends JFrame{
 			System.out.println("Null apparently");
 		} else {
 //			System.out.println(this.hintPanel.getComponentCount());
-			
-			button = (JButton) this.hintPanel.getComponent(7 - row);
+			int hintval = mmg.getMaxGuessAmt() - 1;
+			button = (JButton) this.hintPanel.getComponent(hintval - row);
 			button.setText(hintAnswer);
 		}
 	}
@@ -460,10 +460,11 @@ public class GUI extends JFrame{
 		int x = 0;
 		int y = 0;
 		
+		int last = mmg.getMaxGuessAmt() * 4 - 1;
 		//Clear the colours
 		while (x != 4) {
 			y = 4 * row + x;
-			button = (JButton) this.gameButtonGrid.getComponent(31 - y);
+			button = (JButton) this.gameButtonGrid.getComponent(last - y);
 			button.setBackground(Color.gray);
 			button.setText("clear");
 			x++;
@@ -480,9 +481,11 @@ public class GUI extends JFrame{
 		int y = 0;
 		
 		//Clear the colours
+		int last = mmg.getMaxGuessAmt() * 4 - 1;
+		
 		while (x != 4) {
 			y = curGuessAmt*4 + x;
-			button = (JButton) this.gameButtonGrid.getComponent(31 - y);
+			button = (JButton) this.gameButtonGrid.getComponent(last - y);
 			//button.setBackground(Color.gray);
 			button.setEnabled(true);
 			//button.setText("clear");
@@ -493,7 +496,7 @@ public class GUI extends JFrame{
 		
 		while (x != 4) {
 			y = curGuessAmt - 1 + x;
-			button = (JButton) this.gameButtonGrid.getComponent(31 - y);
+			button = (JButton) this.gameButtonGrid.getComponent(last - y);
 			//button.setBackground(Color.gray);
 			button.setEnabled(false);
 			//button.setText("clear");
@@ -525,8 +528,8 @@ public class GUI extends JFrame{
 			System.out.println("Null apparently");
 		} else {
 //			System.out.println(this.hintPanel.getComponentCount());
-			
-			button = (JButton) this.p2hintPanel.getComponent(7 - row);
+			int t = mmg.getMaxGuessAmt() - 1;
+			button = (JButton) this.p2hintPanel.getComponent(t - row);
 			button.setText(aiHint);
 		}
 	}
@@ -536,10 +539,12 @@ public class GUI extends JFrame{
 		int x = 0;
 		int y = 0;
 		
+		int last = mmg.getMaxGuessAmt() * 4 - 1;
+		
 		//Clear the colours
 		while (x != 4) {
 			y = curMove*4 + x;
-			button = (JButton) this.p2gameButtonGrid.getComponent(31 - y);
+			button = (JButton) this.p2gameButtonGrid.getComponent(last - y);
 			//button.setBackground(Color.gray);
 			//button.setEnabled(true);
 			//button.setText("clear");

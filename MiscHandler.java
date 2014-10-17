@@ -23,6 +23,7 @@ public class MiscHandler implements ActionListener{
 	//Add AI
 	private AI ai;
 	
+	//Variable to stop the user from clearing after game is won
 	private boolean noClear = false;
 	
 	public MiscHandler(MasterMindGame puzzle, GUI gui, AI ai)
@@ -84,7 +85,12 @@ public class MiscHandler implements ActionListener{
 			
 			//Reset the game will generate new game with random values
 			puzzle.resetGame();
-			ai.resetGame();
+			
+			//If ai was being played
+			if (ai != null) {
+				ai.resetGame();
+			}
+			
 			this.gui.showPuzzle();
 		}
 		

@@ -368,6 +368,7 @@ public class MasterMindGame {
 	    finalSolution = sampleTest;
 	}
 	
+	//Check if a colour is contained in the arraylist
 	private boolean containsColour(int randomInt, ArrayList<Integer> guess) {
 		boolean answer = false;
 				
