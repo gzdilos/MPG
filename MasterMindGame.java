@@ -232,10 +232,10 @@ public class MasterMindGame {
 		 int oldGuess = currGuess - 1;
 		 
 		 int iterator = 0;
-		 System.out.println("Solution size is " + solutionSize);
+		 //System.out.println("Solution size is " + solutionSize);
 		 while(iterator != solutionSize){
 				 retGuess.add(guesses[oldGuess][iterator + solutionSize]);
-				 System.out.println("Guess hint is " + guesses[oldGuess][iterator + solutionSize]);
+				 //System.out.println("Guess hint is " + guesses[oldGuess][iterator + solutionSize]);
 				 
 				 iterator++; 
 		 }
@@ -387,10 +387,10 @@ public class MasterMindGame {
 	}
 	
 	//Does a duplicate check of guesses
-	public boolean guessCheckDup(ArrayList<Integer> guess){
+	public boolean guessCheckDup(){
 	//Check for invalid guesses.
 	 
-		if (guess.size() != solutionSize) {
+		if (theGuess.size() != solutionSize) {
 			return false;
 		}
 		
@@ -407,9 +407,9 @@ public class MasterMindGame {
 	 
 		while(iterator != solutionSize){
 			//Set the guessed values, assume 0 is not a choosable colour.
-			guesses[currGuess][iterator] = guess.get(iterator);
+			guesses[currGuess][iterator] = theGuess.get(iterator);
 			tempAns.add(finalSolution.get(iterator));
-			tempGuess.add(guess.get(iterator));
+			tempGuess.add(theGuess.get(iterator));
 			iterator++;
 		}
 		
@@ -419,7 +419,7 @@ public class MasterMindGame {
 		while(iterator != -1){
 			//Check if the guess is the right colour AND position. Then modify the guess so we do not mess things up.
 			//This time, we store the guess and answer in temporary array lists and remove the element when we come across it, so it will give false results from duplicates.
-			if(guess.get(iterator)== finalSolution.get(iterator)){
+			if(theGuess.get(iterator)== finalSolution.get(iterator)){
 				guesses[currGuess][iterator + solutionSize] = 2;
 				tempAns.remove(iterator);
 				tempGuess.remove(iterator);
@@ -453,6 +453,9 @@ public class MasterMindGame {
 			iterator--;
 			loopBreak = false;
 		}
+		
+		currGuess++;
+		clearGuess();
 		
 		return false;
 	}
