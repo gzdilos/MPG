@@ -6,11 +6,25 @@ import java.util.ArrayList;
 public class Server {
 	private static ArrayList<Socket> clients;
 	public static void main(String[] args)throws Exception {
+		clients = new ArrayList<Socket>();
+		// create server socket
+		ServerSocket welcomeSocket = new ServerSocket(25000);
+		System.out.println("The server is listening on port number 25000");
 
-
+		while (true) {
+			//System.out.println("Accepting connections");
+			// accept connection from connection queue
+			Socket connectionSocket = welcomeSocket.accept();
+			Runnable runnable = new RequestHandler(connectionSocket, clients);
+			Thread thread = new Thread(runnable);
+			thread.start();					    
+		} 
+	}
+	/*
+	public static void main(String[] args)throws Exception {
+		clients = new ArrayList<Socket>();
 		// see if we do not use default server port
-		int serverPort = 25001; 
-		/* change above port number this if required */
+		int serverPort = 25000; 
 		
 		if (args.length >= 1)
 		    serverPort = Integer.parseInt(args[0]);
@@ -28,6 +42,7 @@ public class Server {
 		    	//if this is the second client we have added, we notify all connected clients that a match is ready to begin
 		    	if (clients.size() == 2)
 		    	{
+		    		System.out.println("got 2 clients, sending ready messages...");
 		    		for (int i = 0; i < 2; i++)
 		    		{
 		    			DataOutputStream outToClient = new DataOutputStream(clients.get(i).getOutputStream());
@@ -67,5 +82,5 @@ public class Server {
 		} // end of while (true)
 
 	} // end of main()
-
-} // end of class TCPServer
+	*/
+} 

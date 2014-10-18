@@ -14,17 +14,16 @@ public class Client {
 	private static int serverPort;
 	private static InetAddress serverIPAddress;
 	private static Socket clientSocket;
-	public static int Connect(String[] args) throws Exception {
-		serverName = "localhost";
-		if (args.length >= 1)
-		    serverName = args[0];
-			serverIPAddress = InetAddress.getByName(serverName);
-
-		// get server port
-		int serverPort = 25000; 
-		//change above port number if required
-		if (args.length >= 2)
-		    serverPort = Integer.parseInt(args[1]);
+	
+	public Client (String name, int serverPort) throws Exception, IOException
+	{
+		InetAddress serverIPAddress = InetAddress.getByName(serverName);
+		serverName = name;
+		this.serverPort = serverPort; 
+		clientSocket = new Socket(serverIPAddress, serverPort);
+	}
+	
+	public static int connect() throws Exception {
 		
 		//first establish a connection and wait for another player
 		DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
@@ -81,7 +80,7 @@ public class Client {
 		System.out.println("From Server: " + sentenceFromServer);
 						
 		// close client socket
-		clientSocket.close();
+		//clientSocket.close();
 
 		// extract info from received message and return in an array list (start from index 1 because first word will be "initial"
 		String[] messageInfo = sentenceFromServer.split(" ");
@@ -126,7 +125,7 @@ public class Client {
 		System.out.println("From Server: " + sentenceFromServer);
 				
 		// close client socket
-		clientSocket.close();
+		//clientSocket.close();
 
 		// extract info from received message and return in an array list
 		String[] messageInfo = sentenceFromServer.split(" ");
