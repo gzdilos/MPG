@@ -13,15 +13,11 @@ public class RequestHandler implements Runnable {
 	private final String doneSend = "wedone";
 	private ArrayList<Socket> clients;
 	private Socket connection;
-	ServerSocket welcomeSocket;
-	
-	
+		
 	public RequestHandler(Socket connection, ArrayList<Socket> clients) throws Exception {
 		this.connection = connection;
 		//this.s = s;
 		this.clients = clients;
-		// create server socket
-		welcomeSocket = new ServerSocket(25000);
 	}
 
 	@Override
@@ -44,6 +40,7 @@ public class RequestHandler implements Runnable {
 						for (int i = 0; i < 2; i++)
 						{
 							DataOutputStream outToClient = new DataOutputStream(clients.get(i).getOutputStream());
+							System.out.println("sending to: " + clients.get(i));
 							//the number after "ready" tells the client to go first or second
 							String readyMessage = new String("ready " + i);
 						}

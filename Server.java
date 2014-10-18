@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class Server {
 	private static ArrayList<Socket> clients;
+	private static int count = 1;
 	public static void main(String[] args)throws Exception {
 		clients = new ArrayList<Socket>();
 		// create server socket
@@ -15,7 +16,7 @@ public class Server {
 			//System.out.println("Accepting connections");
 			// accept connection from connection queue
 			Socket connectionSocket = welcomeSocket.accept();
-			Runnable runnable = new RequestHandler(connectionSocket, clients);
+			Runnable runnable = new RequestHandler((connectionSocket), clients);
 			Thread thread = new Thread(runnable);
 			thread.start();					    
 		} 

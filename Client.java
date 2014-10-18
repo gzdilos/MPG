@@ -23,6 +23,8 @@ public class Client {
 		clientSocket = new Socket(serverIPAddress, serverPort);
 	}
 	
+	
+	//alerts server that we want to play a game, returns 0 if we are to go first, 1 if we are to go second
 	public static int connect() throws Exception {
 		
 		//first establish a connection and wait for another player
