@@ -29,7 +29,7 @@ public class Client {
 		
 		//first establish a connection and wait for another player
 		DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
-		outToServer.writeBytes("connect");
+		outToServer.writeBytes("connect\n");
 		
 		//wait for the server to tell us that another player has connected
 		BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
@@ -39,7 +39,7 @@ public class Client {
 		if (!sentenceFromServer.startsWith("ready"))
 		{
 			System.out.println("Expecting 'ready' message and received different information");
-			return 5;
+			return -1;
 		}
 		//the integer after "ready" tells us whether we go first or second
 		String messageDetails[] = sentenceFromServer.split(" ");
@@ -49,17 +49,11 @@ public class Client {
 	}
 	
 	//sends initial colour combination to the server for the other client to guess and returns our initial colour combination we need to guess
-	private static ArrayList<Integer> sendInitial(ArrayList<String> combination) throws Exception
+	public static void sendInitial(ArrayList<Integer> combination) throws Exception
 	{
-		ArrayList<Integer> receivedMove = new ArrayList<Integer>();
-		try {
-			clientSocket = new Socket(serverIPAddress, serverPort);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		
 		// create message from given move
-		String message = new String("initial");
+		String message = new String("initial ");
 		for (int i = 0; i < combination.size(); i++)
 		{
 			if (i > 0)
@@ -72,7 +66,13 @@ public class Client {
 		// send message to server
 		DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
 		outToServer.writeBytes(message + '\n');
-		
+		System.out.println("sent: " + message + " to: " + clientSocket);
+	}
+	
+	public static ArrayList<Integer> receiveInitial() throws Exception
+	{
+		ArrayList<Integer> receivedMove = new ArrayList<Integer>();
+		System.out.println("waiting for initial answer...");
 		// wait for message from server containing our combination that we need to guess
 		BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 		String sentenceFromServer;
@@ -94,7 +94,7 @@ public class Client {
 	}
 	
 	//sends move to server and awaits opponent's move
-	private static ArrayList<Integer> makeMove(ArrayList<Integer> move) throws Exception
+	public static ArrayList<Integer> makeMove(ArrayList<Integer> move) throws Exception
 	{
 		ArrayList<Integer> receivedMove = new ArrayList<Integer>();
 		try {

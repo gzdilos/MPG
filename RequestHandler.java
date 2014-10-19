@@ -13,51 +13,34 @@ public class RequestHandler implements Runnable {
 	private final String doneSend = "wedone";
 	private ArrayList<Socket> clients;
 	private Socket connection;
-		
-	public RequestHandler(Socket connection, ArrayList<Socket> clients) throws Exception {
+	private ArrayList<String> otherClientMessages;
+	public RequestHandler(Socket connection, ArrayList<Socket> clients, ArrayList<String> opponentMessages) throws Exception {
 		this.connection = connection;
-		//this.s = s;
 		this.clients = clients;
+		this.otherClientMessages = opponentMessages;
 	}
 
 	@Override
 	public void run() {
+		Socket connectionSocket = connection;
 		//int serverPort = 25000; 
-	 
-
 		while (true){
 			try {	
-				Socket connectionSocket = connection;
-				System.out.println("connection from " + connection);	    
-				//add this connection to our list of clients if we haven't already
-				if (!clients.contains(connectionSocket))
-				{
-					clients.add(connectionSocket);
-					//if this is the second client we have added, we notify all connected clients that a match is ready to begin
-					if (clients.size() == 2)
-					{
-						System.out.println("got 2 clients, sending ready messages...");
-						for (int i = 0; i < 2; i++)
-						{
-							DataOutputStream outToClient = new DataOutputStream(clients.get(i).getOutputStream());
-							System.out.println("sending to: " + clients.get(i));
-							//the number after "ready" tells the client to go first or second
-							String readyMessage = new String("ready " + i);
-						}
-					}
-				}
-		    
 				// create read stream to get input
 				BufferedReader inFromClient = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
 				String clientSentence;
 				clientSentence = inFromClient.readLine();		    
-		  
+				System.out.println("handler received message: " + clientSentence);
 				// process input
 				if (clientSentence.startsWith("connect"))
 				{
+					System.out.println("got connect message, doing nothing...");
 					//do nothing, we just added the new client to our list of clients
 				}else if (clientSentence.startsWith("initial"))
 				{
+					otherClientMessages.add(clientSentence);
+					/*
+					System.out.println("received initial combination from: " + connectionSocket);
 					//if the message starts with 'initial', then we have received the set of colours that the other client needs to guess
 					//find the other client in our clients array
 					Socket sendTo;
@@ -71,14 +54,13 @@ public class RequestHandler implements Runnable {
 					//sending answer to the other client
 					DataOutputStream outToClient = new DataOutputStream(sendTo.getOutputStream());
 					outToClient.writeBytes(clientSentence);
+					System.out.println("relayed initial message to " + sendTo);
+					*/
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-		} // end of while (true)
-
-	} // end of main()
-
+		} 
+	}
 }
