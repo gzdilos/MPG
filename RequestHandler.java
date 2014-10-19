@@ -30,13 +30,11 @@ public class RequestHandler implements Runnable {
 				BufferedReader inFromClient = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
 				String clientSentence;
 				clientSentence = inFromClient.readLine();		    
-				System.out.println("handler received message: " + clientSentence);
 				// process input
 				if (clientSentence.startsWith("connect"))
 				{
-					System.out.println("got connect message, doing nothing...");
 					//do nothing, we just added the new client to our list of clients
-				}else if (clientSentence.startsWith("initial"))
+				}else //if (clientSentence.startsWith("initial"))
 				{
 					otherClientMessages.add(clientSentence);
 					/*

@@ -55,13 +55,14 @@ public class Server {
 			if (sendToP1.size() != 0)
 			{
 				DataOutputStream outToClient = new DataOutputStream(clients.get(0).getOutputStream());
-				outToClient.writeBytes(sendToP1.get(0));
+				outToClient.writeBytes(sendToP1.get(0) + '\n');
+				System.out.println("sent: " + sendToP1.get(0) + " to player 1...");
 				sendToP1.remove(0);
 			}
 			if (sendToP2.size() != 0)
 			{
 				DataOutputStream outToClient = new DataOutputStream(clients.get(1).getOutputStream());
-				outToClient.writeBytes(sendToP2.get(0));
+				outToClient.writeBytes(sendToP2.get(0) + '\n');
 				System.out.println("sent: " + sendToP2.get(0) + " to player 2...");
 				sendToP2.remove(0);
 			}

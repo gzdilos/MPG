@@ -94,15 +94,8 @@ public class Client {
 	}
 	
 	//sends move to server and awaits opponent's move
-	public static ArrayList<Integer> makeMove(ArrayList<Integer> move) throws Exception
+	public static void makeMove(ArrayList<Integer> move) throws Exception
 	{
-		ArrayList<Integer> receivedMove = new ArrayList<Integer>();
-		try {
-			clientSocket = new Socket(serverIPAddress, serverPort);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
 		// create message from given move
 		String message = new String();
 		for (int i = 0; i < move.size(); i++)
@@ -117,25 +110,27 @@ public class Client {
 		// send message to server
 		DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
 		outToServer.writeBytes(message + '\n');
-		
+		System.out.println("calling makeMove with: " + message);
+	}
+	
+	public static ArrayList<Integer> receiveMove() throws Exception
+	{
+		ArrayList<Integer> receivedMove = new ArrayList<Integer>();
 		// create read stream and receive from server
 		BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 		String sentenceFromServer;
 		sentenceFromServer = inFromServer.readLine();
 
 		// print output
-		System.out.println("From Server: " + sentenceFromServer);
-				
-		// close client socket
-		//clientSocket.close();
-
+		System.out.println("Client received move: " + sentenceFromServer);
+						
 		// extract info from received message and return in an array list
 		String[] messageInfo = sentenceFromServer.split(" ");
 		for (int j = 0; j < (messageInfo.length); j++)
 		{
 			receivedMove.add(Integer.parseInt(messageInfo[j]));
 		}
-		return receivedMove;
+		return receivedMove;		
 	}
 
 }
