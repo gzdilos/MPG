@@ -1,8 +1,17 @@
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 
-import javax.swing.*;  //notice javax
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.Timer;
 
 public class GUI extends JFrame{
 
@@ -72,6 +81,64 @@ public class GUI extends JFrame{
 	public void setGame(MasterMindGame s) {
 		mmg = s;
 	}
+	
+	public void createStartScreen() {
+		JPanel startPanel = new JPanel();
+		JPanel singlePanel = new JPanel();
+		JPanel aiPanel = new JPanel();
+		JPanel multiPanel = new JPanel();
+		JLabel startSingleLabel = new JLabel("Single Player");
+		JLabel startAILabel = new JLabel("Vs AI");
+		JLabel startMultiLabel = new JLabel("Multiplayer");
+		
+		//Single PLayer Buttons
+		JButton singleEasyButton = new JButton("Easy");
+//		singleEasyButton.setPreferredSize(new Dimension(50,50));
+		JButton singleMediumButton = new JButton("Medium");
+//		singleMediumButton.setPreferredSize(new Dimension(50,50));
+		JButton singleHardButton = new JButton("Hard");
+//		singleHardButton.setPreferredSize(new Dimension(50,50));
+		
+		//AI Buttons
+		JButton AIEasyButton = new JButton("Easy");
+		JButton AIMediumButton = new JButton("Medium");
+		JButton AIHardButton = new JButton("Hard");
+		//Multiplayer Button
+		JButton MultiButton = new JButton("New");
+		
+		startPanel.setLayout(new BorderLayout());
+		startPanel.setPreferredSize(new Dimension(400,400));
+			
+		
+		singlePanel.add(startSingleLabel);
+		singlePanel.add(singleEasyButton);
+		singlePanel.add(singleMediumButton);
+		singlePanel.add(singleHardButton);
+		
+		aiPanel.add(startAILabel);
+		aiPanel.add(AIEasyButton);
+		aiPanel.add(AIMediumButton);
+		aiPanel.add(AIHardButton);
+		
+		multiPanel.add(startMultiLabel);
+		multiPanel.add(MultiButton);
+		
+		startPanel.add(singlePanel, BorderLayout.NORTH);
+		startPanel.add(aiPanel, BorderLayout.CENTER);
+		startPanel.add(multiPanel, BorderLayout.SOUTH);
+		
+		JFrame startFrame = new JFrame("Mastermind");
+		startFrame.setPreferredSize(new Dimension(400,150));
+		startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+		startFrame.add(startPanel);
+		startFrame.pack();
+		startFrame.setResizable(true);
+		startFrame.setVisible(true);
+		
+		
+			
+	}	
+	
 	
 	//Creates the gui
 	public void createGUI() {
@@ -463,12 +530,15 @@ public class GUI extends JFrame{
 				//button.setText(hintAnswer);
 				if (hints.get(i) == 2) {
 					button.setBackground(Color.black);
+					button.setOpaque(true);
 					button.setToolTipText("This means one of your colours is correct and in the correct position!");
 				} else if (hints.get(i) == 1) {
 					button.setBackground(Color.white);
+					button.setOpaque(true);
 					button.setToolTipText("This means one of your colours is correct and in the wrong position!");
 				} else {
 					button.setBackground(Color.gray);
+					button.setOpaque(true);
 					button.setToolTipText("This means one of your colours is not correct and not in the correct position!");
 
 				}
@@ -581,12 +651,15 @@ public class GUI extends JFrame{
 				System.out.println(arrayList.get(i));
 				if (arrayList.get(i) == 2) {
 					button.setBackground(Color.black);
+					button.setOpaque(true);
 					button.setToolTipText("This means one of your colours is correct and in the correct position!");
 				} else if (arrayList.get(i) == 1) {
 					button.setBackground(Color.white);
+					button.setOpaque(true);
 					button.setToolTipText("This means one of your colours is correct and in the wrong position!");
 				} else {
 					button.setBackground(Color.gray);
+					button.setOpaque(true);
 					button.setToolTipText("This means one of your colours is not correct and not in the correct position!");
 
 				}

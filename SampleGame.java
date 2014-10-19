@@ -66,11 +66,13 @@ public class SampleGame {
 			
 			gui.setAI(ai);
 			//Gui gui = new Gui();
-			//gui.createStartScreen();
+			//CREATE START SCREEN GUI FIRST
+			gui.createStartScreen();
 			//gui.showStartScreen();
 			
 			//Create the gui
-			gui.createGUI();
+			//CREATE GUI FROM START SCREEN OPTIONS
+			//gui.createGUI();
 			
 			
 			//System.out.println("Solution is");
