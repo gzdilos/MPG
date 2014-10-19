@@ -40,7 +40,8 @@ public class GUI extends JFrame{
 	//Mastermind game
 	private MasterMindGame mmg;
 
-	//private JFrame startScreen;
+	//Start screen
+	private JFrame startScreen;
 	
 	//Input
 	private Integer inputToUse = -1;
@@ -91,6 +92,7 @@ public class GUI extends JFrame{
 		JLabel startAILabel = new JLabel("Vs AI");
 		JLabel startMultiLabel = new JLabel("Multiplayer");
 		
+		StartScreenHandler startListener = new StartScreenHandler(this);
 		//Single PLayer Buttons
 		JButton singleEasyButton = new JButton("Easy");
 //		singleEasyButton.setPreferredSize(new Dimension(50,50));
@@ -101,6 +103,8 @@ public class GUI extends JFrame{
 		
 		//AI Buttons
 		JButton AIEasyButton = new JButton("Easy");
+		AIEasyButton.setName("Easy");
+		AIEasyButton.addActionListener(startListener);
 		JButton AIMediumButton = new JButton("Medium");
 		JButton AIHardButton = new JButton("Hard");
 		//Multiplayer Button
@@ -127,13 +131,13 @@ public class GUI extends JFrame{
 		startPanel.add(aiPanel, BorderLayout.CENTER);
 		startPanel.add(multiPanel, BorderLayout.SOUTH);
 		
-		JFrame startFrame = new JFrame("Mastermind");
-		startFrame.setPreferredSize(new Dimension(400,150));
-		startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
-		startFrame.add(startPanel);
-		startFrame.pack();
-		startFrame.setResizable(true);
-		startFrame.setVisible(true);
+		startScreen = new JFrame("Mastermind");
+		startScreen.setPreferredSize(new Dimension(400,150));
+		startScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+		startScreen.add(startPanel);
+		startScreen.pack();
+		startScreen.setResizable(true);
+		startScreen.setVisible(true);
 		
 		
 			
@@ -768,6 +772,12 @@ public class GUI extends JFrame{
 		} else {
 			t.restart();
 		}
+	}
+
+	//HIdes start screen
+	public void hideStart() {
+		// TODO Auto-generated method stub
+		startScreen.setVisible(false);
 	}
 
 }

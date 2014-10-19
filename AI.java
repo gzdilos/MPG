@@ -344,6 +344,7 @@ public class AI {
 				//Stop guessing?
 				j = guessAmt;
 			}
+			System.out.println("j is " + j);	
 			j++;
 		}
 	}
