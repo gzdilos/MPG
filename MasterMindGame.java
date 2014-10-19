@@ -453,7 +453,7 @@ public class MasterMindGame {
 			//Check if the guess is the right colour AND position. Then modify the guess so we do not mess things up.
 			//This time, we store the guess and answer in temporary array lists and remove the element when we come across it, so it will give false results from duplicates.
 			if(theGuess.get(iterator)== finalSolution.get(iterator)){
-				guesses[currGuess][iterator + solutionSize] = 2;
+				guesses[currGuess][tempAns.size()-1 + solutionSize] = 2;
 				tempAns.remove(iterator);
 				tempGuess.remove(iterator);
 //				retGuess.add(2);

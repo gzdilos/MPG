@@ -7,7 +7,6 @@ public class Server {
 	private static ArrayList<Socket> clients;
 	private static ArrayList<String> sendToP1;
 	private static ArrayList<String> sendToP2;
-	//private static int count = 1;
 	public static void main(String[] args)throws Exception {
 		clients = new ArrayList<Socket>();
 		sendToP1 = new ArrayList<String>();
@@ -16,7 +15,8 @@ public class Server {
 		ServerSocket welcomeSocket = new ServerSocket(25000);
 		System.out.println("The server is listening on: " + welcomeSocket);
 
-		while (clients.size() != 2) {
+		while (clients.size() != 2) 
+		{
 			//System.out.println("Accepting connections");
 			// accept connection from connection queue
 			Socket connectionSocket = welcomeSocket.accept();
