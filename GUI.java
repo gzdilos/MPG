@@ -70,6 +70,9 @@ public class GUI extends JFrame{
 	//Global timer
 	Timer t;
 	
+	//StartScreen frame
+	private JFrame startFrame;
+	
 	//Constructor for GUI
 	public GUI() {
 		//mmg = game;
@@ -785,5 +788,10 @@ public class GUI extends JFrame{
 			t.restart();
 		}
 	}
-
+	
+	//HIdes start screen
+	public void hideStart() {
+	// TODO Auto-generated method stub
+		startFrame.setVisible(false);
+	}
 }

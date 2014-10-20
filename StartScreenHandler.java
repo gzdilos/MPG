@@ -2,7 +2,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
 import javax.swing.JRadioButton;
 
 public class StartScreenHandler implements ActionListener{
@@ -47,16 +46,19 @@ public class StartScreenHandler implements ActionListener{
 			if (event.getActionCommand() == "newSE") {
 				MasterMindGame s = new MasterMindGame(sampleTest, EASY_GUESSES, useDuplicate);
 				gui.setGame(s);
+				gui.hideStart();
 				gui.createGUI();
 			}
 			if (event.getActionCommand() == "newSM") {
 				MasterMindGame s = new MasterMindGame(sampleTest, MEDIUM_GUESSES, useDuplicate);
 				gui.setGame(s);
+				gui.hideStart();
 				gui.createGUI();
 			}
 			if (event.getActionCommand() == "newSH") {
 				MasterMindGame s = new MasterMindGame(sampleTest, HARD_GUESSES, useDuplicate);
 				gui.setGame(s);
+				gui.hideStart();
 				gui.createGUI();
 			}
 			if (event.getActionCommand() == "newAIE") {
@@ -66,6 +68,7 @@ public class StartScreenHandler implements ActionListener{
 				AI ai = new AI(s2,0);
 				ai.playGame();
 				gui.setAI(ai);
+				gui.hideStart();
 				gui.createGUI();
 			}
 			if (event.getActionCommand() == "newAIM") {
@@ -75,6 +78,7 @@ public class StartScreenHandler implements ActionListener{
 				AI ai = new AI(s2,0);
 				ai.playGame();
 				gui.setAI(ai);
+				gui.hideStart();
 				gui.createGUI();
 			}
 			if (event.getActionCommand() == "newAIH") {
@@ -84,9 +88,11 @@ public class StartScreenHandler implements ActionListener{
 				AI ai = new AI(s2,0);
 				ai.playGame();
 				gui.setAI(ai);
+				gui.hideStart();
 				gui.createGUI();
 			}
 			if (event.getActionCommand() == "newMulti") {
+				gui.hideStart();
 				gui.createGUI();
 			}
 			
