@@ -124,13 +124,11 @@ public class GUI extends JFrame{
 		JButton MultiButton = new JButton("New");
 		MultiButton.setActionCommand("multi");
 		MultiButton.addActionListener(ssHandler);
-		JRadioButton duplicateToggle = new JRadioButton("Allow Duplicates:(do not click)");
+		JRadioButton duplicateToggle = new JRadioButton("Allow Duplicates");
 		duplicateToggle.addActionListener(ssHandler);
 		
-		startPanel.setLayout(new BorderLayout());
-		startPanel.setPreferredSize(new Dimension(400,400));
+		startPanel.setLayout(new GridLayout(3,0));
 			
-		
 		singlePanel.add(startSingleLabel);
 		singlePanel.add(singleEasyButton);
 		singlePanel.add(singleMediumButton);
@@ -145,9 +143,9 @@ public class GUI extends JFrame{
 		multiPanel.add(MultiButton);
 		multiPanel.add(duplicateToggle);
 		
-		startPanel.add(singlePanel, BorderLayout.NORTH);
-		startPanel.add(aiPanel, BorderLayout.CENTER);
-		startPanel.add(multiPanel, BorderLayout.SOUTH);
+		startPanel.add(singlePanel);
+		startPanel.add(aiPanel);
+		startPanel.add(multiPanel);
 		
 		JFrame startFrame = new JFrame("Mastermind");
 		startFrame.setPreferredSize(new Dimension(400,150));
