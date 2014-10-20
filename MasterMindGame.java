@@ -367,13 +367,18 @@ public class MasterMindGame {
 		
 	//Resets the game
 	public void resetGame() {
+		//Generate a random puzzle
 		generatePuzzle();
+		
+		//Set cur guess back to 0
 		currGuess = 0;
+		
+		//Reset the hints
 		guesses = new int[guessAmt][solutionSize*2];
 		//Used my AI to cheat
 		AIGuesses = new int[guessAmt][solutionSize*2];
-		colourList = new ArrayList<String>();
-		//addColours();
+		
+		//Reset the guesses
 		theGuess = new ArrayList<Integer>();
 		pos = new ArrayList<Integer>();
 	}
@@ -388,17 +393,24 @@ public class MasterMindGame {
 	    while (i != 4) {
 	    	int randomInt = randomGenerator.nextInt(6);
 	      
-	    	//Tries to choose a different colour each time
-	    	if (containsColour(randomInt, sampleTest)) {
-	    		i--;
-	    	} else {
+	    	if (isDuplicate) {
 	    		sampleTest.add(randomInt);
+	    	} else {
+		    	//Tries to choose a different colour each time
+		    	if (containsColour(randomInt, sampleTest)) {
+		    		i--;
+		    	} else {
+		    		sampleTest.add(randomInt);
+		    	}
 	    	}
-	      
 	    	i++;
+	    	
 	    }
 	    
+	    //Assign the final solution to a randomly generated puzzle
 	    finalSolution = sampleTest;
+	    
+	    //Solution size is the same
 	}
 	
 	//Check if a colour is contained in the arraylist

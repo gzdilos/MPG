@@ -2,6 +2,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 
@@ -37,6 +38,9 @@ public class GUI extends JFrame{
 	//Hold the p2 buttons
 	private JPanel p2gameButtonGrid;
 	
+	//Panel for player 2
+	private JPanel p2Panel;
+	
 	//Mastermind game
 	private MasterMindGame mmg;
 
@@ -57,6 +61,9 @@ public class GUI extends JFrame{
 	
 	//Show that the board is not used
 	private JLabel player2;
+	
+	//Show how many players
+	private int player;
 
 	//AI
 	private AI ai;
@@ -85,6 +92,11 @@ public class GUI extends JFrame{
 		mmg = s;
 	}
 	
+	//Set single player
+	public void setNumPlayer(int num) {
+		player = num;
+	}
+	
 	public void createStartScreen() {
 		JPanel startPanel = new JPanel();
 		JPanel singlePanel = new JPanel();
@@ -95,7 +107,7 @@ public class GUI extends JFrame{
 		JLabel startMultiLabel = new JLabel("Multiplayer");
 		
 		//Action Listener for start screen
-		StartScreenHandler ssHandler = new StartScreenHandler(mmg, this);
+		StartScreenHandler ssHandler = new StartScreenHandler(this);
 		
 		//Single PLayer Buttons
 		JButton singleEasyButton = new JButton("Easy");
@@ -147,7 +159,7 @@ public class GUI extends JFrame{
 		startPanel.add(aiPanel);
 		startPanel.add(multiPanel);
 		
-		JFrame startFrame = new JFrame("Mastermind");
+		startFrame = new JFrame("Mastermind");
 		startFrame.setPreferredSize(new Dimension(400,150));
 		startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		startFrame.add(startPanel);
@@ -207,7 +219,7 @@ public class GUI extends JFrame{
 			i++;
 			
 			//Lock buttons above the guess row
-			if (i < 30) {
+			if (i < (mmg.getMaxGuessAmt() * 4 - 2)) {
 				button.setEnabled(false);
 			}
 			
@@ -230,9 +242,32 @@ public class GUI extends JFrame{
 		title.setForeground(Color.black);
 		JLabel input = new JLabel("None");
 		input.setForeground(Color.black);		
-		inputLabel.add(title, BorderLayout.NORTH);		
-		inputLabel.add(input, BorderLayout.SOUTH);		
+		
 		this.inputIndicator = input;
+		
+		//Make timer
+		//creating label to indicate selected input	
+		JPanel timerPanel = new JPanel();	
+		JLabel timerLabel = new JLabel("Time is: ");	
+		timerLabel.setForeground(Color.black);
+		inputTimer = new JLabel("0 sec passed");
+				
+		//Only instantiate timer once
+		if (timerSet == false) {
+			setupTimer();
+			timerSet = true;
+		} else {
+			resetTimer();
+		}
+				
+		timerLabel.setForeground(Color.black);		
+		timerPanel.add(timerLabel, BorderLayout.NORTH);		
+		timerPanel.add(inputTimer, BorderLayout.SOUTH);	
+		
+		//Add all the stuff onto the input label
+		inputLabel.add(title, BorderLayout.NORTH);		
+		inputLabel.add(input, BorderLayout.SOUTH);	
+		inputLabel.add(timerPanel, BorderLayout.EAST);
 		
 		//Making the input grid
 		JPanel inputGrid = new JPanel();
@@ -308,7 +343,10 @@ public class GUI extends JFrame{
 		inputPanel.setLayout(new BorderLayout());		
 		inputPanel.add(inputLabel, BorderLayout.NORTH);	
 		inputPanel.add(inputGrid, BorderLayout.CENTER);
-			
+		
+		//Move timer here 
+		
+		
 		//making miscellaneous buttons		
 		JPanel miscButtons	= new JPanel();	
 		MiscHandler miscButtonHandler = null;
@@ -347,22 +385,24 @@ public class GUI extends JFrame{
 		//miscButtons.setPreferredSize(new Dimension(230, 150));
 		
 		//creating label to indicate selected input	
-		JPanel timerPanel = new JPanel();	
-		JLabel timerLabel = new JLabel("Time is: ");	
-		timerLabel.setForeground(Color.black);
-		inputTimer = new JLabel("0 sec passed");
+		JPanel player1Panel = new JPanel();	
+		JLabel playerLabel = new JLabel("Player 1");	
+		playerLabel.setForeground(Color.black);
+		player1Panel.setLayout(new FlowLayout());
+		player1Panel.add(playerLabel);
+		//inputTimer = new JLabel("0 sec passed");
 		
 		//Only instantiate timer once
-		if (timerSet == false) {
-			setupTimer();
-			timerSet = true;
-		} else {
-			resetTimer();
-		}
+//		//if (timerSet == false) {
+//		//	setupTimer();
+//			timerSet = true;
+//		} else {
+//			resetTimer();
+//		}
 		
-		timerLabel.setForeground(Color.black);		
-		timerPanel.add(timerLabel, BorderLayout.NORTH);		
-		timerPanel.add(inputTimer, BorderLayout.SOUTH);		
+//		timerLabel.setForeground(Color.black);		
+//		timerPanel.add(timerLabel, BorderLayout.NORTH);		
+//		timerPanel.add(inputTimer, BorderLayout.SOUTH);		
 				
 		//initializing the final frame
 		JPanel finalFrame = new JPanel();
@@ -377,55 +417,75 @@ public class GUI extends JFrame{
 		finalFrame.add(inputPanel, BorderLayout.SOUTH);
 		finalFrame.add(hintPanel, BorderLayout.EAST);
 		finalFrame.add(miscButtons, BorderLayout.WEST);
-		finalFrame.add(timerPanel, BorderLayout.NORTH);
+		finalFrame.add(player1Panel, BorderLayout.NORTH);
 		finalFrame.setSize(700,700);	
 		
-		//creating label to waste space
-		JPanel player2Panel = new JPanel();	
-		JLabel name = new JLabel("Player");	
-		name.setForeground(Color.black);
-		JLabel label = new JLabel("2");
-		label.setForeground(Color.black);		
-		player2Panel.add(name, BorderLayout.NORTH);		
-		player2Panel.add(label, BorderLayout.SOUTH);		
-				
-		//Create a space waster
-		JPanel temp = new JPanel();
-		JLabel t1 = new JLabel();
-		temp.add(t1, BorderLayout.CENTER);
-		temp.setPreferredSize(new Dimension(200, 230));
+		//Creating label to waste space
+		//Only created if more than 1 player
+		if (player == 2) {
+			JPanel player2Panel = new JPanel();	
+			JLabel name = new JLabel("Player");	
+			name.setForeground(Color.black);
+			JLabel label = new JLabel("2");
+			label.setForeground(Color.black);		
+			player2Panel.add(name, BorderLayout.NORTH);		
+			player2Panel.add(label, BorderLayout.SOUTH);
+			
+			//Create a space waster
+			JPanel temp = new JPanel();
+			JLabel t1 = new JLabel();
+			temp.add(t1, BorderLayout.CENTER);
+			temp.setPreferredSize(new Dimension(200, 230));
+			
+			JPanel temp2 = new JPanel();
+			JLabel t2 = new JLabel();
+			temp2.add(t2, BorderLayout.CENTER);
+			temp2.setLayout(new GridLayout(3, 3));
+			temp2.setPreferredSize(new Dimension(50, 200));
+			
+			//initialize player 2 frame
+			p2Panel = new JPanel();
+			initialisep2Grid();
+			p2gameButtonGrid.setOpaque(false);
+			p2hintPanel.setOpaque(false);
+			player2Panel.setOpaque(false);
+			temp.setOpaque(false);
+			temp2.setOpaque(false);
+			p2Panel.setLayout(new BorderLayout());
+			
+			//Add to frame
+			p2Panel.add(p2gameButtonGrid, BorderLayout.CENTER);
+			p2Panel.add(p2hintPanel, BorderLayout.EAST);
+			p2Panel.add(player2Panel, BorderLayout.NORTH);
+			p2Panel.add(temp, BorderLayout.SOUTH);
+			p2Panel.add(temp2, BorderLayout.WEST);
+			p2Panel.setSize(700,700);	
+		}
 		
-		JPanel temp2 = new JPanel();
-		JLabel t2 = new JLabel();
-		temp2.add(t2, BorderLayout.CENTER);
-		temp2.setLayout(new GridLayout(3, 3));
-		temp2.setPreferredSize(new Dimension(50, 200));
+		//Title for game
+		JPanel titlePanel = new JPanel();
+		JLabel titleOfGame = new JLabel();
+		titleOfGame.setText("Mastermind - The Game of Colours");
+		titleOfGame.setFont(new Font("TimesRoman", Font.BOLD, 28));
+		titlePanel.setLayout(new FlowLayout());
+		titlePanel.add(titleOfGame);
 		
-		//initialize player 2 frame
-		JPanel p2Panel = new JPanel();
-		initialisep2Grid();
-		p2gameButtonGrid.setOpaque(false);
-		p2hintPanel.setOpaque(false);
-		player2Panel.setOpaque(false);
-		temp.setOpaque(false);
-		temp2.setOpaque(false);
-		p2Panel.setLayout(new BorderLayout());
-		
-		//Add to frame
-		p2Panel.add(p2gameButtonGrid, BorderLayout.CENTER);
-		p2Panel.add(p2hintPanel, BorderLayout.EAST);
-		p2Panel.add(player2Panel, BorderLayout.NORTH);
-		p2Panel.add(temp, BorderLayout.SOUTH);
-		p2Panel.add(temp2, BorderLayout.WEST);
-		p2Panel.setSize(700,700);	
-		
+		//Final frame
 		JFrame mastermindFrame = new JFrame("Mastermind");
 		mastermindFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		mastermindFrame.setLayout(new BorderLayout());
-		mastermindFrame.add(finalFrame, BorderLayout.WEST);
-		mastermindFrame.add(p2Panel, BorderLayout.CENTER);
+		
+		if (player == 2) {
+			mastermindFrame.add(finalFrame, BorderLayout.WEST);
+			mastermindFrame.add(p2Panel, BorderLayout.CENTER);
+		} else {
+			mastermindFrame.add(finalFrame, BorderLayout.CENTER);
+		}
+		
+		mastermindFrame.add(titlePanel, BorderLayout.NORTH);
 		mastermindFrame.pack();
 		mastermindFrame.setResizable(true);
+		mastermindFrame.setBackground(Color.orange);
 		this.gameGrid = mastermindFrame;
 		
 		//Make the grid for mastermind
@@ -787,9 +847,8 @@ public class GUI extends JFrame{
 		}
 	}
 	
-	//HIdes start screen
+	//Hides start screen
 	public void hideStart() {
-	// TODO Auto-generated method stub
 		startFrame.setVisible(false);
 	}
 }

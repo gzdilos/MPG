@@ -39,13 +39,79 @@ public class AI {
 			playMediumGame();
 		} else if (difficulty == HARD) {
 			playHardGame();
+			//playMediumGame();
 		}
 	}
 
 	//Plays like a god
 	private void playHardGame() {
-		// TODO Auto-generated method stub
+		//Get solution
+		ArrayList<Integer> sol = g.getSolution();
 		
+		//Store guess
+		ArrayList<Integer> temp = new ArrayList<Integer>();
+		
+		boolean gotAnswer = false;
+		
+		int i = 0;
+			
+		while (i != 4 && !gotAnswer) {
+				
+			int l = 0;
+				
+			//Add elements from solution
+			while (l != (i + 1)) {
+				temp.add(sol.get(l));
+				l++;
+			}
+				
+			//Generate num of random values to go with it
+			temp = generateCol(temp, 3 - i);
+				
+			//Add guesses to memory
+			allGuesses.add(temp);
+				
+			//Add guess to puzzle to guess
+			int k = 0;
+				
+			while (k != 4) {
+				g.addToEndGuess(temp.get(k));
+				k++;
+			}
+			
+			//Make a guess
+			gotAnswer = g.guessCheck();
+			
+			//Get the hints
+			ArrayList<Integer> hint = g.guessRes();
+			allHints.add(hint);
+			
+			//Clear the guess
+			temp = new ArrayList<Integer>();
+			i++;
+		}
+
+	}
+
+	//Generates num number of values to add to the arraylist
+	private ArrayList<Integer> generateCol(ArrayList<Integer> temp, int num) {
+		ArrayList<Integer> answer = new ArrayList<Integer>();
+		
+		answer = temp;
+		
+		Random randomGenerator = new Random();
+		
+		int i = 0;
+		
+	    while (i != num) {
+	    	int randomInt = randomGenerator.nextInt(6);
+	      
+	    	answer.add(randomInt);
+	      
+	    	i++;
+	    }
+		
+		return answer;
 	}
 
 	//Get one move of AI
