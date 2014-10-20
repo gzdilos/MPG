@@ -55,16 +55,16 @@ public class SampleGame {
 			//Easy = 10 guesses
 			//Medium = 8 guesses
 			//Hard = 6 guesses
-			MasterMindGame s = new MasterMindGame(sampleTest, guessNum, useDuplicate);
-			MasterMindGame s2 = new MasterMindGame(sampleTest, guessNum, useDuplicate);
+//			MasterMindGame s = new MasterMindGame(sampleTest, guessNum, useDuplicate);
+//			MasterMindGame s2 = new MasterMindGame(sampleTest, guessNum, useDuplicate);
 			
-			gui.setGame(s);
+//			gui.setGame(s);
+
+			//Set AI as easy			
+//			AI ai = new AI(s2, 0);
+//			ai.playGame();
 			
-			//Set AI as easy
-			AI ai = new AI(s2, 0);
-			ai.playGame();
-			
-			gui.setAI(ai);
+//			gui.setAI(ai);
 			//Gui gui = new Gui();
 			//CREATE START SCREEN GUI FIRST
 			gui.createStartScreen();

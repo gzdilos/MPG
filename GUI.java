@@ -5,12 +5,12 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.Timer;
 
 public class GUI extends JFrame{
@@ -40,8 +40,7 @@ public class GUI extends JFrame{
 	//Mastermind game
 	private MasterMindGame mmg;
 
-	//Start screen
-	private JFrame startScreen;
+	//private JFrame startScreen;
 	
 	//Input
 	private Integer inputToUse = -1;
@@ -92,23 +91,38 @@ public class GUI extends JFrame{
 		JLabel startAILabel = new JLabel("Vs AI");
 		JLabel startMultiLabel = new JLabel("Multiplayer");
 		
-		StartScreenHandler startListener = new StartScreenHandler(this);
+		//Action Listener for start screen
+		StartScreenHandler ssHandler = new StartScreenHandler(mmg, this);
+		
 		//Single PLayer Buttons
 		JButton singleEasyButton = new JButton("Easy");
-//		singleEasyButton.setPreferredSize(new Dimension(50,50));
+		singleEasyButton.addActionListener(ssHandler);
+		singleEasyButton.setActionCommand("newSE");
+		
 		JButton singleMediumButton = new JButton("Medium");
-//		singleMediumButton.setPreferredSize(new Dimension(50,50));
+		singleMediumButton.addActionListener(ssHandler);
+		singleMediumButton.setActionCommand("newSM");
 		JButton singleHardButton = new JButton("Hard");
-//		singleHardButton.setPreferredSize(new Dimension(50,50));
+		singleHardButton.addActionListener(ssHandler);
+		singleHardButton.setActionCommand("newSH");
 		
 		//AI Buttons
 		JButton AIEasyButton = new JButton("Easy");
-		AIEasyButton.setName("Easy");
-		AIEasyButton.addActionListener(startListener);
+		AIEasyButton.addActionListener(ssHandler);
+		AIEasyButton.setActionCommand("newAIE");
 		JButton AIMediumButton = new JButton("Medium");
+		AIMediumButton.addActionListener(ssHandler);
+		AIMediumButton.setActionCommand("newAIM");
 		JButton AIHardButton = new JButton("Hard");
+		AIHardButton.addActionListener(ssHandler);
+		AIHardButton.setActionCommand("newAIH");
+		
 		//Multiplayer Button
 		JButton MultiButton = new JButton("New");
+		MultiButton.setActionCommand("multi");
+		MultiButton.addActionListener(ssHandler);
+		JRadioButton duplicateToggle = new JRadioButton("Allow Duplicates:(do not click)");
+		duplicateToggle.addActionListener(ssHandler);
 		
 		startPanel.setLayout(new BorderLayout());
 		startPanel.setPreferredSize(new Dimension(400,400));
@@ -126,23 +140,21 @@ public class GUI extends JFrame{
 		
 		multiPanel.add(startMultiLabel);
 		multiPanel.add(MultiButton);
+		multiPanel.add(duplicateToggle);
 		
 		startPanel.add(singlePanel, BorderLayout.NORTH);
 		startPanel.add(aiPanel, BorderLayout.CENTER);
 		startPanel.add(multiPanel, BorderLayout.SOUTH);
 		
-		startScreen = new JFrame("Mastermind");
-		startScreen.setPreferredSize(new Dimension(400,150));
-		startScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
-		startScreen.add(startPanel);
-		startScreen.pack();
-		startScreen.setResizable(true);
-		startScreen.setVisible(true);
-		
-		
+		JFrame startFrame = new JFrame("Mastermind");
+		startFrame.setPreferredSize(new Dimension(400,150));
+		startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+		startFrame.add(startPanel);
+		startFrame.pack();
+		startFrame.setResizable(true);
+		startFrame.setVisible(true);
 			
 	}	
-	
 	
 	//Creates the gui
 	public void createGUI() {
@@ -772,12 +784,6 @@ public class GUI extends JFrame{
 		} else {
 			t.restart();
 		}
-	}
-
-	//HIdes start screen
-	public void hideStart() {
-		// TODO Auto-generated method stub
-		startScreen.setVisible(false);
 	}
 
 }
