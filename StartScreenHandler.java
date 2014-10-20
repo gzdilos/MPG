@@ -18,6 +18,9 @@ public class StartScreenHandler implements ActionListener{
 	private final int EASY_GUESSES = 10;
 	private final int MEDIUM_GUESSES = 8;
 	private final int HARD_GUESSES = 6;
+	
+	private boolean useDuplicate;
+	
 	ArrayList<Integer> sampleTest = new ArrayList<Integer>();
 	
 	public StartScreenHandler(GUI gui) {
@@ -27,7 +30,7 @@ public class StartScreenHandler implements ActionListener{
 	public void actionPerformed(ActionEvent event) 
 	{
 		JRadioButton toggleEvent = new JRadioButton();
-		boolean useDuplicate = false;
+		//boolean useDuplicate = false;
 		
 		//Sample solution
 		sampleTest.add(BLACK);
@@ -37,7 +40,7 @@ public class StartScreenHandler implements ActionListener{
 		
 		Object source = event.getSource();
 		
-		if(source.getClass().isInstance(toggleEvent)) {
+		if (source.getClass().isInstance(toggleEvent)) {
 			toggleEvent = (JRadioButton) event.getSource();
 			useDuplicate = toggleEvent.isSelected();
 			System.out.println("Duplicates Selected:" + useDuplicate);
@@ -45,6 +48,7 @@ public class StartScreenHandler implements ActionListener{
 			//New single player easy game
 			if (event.getActionCommand() == "newSE") {
 				MasterMindGame s = new MasterMindGame(sampleTest, EASY_GUESSES, useDuplicate);
+				//System.out.println("Duplicates Selected:" + useDuplicate);
 				this.gui.setGame(s);
 				this.gui.setNumPlayer(1);
 				//gui.createGUI();
@@ -102,6 +106,7 @@ public class StartScreenHandler implements ActionListener{
 				//gui.createGUI();
 			}
 			
+			//Multi player game
 			if (event.getActionCommand() == "newMulti") {
 				this.gui.setNumPlayer(2);
 			}

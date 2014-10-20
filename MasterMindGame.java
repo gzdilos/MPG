@@ -87,8 +87,10 @@ public class MasterMindGame {
 		//Check if solved by assuming it is solved and then disproving.
 		boolean solved = true;
 		
-		if (!isDuplicate) {
-			
+		if (isDuplicate) {
+			solved = guessCheckDup();
+		} else {
+				
 			//Check for invalid guesses.
 			//Probably should restrict user to the amount required
 			if (theGuess.size() != solutionSize) {
@@ -133,8 +135,6 @@ public class MasterMindGame {
 				currGuess++;
 				clearGuess();
 			}
-		} else {
-			solved = guessCheckDup();
 		}
 		
 		return solved;
