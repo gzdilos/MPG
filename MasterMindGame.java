@@ -465,7 +465,7 @@ public class MasterMindGame {
 			//Check if the guess is the right colour AND position. Then modify the guess so we do not mess things up.
 			//This time, we store the guess and answer in temporary array lists and remove the element when we come across it, so it will give false results from duplicates.
 			if(theGuess.get(iterator)== finalSolution.get(iterator)){
-				guesses[currGuess][tempAns.size()-1 + solutionSize] = 2;
+				guesses[currGuess][iterator + solutionSize] = 2;
 				tempAns.remove(iterator);
 				tempGuess.remove(iterator);
 //				retGuess.add(2);
@@ -483,6 +483,8 @@ public class MasterMindGame {
 	 
 		iterator = tempGuess.size() - 1;
 		int iterator2 = tempAns.size() -1;
+		int iterator3 = tempAns.size()-1;
+		
 		
 		while (iterator != -1) {
 	 
@@ -490,7 +492,12 @@ public class MasterMindGame {
 			while (iterator2 != -1 && loopBreak == false) {
 		
 				if (tempAns.get(iterator2) == tempGuess.get(iterator)) {
-					guesses[currGuess][iterator + solutionSize] = 1;
+					
+					//We don't care where the ones are, so we put them where we can.
+					while (guesses[currGuess][iterator3 + solutionSize] != 0 && iterator3 != -1){
+						 iterator3 --;
+					}
+					guesses[currGuess][iterator3 + solutionSize] = 1;
 					tempGuess.remove(iterator);
 					tempAns.remove(iterator2);
 					loopBreak = true;
