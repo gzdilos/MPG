@@ -48,6 +48,11 @@ public class MasterMindGame {
 		isDuplicate = useDuplicate;
 	}
 	
+	//Change duplicate required for medium AI
+	public void setDuplicateTrue() {
+		isDuplicate = true;
+	}
+	
 	//Generate a random game
 	private void generateRandomGame() {
 		finalSolution = new ArrayList<Integer>();
@@ -211,24 +216,28 @@ public class MasterMindGame {
 	}
 
 
-	private void printArray(ArrayList<Integer> theGuess2) {
+	private void printArray(ArrayList<Integer> theGuess2, boolean useInt) {
 		int i = 0;
 		
 		while (i != theGuess2.size()) {
 			int colour = theGuess2.get(i);
 			
-			if (colour == RED) {
-				System.out.print("red ");
-			} else if (colour == BLUE) {
-				System.out.print("blue ");
-			} else if (colour == GREEN) {
-				System.out.print("green ");
-			} else if (colour == YELLOW) {
-				System.out.print("yellow ");
-			} else if (colour == BLACK) {
-				System.out.print("black ");
-			} else if (colour == WHITE) {
-				System.out.print("white ");
+			if (useInt) {
+				System.out.print(colour + " ");
+			} else {
+				if (colour == RED) {
+					System.out.print("red ");
+				} else if (colour == BLUE) {
+					System.out.print("blue ");
+				} else if (colour == GREEN) {
+					System.out.print("green ");
+				} else if (colour == YELLOW) {
+					System.out.print("yellow ");
+				} else if (colour == BLACK) {
+					System.out.print("black ");
+				} else if (colour == WHITE) {
+					System.out.print("white ");
+				}
 			}
 			i++;
 		}
@@ -440,6 +449,7 @@ public class MasterMindGame {
 		}
 		
 		if(currGuess == guessAmt) {
+			System.out.println("Out of guesses bro!");
 			return false;
 		}
 		
@@ -453,6 +463,7 @@ public class MasterMindGame {
 		while(iterator != solutionSize){
 			//Set the guessed values, assume 0 is not a choosable colour.
 			guesses[currGuess][iterator] = theGuess.get(iterator);
+			AIGuesses[currGuess][iterator] = theGuess.get(iterator);
 			tempAns.add(finalSolution.get(iterator));
 			tempGuess.add(theGuess.get(iterator));
 			iterator++;
@@ -466,6 +477,7 @@ public class MasterMindGame {
 			//This time, we store the guess and answer in temporary array lists and remove the element when we come across it, so it will give false results from duplicates.
 			if(theGuess.get(iterator)== finalSolution.get(iterator)){
 				guesses[currGuess][iterator + solutionSize] = 2;
+				AIGuesses[currGuess][iterator + solutionSize] = 2;
 				tempAns.remove(iterator);
 				tempGuess.remove(iterator);
 //				retGuess.add(2);
@@ -484,7 +496,7 @@ public class MasterMindGame {
 		iterator = tempGuess.size() - 1;
 		int iterator2 = tempAns.size() -1;
 		int iterator3 = tempAns.size()-1;
-		
+		int iterator4 = tempAns.size()-1;
 		
 		while (iterator != -1) {
 	 
@@ -495,9 +507,15 @@ public class MasterMindGame {
 					
 					//We don't care where the ones are, so we put them where we can.
 					while (guesses[currGuess][iterator3 + solutionSize] != 0 && iterator3 != -1){
-						 iterator3 --;
+						 iterator3--;
+					}
+					
+					//We don't care where the ones are, so we put them where we can.
+					while (AIGuesses[currGuess][iterator4 + solutionSize] != 0 && iterator4 != -1){
+						 iterator4--;
 					}
 					guesses[currGuess][iterator3 + solutionSize] = 1;
+					AIGuesses[currGuess][iterator4 + solutionSize] = 1;
 					tempGuess.remove(iterator);
 					tempAns.remove(iterator2);
 					loopBreak = true;

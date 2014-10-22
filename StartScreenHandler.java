@@ -31,8 +31,11 @@ public class StartScreenHandler implements ActionListener{
 	public void actionPerformed(ActionEvent event) 
 	{
 		JRadioButton toggleEvent = new JRadioButton();
+		
 		JButton sourceButton = (JButton) event.getSource();
-		//boolean useDuplicate = false;
+		String st = sourceButton.getName();
+		
+		useDuplicate = true;
 		
 		//Sample solution
 		sampleTest.add(BLACK);
@@ -150,11 +153,15 @@ public class StartScreenHandler implements ActionListener{
 			
 		}
 		
-		if (sourceButton.getName().contentEquals("inst")) {
-			//Instructions
-			System.out.println("Instructions pressed");
-			this.gui.showInstScreen();
-			//this.gui.hideStart();
+		if (st == null) {
+			
+		} else {
+			if (st.contentEquals("inst")) {
+				//Instructions
+				System.out.println("Instructions pressed");
+				this.gui.showInstScreen();
+				//this.gui.hideStart();
+			}
 		}
 	}	
 }
