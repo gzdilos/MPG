@@ -2,6 +2,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JRadioButton;
 
 public class StartScreenHandler implements ActionListener{
@@ -30,6 +31,7 @@ public class StartScreenHandler implements ActionListener{
 	public void actionPerformed(ActionEvent event) 
 	{
 		JRadioButton toggleEvent = new JRadioButton();
+		JButton sourceButton = (JButton) event.getSource();
 		//boolean useDuplicate = false;
 		
 		//Sample solution
@@ -43,7 +45,7 @@ public class StartScreenHandler implements ActionListener{
 		if (source.getClass().isInstance(toggleEvent)) {
 			toggleEvent = (JRadioButton) event.getSource();
 			useDuplicate = toggleEvent.isSelected();
-			System.out.println("Duplicates Selected:" + useDuplicate);
+			System.out.println("Duplicates Selected:" + useDuplicate);		
 		} else {
 			//New single player easy game
 			if (event.getActionCommand() == "newSE") {
@@ -52,6 +54,11 @@ public class StartScreenHandler implements ActionListener{
 				this.gui.setGame(s);
 				this.gui.setNumPlayer(1);
 				//gui.createGUI();
+				//Hide start screen
+				this.gui.hideStart(); 
+				
+				//Create GUI
+				this.gui.createGUI();
 			}
 			
 			//New single player medium game
@@ -60,6 +67,11 @@ public class StartScreenHandler implements ActionListener{
 				this.gui.setGame(s);
 				this.gui.setNumPlayer(1);
 				//gui.createGUI();
+				//Hide start screen
+				this.gui.hideStart(); 
+				
+				//Create GUI
+				this.gui.createGUI();
 			}
 			
 			//New single player hard game
@@ -68,6 +80,11 @@ public class StartScreenHandler implements ActionListener{
 				this.gui.setGame(s);
 				this.gui.setNumPlayer(1);
 				//gui.createGUI();
+				//Hide start screen
+				this.gui.hideStart(); 
+				
+				//Create GUI
+				this.gui.createGUI();
 			}
 			
 			//New game vs AI easy game
@@ -79,6 +96,11 @@ public class StartScreenHandler implements ActionListener{
 				AI ai = new AI(s2,0);
 				ai.playGame();
 				this.gui.setAI(ai);
+				//this.gui.createGUI();
+				//Hide start screen
+				this.gui.hideStart(); 
+				
+				//Create GUI
 				this.gui.createGUI();
 			}
 			
@@ -92,6 +114,11 @@ public class StartScreenHandler implements ActionListener{
 				ai.playGame();
 				this.gui.setAI(ai);
 				//gui.createGUI();
+				//Hide start screen
+				this.gui.hideStart(); 
+				
+				//Create GUI
+				this.gui.createGUI();
 			}
 			
 			//New game vs AI hard game
@@ -104,18 +131,30 @@ public class StartScreenHandler implements ActionListener{
 				ai.playGame();
 				gui.setAI(ai);
 				//gui.createGUI();
+				//Hide start screen
+				this.gui.hideStart(); 
+				
+				//Create GUI
+				this.gui.createGUI();
 			}
 			
 			//Multi player game
 			if (event.getActionCommand() == "newMulti") {
 				this.gui.setNumPlayer(2);
+				//Hide start screen
+				this.gui.hideStart(); 
+				
+				//Create GUI
+				this.gui.createGUI();
 			}
 			
-			//Hide start screen
-			this.gui.hideStart(); 
-			
-			//Create GUI
-			this.gui.createGUI();
+		}
+		
+		if (sourceButton.getName().contentEquals("inst")) {
+			//Instructions
+			System.out.println("Instructions pressed");
+			this.gui.showInstScreen();
+			//this.gui.hideStart();
 		}
 	}	
 }

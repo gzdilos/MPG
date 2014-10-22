@@ -4,8 +4,10 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -80,6 +82,9 @@ public class GUI extends JFrame{
 	//StartScreen frame
 	private JFrame startFrame;
 	
+	//Instructions frame
+	private JFrame instFrame;
+	
 	//Constructor for GUI
 	public GUI() {
 		//mmg = game;
@@ -139,7 +144,7 @@ public class GUI extends JFrame{
 		JRadioButton duplicateToggle = new JRadioButton("Allow Duplicates");
 		duplicateToggle.addActionListener(ssHandler);
 		
-		startPanel.setLayout(new GridLayout(3,0));
+		startPanel.setLayout(new GridLayout(3,3));
 			
 		singlePanel.add(startSingleLabel);
 		singlePanel.add(singleEasyButton);
@@ -159,10 +164,30 @@ public class GUI extends JFrame{
 		startPanel.add(aiPanel);
 		startPanel.add(multiPanel);
 		
+		//Add title for game
+		JPanel titlePanel = new JPanel();
+		JLabel heading = new JLabel("Mastermind");
+		heading.setFont(new Font("TimesRoman", Font.BOLD, 28));
+		titlePanel.setLayout(new FlowLayout());
+		titlePanel.add(heading);
+		
+		//Add instructions button
+		JPanel instPanel = new JPanel();
+		JButton instButton = new JButton("Instructions");
+		instButton.addActionListener(ssHandler);
+		instButton.setName("inst");
+		instButton.setVisible(true);
+		instButton.setActionCommand("inst");
+		instPanel.setLayout(new FlowLayout());
+		instPanel.add(instButton);
+		
 		startFrame = new JFrame("Mastermind");
-		startFrame.setPreferredSize(new Dimension(400,150));
+		startFrame.setPreferredSize(new Dimension(400,300));
 		startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
-		startFrame.add(startPanel);
+		startFrame.setLayout(new BorderLayout());
+		startFrame.add(startPanel, BorderLayout.CENTER);
+		startFrame.add(titlePanel, BorderLayout.NORTH);
+		startFrame.add(instPanel, BorderLayout.SOUTH);
 		startFrame.pack();
 		startFrame.setResizable(true);
 		startFrame.setVisible(true);
@@ -850,5 +875,33 @@ public class GUI extends JFrame{
 	//Hides start screen
 	public void hideStart() {
 		startFrame.setVisible(false);
+	}
+
+	//Shows start screen
+	public void showStart() {
+			startFrame.setVisible(true);
+	}
+		
+	//Show the instruction screen
+	public void showInstScreen() {
+		//JLabel correctText = new JLabel(new ImageIcon("images/success.png"));
+		instFrame = new JFrame();
+		
+		//JPanel instPanel = new JPanel();
+		//instPanel.setLayout
+		//May need to edit this for your computer!!!
+		ImageIcon img = new ImageIcon("src/images/Inst1P.png");
+		JLabel icon = new JLabel(img);
+		//JButton next = new JButton("Next");
+		//next.setName("Next");
+		
+		//instFrame.add(txt);
+		instFrame.add(icon);
+		//instFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+		instFrame.setLayout(new FlowLayout());
+		instFrame.setSize(700,700);	
+		instFrame.pack();
+		instFrame.setVisible(true);
+		//instFrame.se
 	}
 }
