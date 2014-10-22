@@ -228,7 +228,7 @@ public class AI {
 		while (i != oldGuess.size()) {
 			if (i == corPos) {
 				//g.addToGuess(oldGuess.get(i));
-				i++;
+				//i++;
 			} else {
 				g.addToEndGuess(oldGuess.get(i));
 			}
@@ -281,7 +281,7 @@ public class AI {
 		
 		while (i != g.getSolutionSize()) {
 			if (i == corPos1 || i == corPos2) {
-				i++;
+				//i++;
 			} else {
 				g.addToEndGuess(oldGuess.get(i));
 			}
