@@ -162,6 +162,14 @@ public class MiscHandler implements ActionListener{
 				}
 			}
 		}
+		
+		//Show instructions
+		if (event.getActionCommand() == "Rules") {
+			//Instructions
+			System.out.println("Instructions pressed");
+			this.gui.showInstScreen();
+			//this.gui.hideStart();
+		}
 	}
 
 }

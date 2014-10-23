@@ -173,11 +173,11 @@ public class GUI extends JFrame{
 		
 		//Add instructions button
 		JPanel instPanel = new JPanel();
-		JButton instButton = new JButton("Instructions");
+		JButton instButton = new JButton("Rules");
 		instButton.addActionListener(ssHandler);
 		instButton.setName("inst");
 		instButton.setVisible(true);
-		instButton.setActionCommand("inst");
+		instButton.setActionCommand("rules");
 		instPanel.setLayout(new FlowLayout());
 		instPanel.add(instButton);
 		
@@ -383,7 +383,7 @@ public class GUI extends JFrame{
 			miscButtonHandler = new MiscHandler(mmg, this, null);	
 		}
 		
-		miscButtons.setLayout(new GridLayout(3,1));
+		miscButtons.setLayout(new GridLayout(4,1));
 		miscButtons.setPreferredSize(new Dimension(100, 180));
 		
 		button = new JButton("Check");	
@@ -404,6 +404,12 @@ public class GUI extends JFrame{
 		button.setToolTipText("Click on this button to clear your current guess!");
 		miscButtons.add(button);
 		
+		//Add instructions button
+		button = new JButton("Rules");
+		button.setPreferredSize(new Dimension(100, 50));
+		button.addActionListener(miscButtonHandler);
+		button.setToolTipText("Click on this button to look at instructions!");
+		miscButtons.add(button);
 		//Duplicate here!!!
 		//checkBox = new JCheckBox("Allow duplicates");
 		//miscButtons.add(checkBox);
@@ -900,6 +906,7 @@ public class GUI extends JFrame{
 		//instFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		instFrame.setLayout(new FlowLayout());
 		instFrame.setSize(700,700);	
+		instFrame.setLocation(400, 100);
 		instFrame.pack();
 		instFrame.setVisible(true);
 		//instFrame.se

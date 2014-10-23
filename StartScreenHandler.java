@@ -153,15 +153,9 @@ public class StartScreenHandler implements ActionListener{
 			
 		}
 		
-		if (st == null) {
-			
-		} else {
-			if (st.contentEquals("inst")) {
-				//Instructions
-				System.out.println("Instructions pressed");
-				this.gui.showInstScreen();
-				//this.gui.hideStart();
-			}
+		if (event.getActionCommand() == "rules") {
+			System.out.println("Instructions pressed");
+			this.gui.showInstScreen();
 		}
 	}	
 }
