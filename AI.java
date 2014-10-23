@@ -36,7 +36,7 @@ public class AI {
 		if (difficulty == EASY) {
 			playEasyGame();
 		} else if (difficulty == MEDIUM) {
-			g.setDuplicateTrue();
+			//g.setDuplicateTrue();
 			playMediumGame();
 		} else if (difficulty == HARD) {
 			playHardGame();
@@ -107,7 +107,18 @@ public class AI {
 	    while (i != num) {
 	    	int randomInt = randomGenerator.nextInt(6);
 	      
-	    	answer.add(randomInt);
+	    	//Check if the solution will have duplicates
+	    	if (g.usingDuplicate()) {
+	    		answer.add(randomInt);
+	    	} else {
+	    		//Check if we have the colour
+	    		if (containsColour(randomInt, answer)) {
+	    			i--;
+	    		} else {
+	    			answer.add(randomInt);
+	    		}
+	    	}
+	    	
 	      
 	    	i++;
 	    }
@@ -465,12 +476,18 @@ public class AI {
 	      int randomInt = randomGenerator.nextInt(6);
 	      
 	      //System.out.println("Guess is " + randomInt);
-	      //Tries to choose a different colour each time
-	      if (containsColour(randomInt, guess)) {
-	    	  i--;
-	      } else {
+	      //Check if game using duplicates
+	      if (g.usingDuplicate()) {
 	    	  guess.add(randomInt);
+	      } else {
+	    	  //Tries to choose a different colour each time
+	    	  if (containsColour(randomInt, guess)) {
+		    	  i--;
+		      } else {
+		    	  guess.add(randomInt);
+		      }
 	      }
+	      
 	      
 	      //When we got a full guess
 	      if (guess.size() == 4) {

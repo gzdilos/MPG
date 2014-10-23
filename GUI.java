@@ -141,7 +141,7 @@ public class GUI extends JFrame{
 		JButton MultiButton = new JButton("New");
 		MultiButton.setActionCommand("multi");
 		MultiButton.addActionListener(ssHandler);
-		JRadioButton duplicateToggle = new JRadioButton("Allow Duplicates");
+		JRadioButton duplicateToggle = new JRadioButton("Allow Duplicates in Solution");
 		duplicateToggle.addActionListener(ssHandler);
 		
 		startPanel.setLayout(new GridLayout(3,3));

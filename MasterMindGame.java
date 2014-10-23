@@ -20,7 +20,7 @@ public class MasterMindGame {
 	//Store locations for GUI of guess
 	private ArrayList<Integer> pos;
 	
-	//Whether to use duplicate
+	//Whether to use have solutions create duplicates
 	boolean isDuplicate;
 	
 	//Constants
@@ -49,33 +49,8 @@ public class MasterMindGame {
 	}
 	
 	//Change duplicate required for medium AI
-	public void setDuplicateTrue() {
-		isDuplicate = true;
-	}
-	
-	//Generate a random game
-	private void generateRandomGame() {
-		finalSolution = new ArrayList<Integer>();
-		
-		Random randomGenerator = new Random();
-		
-		int i = 0;
-		
-	    while (i != 4) {
-	    	int randomInt = randomGenerator.nextInt(6);
-	      
-	    	//Tries to choose a different colour each time if no duplicates allowed
-	    	if (isDuplicate) {
-	    		finalSolution.add(randomInt);
-	    	} else {
-	    		if (containsColour(randomInt, finalSolution)) {
-		    		i--;
-		    	} else {
-		    		finalSolution.add(randomInt);
-		    	}
-	    	}
-	    	i++;
-	    }
+	public boolean usingDuplicate() {
+		return isDuplicate;
 	}
 	
 	//Adds the colours of a colour list
@@ -88,62 +63,62 @@ public class MasterMindGame {
 		colourList.add("black");
 	}
 	
-	public boolean guessCheck() {
-		//Check if solved by assuming it is solved and then disproving.
-		boolean solved = true;
-		
-		if (isDuplicate) {
-			solved = guessCheckDup();
-		} else {
-				
-			//Check for invalid guesses.
-			//Probably should restrict user to the amount required
-			if (theGuess.size() != solutionSize) {
-				solved = false;
-			}
-				
-			if (currGuess == guessAmt) {
-				solved = false;
-			} else {
-			
-				//Assume these include hints
-				//Rondo's code
-				
-				int iterator = 0;
-				
-				while (iterator != solutionSize){
-					//Set the guessed values, assume 0 is not a choosable colour.
-					//You mean you assume that you can't choose no colours
-					guesses[currGuess][iterator] = theGuess.get(iterator);
-					iterator++;
-				}
-				 
-				iterator = 0;
-				 
-				while (iterator != solutionSize){
-					//Check if the guess is the right colour AND position. Then check for the colour alone.
-					if (theGuess.get(iterator)== finalSolution.get(iterator)){
-						guesses[currGuess][iterator + solutionSize] = 2;
-						AIGuesses[currGuess][iterator + solutionSize] = 2;
-					} else if(finalSolution.contains(theGuess.get(iterator))){
-						guesses[currGuess][iterator + solutionSize] = 1;
-						AIGuesses[currGuess][iterator + solutionSize] = 1;
-						solved = false;
-					} else {
-						AIGuesses[currGuess][iterator + solutionSize] = 0;
-						solved = false;
-					}
-							
-					iterator++;
-				}
-				
-				currGuess++;
-				clearGuess();
-			}
-		}
-		
-		return solved;
-	}
+//	public boolean guessCheck() {
+//		//Check if solved by assuming it is solved and then disproving.
+//		boolean solved = true;
+//		
+//		if (isDuplicate) {
+//			solved = guessCheckDup();
+//		} else {
+//				
+//			//Check for invalid guesses.
+//			//Probably should restrict user to the amount required
+//			if (theGuess.size() != solutionSize) {
+//				solved = false;
+//			}
+//				
+//			if (currGuess == guessAmt) {
+//				solved = false;
+//			} else {
+//			
+//				//Assume these include hints
+//				//Rondo's code
+//				
+//				int iterator = 0;
+//				
+//				while (iterator != solutionSize){
+//					//Set the guessed values, assume 0 is not a choosable colour.
+//					//You mean you assume that you can't choose no colours
+//					guesses[currGuess][iterator] = theGuess.get(iterator);
+//					iterator++;
+//				}
+//				 
+//				iterator = 0;
+//				 
+//				while (iterator != solutionSize){
+//					//Check if the guess is the right colour AND position. Then check for the colour alone.
+//					if (theGuess.get(iterator)== finalSolution.get(iterator)){
+//						guesses[currGuess][iterator + solutionSize] = 2;
+//						AIGuesses[currGuess][iterator + solutionSize] = 2;
+//					} else if(finalSolution.contains(theGuess.get(iterator))){
+//						guesses[currGuess][iterator + solutionSize] = 1;
+//						AIGuesses[currGuess][iterator + solutionSize] = 1;
+//						solved = false;
+//					} else {
+//						AIGuesses[currGuess][iterator + solutionSize] = 0;
+//						solved = false;
+//					}
+//							
+//					iterator++;
+//				}
+//				
+//				currGuess++;
+//				clearGuess();
+//			}
+//		}
+//		
+//		return solved;
+//	}
 
 	
 	//Returns the amount of max guess
@@ -441,7 +416,8 @@ public class MasterMindGame {
 	}
 	
 	//Does a duplicate check of guesses
-	public boolean guessCheckDup(){
+//	public boolean guessCheckDup(){
+	public boolean guessCheck() { 
 	//Check for invalid guesses.
 	 
 		if (theGuess.size() != solutionSize) {

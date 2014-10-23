@@ -23,24 +23,6 @@ public class SampleGame {
 		if (firstTest == true) {
 			//Make a random solution
 			ArrayList<Integer> sampleTest = new ArrayList<Integer>();
-			
-			/*
-			Random randomGenerator = new Random();
-			
-			int i = 0;
-			
-		    while (i != 4) {
-		    	int randomInt = randomGenerator.nextInt(6);
-		      
-		    	//Tries to choose a different colour each time
-		    	if (containsColour(randomInt, sampleTest)) {
-		    		i--;
-		    	} else {
-		    		sampleTest.add(randomInt);
-		    	}
-		      
-		    	i++;
-		    }*/
 		    
 			sampleTest.add(BLACK);
 			sampleTest.add(RED);
@@ -50,12 +32,23 @@ public class SampleGame {
 			//Make  gui
 			GUI gui = new GUI();
 			
-			boolean useDuplicate = false;
+			boolean useDuplicate = true;
 			//May create difficulties 
 			//Easy = 10 guesses
 			//Medium = 8 guesses
 			//Hard = 6 guesses
-//			MasterMindGame s = new MasterMindGame(sampleTest, guessNum, useDuplicate);
+			//MasterMindGame s = new MasterMindGame(sampleTest, guessNum, useDuplicate);
+			
+//			s.addToEndGuess(0);
+//			s.addToEndGuess(0);
+//			s.addToEndGuess(0);
+//			s.addToEndGuess(0);
+//			
+//			s.guessCheck();
+//			
+//			printArray(s.guessRes());
+			//AI med = new AI(s, 1);
+			//med.playGame();
 //			MasterMindGame s2 = new MasterMindGame(sampleTest, guessNum, useDuplicate);
 			
 //			gui.setGame(s);
@@ -109,7 +102,7 @@ public class SampleGame {
 			i++;
 		}
 		//Do the check
-		newGame.guessCheckDup();
+		newGame.guessCheck();
 		//Get hints
 		ArrayList<Integer> hints = newGame.guessRes();
 		
@@ -127,7 +120,7 @@ public class SampleGame {
 			i++;
 		}
 		
-		//Should have 4 zeros
+		//Should have 1 two
 		if (zeros == 4) {
 			System.out.println("Passed test 1!");
 			answer = true;
@@ -149,7 +142,7 @@ public class SampleGame {
 		newGame.addToEndGuess(RED);
 		
 		//Check
-		newGame.guessCheckDup();
+		newGame.guessCheck();
 		hints = newGame.guessRes();
 		
 		i = 0;
@@ -186,7 +179,7 @@ public class SampleGame {
 		newGame.addToEndGuess(BLACK);
 				
 		//Check
-		newGame.guessCheckDup();
+		newGame.guessCheck();
 		hints = newGame.guessRes();
 				
 		i = 0;
@@ -224,7 +217,7 @@ public class SampleGame {
 		newGame.addToEndGuess(GREEN);
 						
 		//Check
-		newGame.guessCheckDup();
+		newGame.guessCheck();
 		hints = newGame.guessRes();
 						
 		i = 0;
@@ -261,7 +254,7 @@ public class SampleGame {
 		newGame.addToEndGuess(GREEN);
 								
 		//Check
-		newGame.guessCheckDup();
+		newGame.guessCheck();
 		hints = newGame.guessRes();
 								
 		i = 0;
@@ -318,7 +311,7 @@ public class SampleGame {
 			i++;
 		}
 		//Do the check
-		newGame.guessCheckDup();
+		newGame.guessCheck();
 		//Get hints
 		ArrayList<Integer> hints = newGame.guessRes();
 		
@@ -358,7 +351,7 @@ public class SampleGame {
 		newGame.addToEndGuess(RED);
 		
 		//Check
-		newGame.guessCheckDup();
+		newGame.guessCheck();
 		hints = newGame.guessRes();
 		
 		i = 0;
@@ -395,7 +388,7 @@ public class SampleGame {
 		newGame.addToEndGuess(BLACK);
 				
 		//Check
-		newGame.guessCheckDup();
+		newGame.guessCheck();
 		hints = newGame.guessRes();
 				
 		i = 0;
@@ -433,7 +426,7 @@ public class SampleGame {
 		newGame.addToEndGuess(BLUE);
 						
 		//Check
-		newGame.guessCheckDup();
+		newGame.guessCheck();
 		hints = newGame.guessRes();
 						
 		i = 0;
@@ -470,7 +463,7 @@ public class SampleGame {
 		newGame.addToEndGuess(GREEN);
 								
 		//Check
-		newGame.guessCheckDup();
+		newGame.guessCheck();
 		hints = newGame.guessRes();
 								
 		i = 0;

@@ -35,7 +35,7 @@ public class StartScreenHandler implements ActionListener{
 		JButton sourceButton = (JButton) event.getSource();
 		String st = sourceButton.getName();
 		
-		useDuplicate = true;
+		//useDuplicate = true;
 		
 		//Sample solution
 		sampleTest.add(BLACK);
