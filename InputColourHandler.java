@@ -43,10 +43,10 @@ public class InputColourHandler implements ActionListener {
 			//source.setBackground(Color.white);
 			this.gui.setInputIndicator("white");
 			this.gui.setInputToUse(4);
-		} else if (s.contains("black")) {
+		} else if (s.contains("pink")) {
 			//source.setBackground(Color.black);
 			this.gui.setInputToUse(5);
-			this.gui.setInputIndicator("black");
+			this.gui.setInputIndicator("pink");
 		}
 		//subtract 48 to get the int value
 		//Integer input = inputAsChar[0] - 48;

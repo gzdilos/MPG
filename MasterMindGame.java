@@ -29,7 +29,7 @@ public class MasterMindGame {
 	public final int BLUE = 2;
 	public final int YELLOW = 3;
 	public final int WHITE = 4;
-	public final int BLACK = 5;
+	public final int PINK = 5;
 	 
 	//This code assumes colours cannot be repeated for the time being.
 	public MasterMindGame(ArrayList<Integer> answer, int guessAmount, boolean useDuplicate){
@@ -60,7 +60,7 @@ public class MasterMindGame {
 		colourList.add("blue");
 		colourList.add("yellow");
 		colourList.add("white");
-		colourList.add("black");
+		colourList.add("pink");
 	}
 	
 //	public boolean guessCheck() {
@@ -208,8 +208,8 @@ public class MasterMindGame {
 					System.out.print("green ");
 				} else if (colour == YELLOW) {
 					System.out.print("yellow ");
-				} else if (colour == BLACK) {
-					System.out.print("black ");
+				} else if (colour == PINK) {
+					System.out.print("pink ");
 				} else if (colour == WHITE) {
 					System.out.print("white ");
 				}

@@ -14,7 +14,7 @@ public class StartScreenHandler implements ActionListener{
 	public final int BLUE = 2;
 	public final int YELLOW = 3;
 	public final int WHITE = 4;
-	public final int BLACK = 5;
+	public final int PINK = 5;
 	
 	private final int EASY_GUESSES = 10;
 	private final int MEDIUM_GUESSES = 8;
@@ -33,12 +33,11 @@ public class StartScreenHandler implements ActionListener{
 		JRadioButton toggleEvent = new JRadioButton();
 		
 		JButton sourceButton = (JButton) event.getSource();
-		String st = sourceButton.getName();
 		
 		//useDuplicate = true;
 		
 		//Sample solution
-		sampleTest.add(BLACK);
+		sampleTest.add(PINK);
 		sampleTest.add(RED);
 		sampleTest.add(GREEN);
 		sampleTest.add(BLUE);

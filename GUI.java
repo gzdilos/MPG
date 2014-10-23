@@ -97,6 +97,11 @@ public class GUI extends JFrame{
 		mmg = s;
 	}
 	
+	//Return the game
+	public MasterMindGame getGame() {
+		return mmg;
+	}
+		
 	//Set single player
 	public void setNumPlayer(int num) {
 		player = num;
@@ -221,6 +226,7 @@ public class GUI extends JFrame{
 		}
 		
 		GridHandler gridButtonHandler = new GridHandler(mmg, this);
+		HotkeyHandler hotkey = new HotkeyHandler(this);
 		//adding the buttons to the grid
 		while (i <= mmg.getMaxGuessAmt() * 4) {
 			
@@ -240,6 +246,7 @@ public class GUI extends JFrame{
 			//Set size
 			button.setPreferredSize(new Dimension(30, 30));
 			button.addActionListener(gridButtonHandler);
+			button.addKeyListener(hotkey);
 			gameButtonGrid.add(button);
 			i++;
 			
@@ -301,7 +308,7 @@ public class GUI extends JFrame{
 		inputGrid.setOpaque(false);
 		
 		InputColourHandler inputHandler = new InputColourHandler(this);
-
+		
 		//Set up inputs
 		button = new JButton();
 		button.setName("red");
@@ -309,7 +316,8 @@ public class GUI extends JFrame{
 		button.setBackground(Color.red);
 		button.setOpaque(true);
 		button.setPreferredSize(new Dimension(40, 40));			
-		button.addActionListener(inputHandler);		
+		button.addActionListener(inputHandler);	
+		button.addKeyListener(hotkey);
 		button.setToolTipText("Click on this button then on the grid to change the colour!");
 		inputGrid.add(button);			
 		
@@ -319,7 +327,8 @@ public class GUI extends JFrame{
 		button.setBackground(Color.green);	
 		button.setOpaque(true);
 		button.setPreferredSize(new Dimension(40, 40));			
-		button.addActionListener(inputHandler);		
+		button.addActionListener(inputHandler);	
+		button.addKeyListener(hotkey);
 		button.setToolTipText("Click on this button then on the grid to change the colour!");
 		inputGrid.add(button);		
 		
@@ -330,6 +339,7 @@ public class GUI extends JFrame{
 		button.setOpaque(true);
 		button.setPreferredSize(new Dimension(40, 40));			
 		button.addActionListener(inputHandler);	
+		button.addKeyListener(hotkey);
 		button.setToolTipText("Click on this button then on the grid to change the colour!");
 		inputGrid.add(button);		
 		
@@ -340,6 +350,7 @@ public class GUI extends JFrame{
 		button.setOpaque(true);
 		button.setPreferredSize(new Dimension(40, 40));			
 		button.addActionListener(inputHandler);	
+		button.addKeyListener(hotkey);
 		button.setToolTipText("Click on this button then on the grid to change the colour!");
 		inputGrid.add(button);		
 		
@@ -350,16 +361,18 @@ public class GUI extends JFrame{
 		button.setOpaque(true);
 		button.setPreferredSize(new Dimension(40, 40));			
 		button.addActionListener(inputHandler);	
+		button.addKeyListener(hotkey);
 		button.setToolTipText("Click on this button then on the grid to change the colour!");
 		inputGrid.add(button);		
 		
 		button = new JButton();
-		button.setName("black");
-		button.setText("BLACK");
-		button.setBackground(Color.black);	
+		button.setName("pink");
+		button.setText("PINK");
+		button.setBackground(Color.pink);	
 		button.setOpaque(true);
 		button.setPreferredSize(new Dimension(40, 40));			
-		button.addActionListener(inputHandler);			
+		button.addActionListener(inputHandler);	
+		button.addKeyListener(hotkey);
 		button.setToolTipText("Click on this button then on the grid to change the colour!");
 		inputGrid.add(button);		
 		
@@ -389,19 +402,22 @@ public class GUI extends JFrame{
 		button = new JButton("Check");	
 		button.setPreferredSize(new Dimension(100, 50));		
 		button.addActionListener(miscButtonHandler);	
-		button.setToolTipText("Click on this button to check if you are correct!");		
+		button.setToolTipText("Click on this button to check if you are correct!");	
+		button.addKeyListener(hotkey);
 		miscButtons.add(button);		
 		
 		button = new JButton("Reset");		
 		button.setPreferredSize(new Dimension(100, 50));		
 		button.addActionListener(miscButtonHandler);
 		button.setToolTipText("Click on this button to reset the whole puzzle!");
+		button.addKeyListener(hotkey);
 		miscButtons.add(button);
 		
 		button = new JButton("Clear");		
 		button.setPreferredSize(new Dimension(100, 50));		
 		button.addActionListener(miscButtonHandler);
 		button.setToolTipText("Click on this button to clear your current guess!");
+		button.addKeyListener(hotkey);
 		miscButtons.add(button);
 		
 		//Add instructions button
@@ -409,6 +425,7 @@ public class GUI extends JFrame{
 		button.setPreferredSize(new Dimension(100, 50));
 		button.addActionListener(miscButtonHandler);
 		button.setToolTipText("Click on this button to look at instructions!");
+		button.addKeyListener(hotkey);
 		miscButtons.add(button);
 		//Duplicate here!!!
 		//checkBox = new JCheckBox("Allow duplicates");

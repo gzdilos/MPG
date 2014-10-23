@@ -39,30 +39,30 @@ public class GridHandler implements ActionListener{
 		int xCoordinate = coordinates[0] - 48;
 		
 		if (source.getText().contentEquals("clear")) {
-			if (colourSel == 0) {
+			if (colourSel == mmg.RED) {
 				source.setBackground(Color.red);
 				source.setOpaque(true);
 				//System.out.println("Set to red");
 //				source.setText("RED");
-			} else if (colourSel == 1) {
+			} else if (colourSel == mmg.GREEN) {
 				source.setBackground(Color.green);
 				source.setOpaque(true);
 //				source.setText("GREEN");
 				//System.out.println("Set to green");
-			} else if (colourSel == 2) {
+			} else if (colourSel == mmg.BLUE) {
 				source.setBackground(Color.blue);
 				source.setOpaque(true);
 //				source.setText("BLUE");
-			} else if (colourSel == 3) {
+			} else if (colourSel == mmg.YELLOW) {
 				source.setBackground(Color.yellow);
 				source.setOpaque(true);
 //				source.setText("YELLOW");
-			} else if (colourSel == 4) {
+			} else if (colourSel == mmg.WHITE) {
 				source.setBackground(Color.white);
 				source.setOpaque(true);
 //				source.setText("WHITE");
-			} else if (colourSel == 5) {
-				source.setBackground(Color.black);
+			} else if (colourSel == mmg.PINK) {
+				source.setBackground(Color.pink);
 				source.setOpaque(true);
 //				source.setText("BLACK");
 			}

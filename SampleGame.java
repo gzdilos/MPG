@@ -8,7 +8,7 @@ public class SampleGame {
 	public final static int BLUE = 2;
 	public final static int YELLOW = 3;
 	public final static int WHITE = 4;
-	public final static int BLACK = 5;
+	public final static int PINK = 5;
 	public final static int guessNum = 8;
 	
 	/**
@@ -24,7 +24,7 @@ public class SampleGame {
 			//Make a random solution
 			ArrayList<Integer> sampleTest = new ArrayList<Integer>();
 		    
-			sampleTest.add(BLACK);
+			sampleTest.add(PINK);
 			sampleTest.add(RED);
 			sampleTest.add(GREEN);
 			sampleTest.add(BLUE);
@@ -88,8 +88,8 @@ public class SampleGame {
 		ArrayList<Integer> sampleTest = new ArrayList<Integer>();
 	    
 		//Solution
-		sampleTest.add(BLACK);
-		sampleTest.add(BLACK);
+		sampleTest.add(PINK);
+		sampleTest.add(PINK);
 		sampleTest.add(GREEN);
 		sampleTest.add(GREEN);
 		
@@ -136,7 +136,7 @@ public class SampleGame {
 		zeros = 0;
 		
 		//Try Next Test
-		newGame.addToEndGuess(BLACK);
+		newGame.addToEndGuess(PINK);
 		newGame.addToEndGuess(GREEN);
 		newGame.addToEndGuess(RED);
 		newGame.addToEndGuess(RED);
@@ -175,8 +175,8 @@ public class SampleGame {
 		//Try Next Test
 		newGame.addToEndGuess(GREEN);
 		newGame.addToEndGuess(GREEN);
-		newGame.addToEndGuess(BLACK);
-		newGame.addToEndGuess(BLACK);
+		newGame.addToEndGuess(PINK);
+		newGame.addToEndGuess(PINK);
 				
 		//Check
 		newGame.guessCheck();
@@ -211,8 +211,8 @@ public class SampleGame {
 		zeros = 0;
 						
 		//Try Next Test
-		newGame.addToEndGuess(BLACK);
-		newGame.addToEndGuess(BLACK);
+		newGame.addToEndGuess(PINK);
+		newGame.addToEndGuess(PINK);
 		newGame.addToEndGuess(GREEN);
 		newGame.addToEndGuess(GREEN);
 						
@@ -249,7 +249,7 @@ public class SampleGame {
 								
 		//Try Next Test
 		newGame.addToEndGuess(RED);
-		newGame.addToEndGuess(BLACK);
+		newGame.addToEndGuess(PINK);
 		newGame.addToEndGuess(BLUE);
 		newGame.addToEndGuess(GREEN);
 								
@@ -297,7 +297,7 @@ public class SampleGame {
 		ArrayList<Integer> sampleTest = new ArrayList<Integer>();
 	    
 		//Solution
-		sampleTest.add(BLACK);
+		sampleTest.add(PINK);
 		sampleTest.add(RED);
 		sampleTest.add(GREEN);
 		sampleTest.add(BLUE);
@@ -345,7 +345,7 @@ public class SampleGame {
 		zeros = 0;
 		
 		//Try Next Test
-		newGame.addToEndGuess(BLACK);
+		newGame.addToEndGuess(PINK);
 		newGame.addToEndGuess(RED);
 		newGame.addToEndGuess(RED);
 		newGame.addToEndGuess(RED);
@@ -384,8 +384,8 @@ public class SampleGame {
 		//Try Next Test
 		newGame.addToEndGuess(GREEN);
 		newGame.addToEndGuess(GREEN);
-		newGame.addToEndGuess(BLACK);
-		newGame.addToEndGuess(BLACK);
+		newGame.addToEndGuess(PINK);
+		newGame.addToEndGuess(PINK);
 				
 		//Check
 		newGame.guessCheck();
@@ -420,7 +420,7 @@ public class SampleGame {
 		zeros = 0;
 						
 		//Try Next Test
-		newGame.addToEndGuess(BLACK);
+		newGame.addToEndGuess(PINK);
 		newGame.addToEndGuess(RED);
 		newGame.addToEndGuess(GREEN);
 		newGame.addToEndGuess(BLUE);
@@ -458,7 +458,7 @@ public class SampleGame {
 								
 		//Try Next Test
 		newGame.addToEndGuess(RED);
-		newGame.addToEndGuess(BLACK);
+		newGame.addToEndGuess(PINK);
 		newGame.addToEndGuess(BLUE);
 		newGame.addToEndGuess(GREEN);
 								
@@ -524,8 +524,8 @@ public class SampleGame {
 				System.out.print("green ");
 			} else if (colour == YELLOW) {
 				System.out.print("yellow ");
-			} else if (colour == BLACK) {
-				System.out.print("black ");
+			} else if (colour == PINK) {
+				System.out.print("pink ");
 			} else if (colour == WHITE) {
 				System.out.print("white ");
 			}
