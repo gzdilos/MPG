@@ -46,6 +46,9 @@ public class GUI extends JFrame{
 	//Holds buttons for multiplayer
 	private JPanel gridMult;
 	
+	//Store the move of multiplayer
+	private int multMove = 0;
+	
 	//Panel for player 2
 	private JPanel p2Panel;
 	
@@ -1143,5 +1146,65 @@ public class GUI extends JFrame{
 
 	public void hideMultScreen() {
 		multiplayerFrame.setVisible(false);
+	}
+	
+	//Used by multiplayer
+	public void colourScreenMult(ArrayList<Integer> guess, ArrayList<Integer> hint) {
+		
+		int x = 0;
+		int y = 0;
+		
+		int last = mmg.getMaxGuessAmt() * 4 - 1;
+		//Set the colours
+		while (x != 4) {
+			y = 4 * multMove + x;
+			button = (JButton) this.p2gameButtonGrid.getComponent(last - y);
+			int colour = guess.get(x);
+			if (colour == mmg.RED) {
+				button.setBackground(Color.red);
+			} else if (colour == mmg.BLUE) {
+				button.setBackground(Color.blue);
+			} else if (colour == mmg.GREEN) {
+				button.setBackground(Color.green);
+			} else if (colour == mmg.YELLOW) {
+				button.setBackground(Color.yellow);
+			} else if (colour == mmg.PINK) {
+				button.setBackground(Color.pink);
+			} else if (colour == mmg.WHITE) {
+				button.setBackground(Color.white);
+			}
+			button.setText("");
+			x++;
+		}
+		
+		//Set hints
+		int hintval = mmg.getMaxGuessAmt()*4 - 1;
+		
+		int i = 0;
+		
+		while (i != 4) {
+			button = (JButton) this.p2hintPanel.getComponent(hintval - multMove*4 - i);
+			//button.setText(hintAnswer);
+			System.out.println(hint.get(i));
+			if (hint.get(i) == 2) {
+				button.setBackground(Color.black);
+				button.setOpaque(true);
+				//button.setToolTipText("This means one of your colours is correct and in the correct position!");
+			} else if (hint.get(i) == 1) {
+				button.setBackground(Color.white);
+				button.setOpaque(true);
+				//button.setToolTipText("This means one of your colours is correct and in the wrong position!");
+			} else {
+				button.setBackground(Color.gray);
+				button.setOpaque(true);
+				//button.setToolTipText("This means one of your colours is not correct and not in the correct position!");
+			}
+			
+			button.setText("");
+			i++;
+		}
+		
+		//Increment other player's move
+		multMove++;
 	}
 }

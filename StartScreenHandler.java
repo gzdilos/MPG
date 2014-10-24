@@ -180,7 +180,7 @@ public class StartScreenHandler implements ActionListener{
 //					e.printStackTrace();
 //				}
 				//Hide start screen
-				//this.gui.hideStart(); 
+				this.gui.hideStart(); 
 				
 				//Create GUI
 				//this.gui.createGUI();
