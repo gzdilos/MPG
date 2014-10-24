@@ -43,6 +43,9 @@ public class GUI extends JFrame{
 	//Hold the p2 buttons
 	private JPanel p2gameButtonGrid;
 	
+	//Holds buttons for multiplayer
+	private JPanel gridMult;
+	
 	//Panel for player 2
 	private JPanel p2Panel;
 	
@@ -87,6 +90,9 @@ public class GUI extends JFrame{
 	
 	//Instructions frame
 	private JFrame instFrame;
+	
+	//Multiplayer solution selectrion frame
+	private JFrame multiplayerFrame;
 	
 	//Constructor for GUI
 	public GUI() {
@@ -761,6 +767,11 @@ public class GUI extends JFrame{
 		JOptionPane.showMessageDialog(null, "No point clearing it when it's empty", "Error Code 4", JOptionPane.ERROR_MESSAGE);
 	}
 	
+	//Can't click on the same thing twice
+	public void notEnoughError() {
+		JOptionPane.showMessageDialog(null, "Not enough colours!", "Error Code 5", JOptionPane.ERROR_MESSAGE);
+	}
+	
 	//Sets ai
 	public void setAI(AI ai) {
 		this.ai = ai;
@@ -939,6 +950,198 @@ public class GUI extends JFrame{
 		instFrame.setLocation(400, 100);
 		instFrame.pack();
 		instFrame.setVisible(true);
-		//instFrame.se
+	}
+
+	//Used for multi player
+	public void showSelectionScreen() {
+		//JLabel correctText = new JLabel(new ImageIcon("images/success.png"));
+		
+		//Make solution grid
+		gridMult = new JPanel();
+		gridMult.setLayout(new GridLayout(1, 4));
+		gridMult.setPreferredSize(new Dimension(300,100));
+		
+		GridHandler gridButtonHandler = new GridHandler(mmg, this);
+		HotkeyHandler hotkey = new HotkeyHandler(this);
+		
+		Integer x = 0;
+		int i = 0;
+		
+		while (i != 4) {
+			button = new JButton();
+			//Dummy used to make sure user doesn't double click
+			button.setText("clear");
+			button.setForeground(Color.gray);
+			button.setBackground(Color.gray);
+			
+			//Get coordinates
+			String label = "";
+			label = label.concat(x.toString());
+			button.setName(label);
+			
+			//Set size
+			button.setPreferredSize(new Dimension(30, 30));
+			button.addActionListener(gridButtonHandler);
+			button.addKeyListener(hotkey);
+			gridMult.add(button);
+			i++;
+		}
+		
+		//creating label to indicate selected input	
+		JPanel inputLabelMult = new JPanel();	
+		
+		JLabel title = new JLabel("Selected Input:");	
+		title.setForeground(Color.black);
+		JLabel input = new JLabel("None");
+		input.setForeground(Color.black);
+		
+		inputLabelMult.setLayout(new FlowLayout());
+		inputLabelMult.add(title);
+		inputLabelMult.add(input);
+		
+		this.inputIndicator = input;
+		
+		InputColourHandler inputHandler = new InputColourHandler(this);
+		
+		//Create input grid
+		JPanel inputGridMult = new JPanel();
+		inputGridMult.setLayout(new GridLayout(2, 3));
+		//Set up inputs
+		button = new JButton();
+		button.setName("red");
+		button.setText("RED");
+		button.setBackground(Color.red);
+		button.setOpaque(true);
+		button.setPreferredSize(new Dimension(40, 40));			
+		button.addActionListener(inputHandler);	
+		button.addKeyListener(hotkey);
+		button.setToolTipText("Click on this button then on the grid to change the colour!");
+		inputGridMult.add(button);			
+				
+		button = new JButton();
+		button.setName("green");
+		button.setText("GREEN");
+		button.setBackground(Color.green);	
+		button.setOpaque(true);
+		button.setPreferredSize(new Dimension(40, 40));			
+		button.addActionListener(inputHandler);	
+		button.addKeyListener(hotkey);
+		button.setToolTipText("Click on this button then on the grid to change the colour!");
+		inputGridMult.add(button);		
+				
+		button = new JButton();
+		button.setName("blue");
+		button.setBackground(Color.blue);
+		button.setText("BLUE");
+		button.setOpaque(true);
+		button.setPreferredSize(new Dimension(40, 40));			
+		button.addActionListener(inputHandler);	
+		button.addKeyListener(hotkey);
+		button.setToolTipText("Click on this button then on the grid to change the colour!");
+		inputGridMult.add(button);		
+				
+		button = new JButton();
+		button.setName("yellow");
+		button.setText("YELLOW");
+		button.setBackground(Color.yellow);
+		button.setOpaque(true);
+		button.setPreferredSize(new Dimension(40, 40));			
+		button.addActionListener(inputHandler);	
+		button.addKeyListener(hotkey);
+		button.setToolTipText("Click on this button then on the grid to change the colour!");
+		inputGridMult.add(button);		
+				
+		button = new JButton();
+		button.setName("white");
+		button.setText("WHITE");
+		button.setBackground(Color.white);
+		button.setOpaque(true);
+		button.setPreferredSize(new Dimension(40, 40));			
+		button.addActionListener(inputHandler);	
+		button.addKeyListener(hotkey);
+		button.setToolTipText("Click on this button then on the grid to change the colour!");
+		inputGridMult.add(button);		
+				
+		button = new JButton();
+		button.setName("pink");
+		button.setText("PINK");
+		button.setBackground(Color.pink);	
+		button.setOpaque(true);
+		button.setPreferredSize(new Dimension(40, 40));			
+		button.addActionListener(inputHandler);	
+		button.addKeyListener(hotkey);
+		button.setToolTipText("Click on this button then on the grid to change the colour!");
+		inputGridMult.add(button);	
+		
+		//all Input
+		JPanel allInput = new JPanel();
+		allInput.setLayout(new BorderLayout());
+		allInput.add(inputGridMult, BorderLayout.SOUTH);
+		allInput.add(inputLabelMult, BorderLayout.NORTH);
+		
+		//Add send solution
+		MultHandler m = new MultHandler(this);
+		JPanel misc = new JPanel();
+		misc.setLayout(new GridLayout(1,3));
+		
+		JButton send = new JButton("Send Solution");
+		send.setName("send");
+		send.addActionListener(m);
+		send.setPreferredSize(new Dimension(50, 50));
+		
+		JButton clear = new JButton("Clear");
+		clear.setName("clear");
+		clear.addActionListener(m);
+		clear.setPreferredSize(new Dimension(50, 50));
+		
+		misc.add(send);
+		misc.add(clear);
+		misc.setPreferredSize(new Dimension(200, 50));
+
+		//Panel for heading
+		JPanel head = new JPanel();
+		head.setLayout(new FlowLayout());
+		JLabel heading = new JLabel("Mastermind - Choose a set for your opponent!");
+		heading.setFont(new Font("TimesRoman", Font.BOLD, 20));
+		head.add(heading);
+		
+		//Add all the stuff onto the frame
+		multiplayerFrame = new JFrame();	
+		multiplayerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+		multiplayerFrame.setLayout(new BorderLayout());
+		multiplayerFrame.setSize(800,800);	
+		
+		//multiplayerFrame.add(inputLabelMult, BorderLayout.EAST);	
+		multiplayerFrame.add(allInput, BorderLayout.SOUTH);
+		multiplayerFrame.add(gridMult, BorderLayout.CENTER);
+		multiplayerFrame.add(head, BorderLayout.NORTH);
+		multiplayerFrame.add(misc, BorderLayout.WEST);
+		
+		
+		multiplayerFrame.pack();
+		multiplayerFrame.setVisible(true);
+	}
+
+	//Clears the guess
+	public void clearRowMult() {
+		int x = 0;
+		int y = 0;
+		
+		int last = 3;
+		//Clear the colours
+		while (x != 4) {
+			y = x;
+			button = (JButton) this.gridMult.getComponent(last - y);
+			button.setBackground(Color.gray);
+			button.setText("clear");
+			x++;
+		}
+		
+		//Clear the guess
+		mmg.clearGuess();
+	}
+
+	public void hideMultScreen() {
+		multiplayerFrame.setVisible(false);
 	}
 }

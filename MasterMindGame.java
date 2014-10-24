@@ -415,6 +415,12 @@ public class MasterMindGame {
 		return answer;
 	}
 	
+	//Move the guess to solution and clear guess
+	public void guessToSolution() {
+		finalSolution = theGuess;
+		theGuess = new ArrayList<Integer>();
+		pos = new ArrayList<Integer>();
+	}
 	//Does a duplicate check of guesses
 //	public boolean guessCheckDup(){
 	public boolean guessCheck() { 
