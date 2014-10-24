@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Random;
 
 public class SampleGame {
 
@@ -32,7 +31,7 @@ public class SampleGame {
 			//Make  gui
 			GUI gui = new GUI();
 			
-			boolean useDuplicate = true;
+			//boolean useDuplicate = true;
 			//May create difficulties 
 			//Easy = 10 guesses
 			//Medium = 8 guesses
@@ -492,22 +491,22 @@ public class SampleGame {
 	}
 
 	//Checks if the guess has a colour that is the same
-	private static boolean containsColour(int randomInt, ArrayList<Integer> guess) {
-		boolean answer = false;
-				
-		int x = 0;
-				
-		while (x != guess.size() && answer == false) {
-			int temp = guess.get(x);
-				
-			if (temp == randomInt) {
-				answer = true;
-			}
-			x++;
-		}
-				
-		return answer;
-	}
+//	private static boolean containsColour(int randomInt, ArrayList<Integer> guess) {
+//		boolean answer = false;
+//				
+//		int x = 0;
+//				
+//		while (x != guess.size() && answer == false) {
+//			int temp = guess.get(x);
+//				
+//			if (temp == randomInt) {
+//				answer = true;
+//			}
+//			x++;
+//		}
+//				
+//		return answer;
+//	}
 		
 	//Prints the array
 	private static void printArray(ArrayList<Integer> guess) {

@@ -1,8 +1,7 @@
 import java.awt.event.ActionEvent;
+
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
-import javax.swing.JButton;
 import javax.swing.JRadioButton;
 
 public class StartScreenHandler implements ActionListener{
@@ -32,7 +31,7 @@ public class StartScreenHandler implements ActionListener{
 	{
 		JRadioButton toggleEvent = new JRadioButton();
 		
-		JButton sourceButton = (JButton) event.getSource();
+		//JButton sourceButton = (JButton) event.getSource();
 		
 		//useDuplicate = true;
 		

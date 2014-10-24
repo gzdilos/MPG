@@ -29,6 +29,10 @@ public class MultHandler implements ActionListener{
 				this.gui.notEnoughError();
 			} else {
 				
+				//We make a new game for second screen
+				MasterMindGame p2Game = new MasterMindGame(sol, 8, true);
+				this.gui.setGameP2(p2Game);
+				
 				//set up networking
 //				try {
 //					this.gui.createClient();

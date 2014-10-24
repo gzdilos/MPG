@@ -21,7 +21,6 @@ public class HotkeyHandler implements KeyListener{
 	public void keyReleased(KeyEvent arg0) {
 		int x = arg0.getKeyCode();
 		
-		char c = arg0.getKeyChar();
 		if (x == KeyEvent.VK_R) {
 			this.gui.setInputIndicator("red");
 			this.gui.setInputToUse(g.RED);

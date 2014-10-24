@@ -4,8 +4,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Image;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -17,11 +15,11 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.Timer;
 
-public class GUI extends JFrame{
+public class GUI {
 
 	private Client client;
 	
-	private JLabel label;
+	//private JLabel label;
 	
 	private JButton button;
 	
@@ -54,6 +52,9 @@ public class GUI extends JFrame{
 	
 	//Mastermind game
 	private MasterMindGame mmg;
+	
+	//P2 mastermind game
+	private MasterMindGame p2mmg;
 
 	//private JFrame startScreen;
 	
@@ -71,7 +72,7 @@ public class GUI extends JFrame{
 	private JLabel inputIndicator;
 	
 	//Show that the board is not used
-	private JLabel player2;
+	//private JLabel player2;
 	
 	//Show how many players
 	private int player;
@@ -1144,6 +1145,7 @@ public class GUI extends JFrame{
 		mmg.clearGuess();
 	}
 
+	//Hides the multiplayer screen
 	public void hideMultScreen() {
 		multiplayerFrame.setVisible(false);
 	}
@@ -1206,5 +1208,15 @@ public class GUI extends JFrame{
 		
 		//Increment other player's move
 		multMove++;
+	}
+
+	//Sets player 2 with a game
+	public void setGameP2(MasterMindGame p2Game) {
+		p2mmg = p2Game;
+	}
+	
+	//Gets player 2 game
+	public MasterMindGame getGameP2() {
+		return p2mmg;
 	}
 }
