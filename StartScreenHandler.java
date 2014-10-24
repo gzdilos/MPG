@@ -143,6 +143,36 @@ public class StartScreenHandler implements ActionListener{
 			//Multi player game
 			if (event.getActionCommand() == "newMulti") {
 				this.gui.setNumPlayer(2);
+				
+				//set up networking
+				try {
+					this.gui.createClient();
+					this.gui.getClient();
+					int turn = Client.connect();
+					ArrayList<Integer> ourAnswer = new ArrayList<Integer>();
+					ArrayList<Integer> initial = new ArrayList<Integer>();
+					initial.add(1);
+					initial.add(1);
+					initial.add(1);
+					initial.add(1);
+					if (turn == 0)
+					{
+						//need to ask user to input combination for opponent to guess
+						//for now, I will just send a hard coded combination
+						Client.sendInitial(initial);
+						//now we wait for opponent to send our move
+						ourAnswer = Client.receiveInitial();
+					}else
+					{
+						//if we are going second, reverse the order of sending/receiving
+						ourAnswer = Client.receiveInitial();
+						Client.sendInitial(initial);
+					}
+					
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				//Hide start screen
 				this.gui.hideStart(); 
 				

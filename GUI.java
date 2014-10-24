@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -18,6 +19,8 @@ import javax.swing.Timer;
 
 public class GUI extends JFrame{
 
+	private Client client;
+	
 	private JLabel label;
 	
 	private JButton button;
@@ -92,6 +95,16 @@ public class GUI extends JFrame{
 		timerSet = false;
 	}
 	
+	//Create a new client
+	public void createClient() throws Exception {
+		client = new Client("localhost", 25000);
+	}
+	
+	//Return the client
+	public Client getClient() {
+		return client;
+	}
+	
 	//Set the game
 	public void setGame(MasterMindGame s) {
 		mmg = s;
@@ -144,7 +157,7 @@ public class GUI extends JFrame{
 		
 		//Multiplayer Button
 		JButton MultiButton = new JButton("New");
-		MultiButton.setActionCommand("multi");
+		MultiButton.setActionCommand("newMulti");
 		MultiButton.addActionListener(ssHandler);
 		JRadioButton duplicateToggle = new JRadioButton("Allow Duplicates in Solution");
 		duplicateToggle.addActionListener(ssHandler);
