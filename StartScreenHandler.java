@@ -147,42 +147,32 @@ public class StartScreenHandler implements ActionListener{
 				//Set a dummy game for now
 				gui.setGame(dummy);
 				
-				this.gui.showSelectionScreen();
-				
-//				//set up networking
-//				try {
-//					this.gui.createClient();
-//					this.gui.getClient();
-//					int turn = Client.connect();
-//					ArrayList<Integer> ourAnswer = new ArrayList<Integer>();
-//					ArrayList<Integer> initial = new ArrayList<Integer>();
-//					initial.add(1);
-//					initial.add(1);
-//					initial.add(1);
-//					initial.add(1);
-//					if (turn == 0)
-//					{
-//						//need to ask user to input combination for opponent to guess
-//						//for now, I will just send a hard coded combination
-//						Client.sendInitial(initial);
-//						//now we wait for opponent to send our move
-//						ourAnswer = Client.receiveInitial();
-//					}else
-//					{
-//						//if we are going second, reverse the order of sending/receiving
-//						ourAnswer = Client.receiveInitial();
-//						Client.sendInitial(initial);
-//					}
-//					
-//				} catch (Exception e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-				//Hide start screen
-				this.gui.hideStart(); 
-				
-				//Create GUI
-				//this.gui.createGUI();
+				//set up networking
+				try {
+					this.gui.createClient();
+					this.gui.getClient();
+					this.gui.setTurn(Client.connect());
+					if (this.gui.getTurnOrder() == 0)
+					{
+						//need to ask user to input combination for opponent to guess
+						this.gui.showSelectionScreen();
+						//Hide start screen
+						this.gui.hideStart(); 
+						//now we wait for opponent to send our move
+						//game = new MasterMindGame(Client.receiveInitial(), 8, true);
+					}else
+					{
+						//if we are going second, simply reverse the order of sending/receiving
+						MasterMindGame game = new MasterMindGame(Client.receiveInitial(), 8, true);
+						this.gui.setGame(game);
+						this.gui.showSelectionScreen();
+						this.gui.hideStart(); 
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
 			}
 			
 		}

@@ -19,7 +19,7 @@ public class Client {
 	{
 		InetAddress serverIPAddress = InetAddress.getByName(serverName);
 		serverName = name;
-		this.serverPort = serverPort; 
+		this.serverPort = serverPort;
 		clientSocket = new Socket(serverIPAddress, serverPort);
 	}
 	

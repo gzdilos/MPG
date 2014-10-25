@@ -17,6 +17,11 @@ import javax.swing.Timer;
 
 public class GUI {
 
+	
+	//whether we go first or second
+	private int turnOrder;
+	
+	//client for sending messages
 	private Client client;
 	
 	//private JLabel label;
@@ -103,6 +108,14 @@ public class GUI {
 		//mmg = game;
 		ai = null;
 		timerSet = false;
+	}
+	
+	public void setTurn(int turn) {
+		turnOrder = turn;
+	}
+	
+	public int getTurnOrder() {
+		return turnOrder;
 	}
 	
 	//Create a new client

@@ -15,7 +15,6 @@ public class MultHandler implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
 		JButton sourceButton = (JButton)e.getSource();
 		String s = sourceButton.getName();
 		MasterMindGame m = gui.getGame();
@@ -24,55 +23,31 @@ public class MultHandler implements ActionListener{
 			
 			//Assuming user sets enough colours sol will be the solution to send
 			ArrayList<Integer> sol = m.getFullGuess();
-			
+
 			if (sol.size() != 4) {
 				this.gui.notEnoughError();
 			} else {
-				
+				try {
+					//Send opponents answer to them
+					this.gui.getClient().sendInitial(sol);
+					
+					// if we went first, we need to receive our answer now
+					if (this.gui.getTurnOrder() == 0)
+					{
+						MasterMindGame game = new MasterMindGame(Client.receiveInitial(), 8, true);
+						this.gui.setGame(game);
+					}
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				//We make a new game for second screen
 				MasterMindGame p2Game = new MasterMindGame(sol, 8, true);
 				this.gui.setGameP2(p2Game);
 				
-				//set up networking
-//				try {
-//					this.gui.createClient();
-//					this.gui.getClient();
-//					int turn = Client.connect();
-//					ArrayList<Integer> ourAnswer = new ArrayList<Integer>();
-//					ArrayList<Integer> initial = new ArrayList<Integer>();
-//					initial.add(1);
-//					initial.add(1);
-//					initial.add(1);
-//					initial.add(1);
-//					if (turn == 0)
-//					{
-//						//need to ask user to input combination for opponent to guess
-//						//for now, I will just send a hard coded combination
-//						Client.sendInitial(initial);
-//						//now we wait for opponent to send our move
-//						ourAnswer = Client.receiveInitial();
-//					}else
-//					{
-//						//if we are going second, reverse the order of sending/receiving
-//						ourAnswer = Client.receiveInitial();
-//						Client.sendInitial(initial);
-//					}
-//					
-//				} catch (Exception e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-				
 				//Hide start screen
 				this.gui.hideStart(); 
 				this.gui.hideMultScreen();
-				
-				//Solution you received goes here
-				ArrayList<Integer> receivedSol = null;
-				
-				//Create a new mastermind game
-				MasterMindGame game = new MasterMindGame(receivedSol, 8, true);
-				this.gui.setGame(game);
 				
 				//Create GUI
 				this.gui.createGUI();
