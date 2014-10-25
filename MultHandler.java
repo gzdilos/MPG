@@ -13,17 +13,20 @@ public class MultHandler implements ActionListener{
 		this.gui = gui;
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton sourceButton = (JButton)e.getSource();
 		String s = sourceButton.getName();
-		MasterMindGame m = gui.getGame();
+		
+		//Use the dummy game to make a guess
+		MasterMindGame m = gui.getGameP2();
 		
 		if (s.contains("send")) {
 			
 			//Assuming user sets enough colours sol will be the solution to send
 			ArrayList<Integer> sol = m.getFullGuess();
-
+			
+			//System.out.println("size of sol is " + sol.size());
+			
 			if (sol.size() != 4) {
 				this.gui.notEnoughError();
 			} else {

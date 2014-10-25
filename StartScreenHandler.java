@@ -146,6 +146,7 @@ public class StartScreenHandler implements ActionListener{
 				
 				//Set a dummy game for now
 				gui.setGame(dummy);
+				gui.setGameP2(dummy);
 				
 				//set up networking
 				try {

@@ -69,6 +69,7 @@ public class GridHandler implements ActionListener{
 			if (colourSel < 0) {
 				//Invalid colour
 			} else {
+//				System.out.println("x is " + xCoordinate);
 				mmg.addGuessPos(colourSel, xCoordinate);
 				source.setText("");
 			}

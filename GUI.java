@@ -978,7 +978,7 @@ public class GUI {
 		gridMult.setLayout(new GridLayout(1, 4));
 		gridMult.setPreferredSize(new Dimension(300,100));
 		
-		GridHandler gridButtonHandler = new GridHandler(mmg, this);
+		GridHandler gridButtonHandler = new GridHandler(p2mmg, this);
 		HotkeyHandler hotkey = new HotkeyHandler(this);
 		
 		Integer x = 0;
@@ -1001,6 +1001,7 @@ public class GUI {
 			button.addActionListener(gridButtonHandler);
 			button.addKeyListener(hotkey);
 			gridMult.add(button);
+			x++;
 			i++;
 		}
 		

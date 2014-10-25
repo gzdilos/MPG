@@ -160,6 +160,7 @@ public class MasterMindGame {
 		//Add pos
 		pos.add(i);
 		
+		//Rearrange the guess
 		if (pos.size() == finalSolution.size()) {
 			rearrangeGuess();
 		}
