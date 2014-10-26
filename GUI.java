@@ -1182,7 +1182,7 @@ public class GUI {
 		while (x != 4) {
 			y = 4 * multMove + x;
 			button = (JButton) this.p2gameButtonGrid.getComponent(last - y);
-			int colour = guess.get(4 - x);
+			int colour = guess.get(3 - x);
 			if (colour == mmg.RED) {
 				button.setBackground(Color.red);
 			} else if (colour == mmg.BLUE) {
