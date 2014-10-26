@@ -132,9 +132,6 @@ public class MiscHandler implements ActionListener{
 				if (this.gui.getClient() != null)
 				{
 					try {
-						//send our move to opponent
-						this.gui.getClient().makeMove(puzzle.getFullGuess());
-
 						//receive move from opponent
 						ArrayList<Integer> opponentMove = this.gui.getClient().receiveMove();
 						System.out.println("got guess from opponent: " + opponentMove);
