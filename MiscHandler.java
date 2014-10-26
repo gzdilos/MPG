@@ -137,6 +137,15 @@ public class MiscHandler implements ActionListener{
 						//receive move from opponent
 						ArrayList<Integer> opponentMove = this.gui.getClient().receiveMove();
 						System.out.println("got guess from opponent: " + opponentMove);
+						
+						//check if it is the disconnect message
+						if (opponentMove.contains(-1))
+						{
+							this.gui.getClient().closeConnection();
+							this.gui.removeClient();
+							this.gui.setTurnLabel("Opponent disconnected... please press 'Exit'...");
+						}
+						
 						//update our opponent's screen (on our end) accordingly
 						boolean opponentWon = this.gui.colourScreenMult(opponentMove);
 						//now it is our turn
@@ -176,11 +185,27 @@ public class MiscHandler implements ActionListener{
 		//Exits the board
 		if (event.getActionCommand() == "Exit")
 		{
+			//Send disconnect message to opponent
+			ArrayList<Integer> disconnectMessage = new ArrayList<Integer>();
+			disconnectMessage.add(-1);
+			disconnectMessage.add(-1);
+			disconnectMessage.add(-1);
+			disconnectMessage.add(-1);
+			try {
+				this.gui.getClient().makeMove(disconnectMessage);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 			//Hide the puzzle
 			this.gui.hidePuzzle();
 			
 			//Close connection //TODO
 			this.gui.getClient().closeConnection();
+			
+			this.gui.removeClient();
+			
 			//Show start screen
 			this.gui.showStart();
 		}

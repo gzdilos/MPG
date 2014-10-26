@@ -52,7 +52,7 @@ public class GUI {
 	private JPanel gridMult;
 	
 	//Label that indicates the status of the game (your turn, waiting on opponent, etc.)
-	private String turnIndicator;
+	private String turnIndicator = "Feedback Label";
 	
 	//Store the move of multiplayer
 	private int multMove = 0;
@@ -131,6 +131,12 @@ public class GUI {
 	//Return the client
 	public Client getClient() {
 		return client;
+	}
+	
+	//Remove the client
+	public void removeClient()
+	{
+		client = null;
 	}
 	
 	//Set the game
@@ -598,21 +604,6 @@ public class GUI {
 		
 		//Make the grid for mastermind
 		this.gameGrid.setVisible(true);
-		
-		//if we're going second, we need to get the first move from opponent before we make ours
-		if (this.getTurnOrder() != 0 && this.client != null)
-		{
-			this.setTurnLabel("waiting for opponent to send our answer");
-			try {
-				ArrayList<Integer> opponentMove = this.getClient().receiveMove();
-				System.out.println("got guess from opponent: " + opponentMove);
-				//update our opponent's screen (on our end) accordingly
-				boolean opponentWon = this.colourScreenMult(opponentMove); //TODO : get the hint 
-			} catch (Exception exc) {
-				// TODO Auto-generated catch block
-				exc.printStackTrace();
-			}
-		}
 	}
 
 	//Initialises the player 2 grid
