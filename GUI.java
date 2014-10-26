@@ -515,12 +515,14 @@ public class GUI {
 			player2Panel.add(name, BorderLayout.NORTH);		
 			player2Panel.add(label, BorderLayout.SOUTH);
 			
-			//Create a space waster
+			//Create a space waster - no longer a space waster!!
 			JPanel temp = new JPanel();
-			JLabel t1 = new JLabel();
+			JLabel t1 = new JLabel(); //TODO Modify this label to show whos turn it is!! 
 			temp.add(t1, BorderLayout.CENTER);
 			temp.setPreferredSize(new Dimension(200, 230));
 			
+			
+			//Create space waster
 			JPanel temp2 = new JPanel();
 			JLabel t2 = new JLabel();
 			temp2.add(t2, BorderLayout.CENTER);
@@ -1176,10 +1178,11 @@ public class GUI {
 		int last = mmg.getMaxGuessAmt() * 4 - 1;
 		
 		//Set the colours
+		//
 		while (x != 4) {
 			y = 4 * multMove + x;
 			button = (JButton) this.p2gameButtonGrid.getComponent(last - y);
-			int colour = guess.get(x);
+			int colour = guess.get(4 - x);
 			if (colour == mmg.RED) {
 				button.setBackground(Color.red);
 			} else if (colour == mmg.BLUE) {
