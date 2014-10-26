@@ -490,7 +490,7 @@ public class SampleGame {
 	 */
 	public static void playSound() {
 	    try {
-	    	File soundFile = new File("src/bgm.wav");
+	    	File soundFile = new File("sound/bgm.wav");
 	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
 
 	        Clip clip = AudioSystem.getClip();

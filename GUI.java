@@ -52,7 +52,7 @@ public class GUI {
 	private JPanel gridMult;
 	
 	//Label that indicates the status of the game (your turn, waiting on opponent, etc.)
-	private String turnIndicator = "Feedback Label";
+	private String turnIndicator;
 	
 	//Store the move of multiplayer
 	private int multMove = 0;
