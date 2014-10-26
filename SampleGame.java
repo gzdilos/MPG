@@ -1,4 +1,9 @@
 import java.util.ArrayList;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 
 public class SampleGame {
 
@@ -14,7 +19,7 @@ public class SampleGame {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-
+		playSound();
 		boolean firstTest = runTestsDup();
 		firstTest = runTests();
 		firstTest = true;
@@ -507,6 +512,22 @@ public class SampleGame {
 //				
 //		return answer;
 //	}
+	public static void playSound() {
+	    try {
+	    	File soundFile = new File("bgm.wav");
+	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+	       
+	   
+	        Clip clip = AudioSystem.getClip();
+	        clip.open(audioInputStream);
+	        clip.start();
+	        System.out.println("Playing " + soundFile.getName());
+	    } catch(Exception ex) {
+	        System.out.println("Error with playing sound.");
+	        ex.printStackTrace();
+	    }
+	}
+	
 		
 	//Prints the array
 	private static void printArray(ArrayList<Integer> guess) {
