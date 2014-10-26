@@ -21,10 +21,11 @@ public class StartScreenHandler implements ActionListener{
 	
 	private boolean useDuplicate;
 	
-	ArrayList<Integer> sampleTest = new ArrayList<Integer>();
+	ArrayList<Integer> sampleTest;
 	
 	public StartScreenHandler(GUI gui) {
 		this.gui = gui;
+		sampleTest = new ArrayList<Integer>();
 	}
 	
 	public void actionPerformed(ActionEvent event) 
@@ -36,11 +37,18 @@ public class StartScreenHandler implements ActionListener{
 		//useDuplicate = true;
 		
 		//Sample solution
-		sampleTest.add(PINK);
-		sampleTest.add(RED);
-		sampleTest.add(GREEN);
-		sampleTest.add(BLUE);
 		
+		if (sampleTest.size() > 4) {
+			System.out.println("Problem has occured!");
+			System.out.println("Sample size is " + sampleTest.size());
+		}
+		
+		if (sampleTest.size() == 0) {
+			sampleTest.add(PINK);
+			sampleTest.add(RED);
+			sampleTest.add(GREEN);
+			sampleTest.add(BLUE);
+		}
 		Object source = event.getSource();
 		
 		if (source.getClass().isInstance(toggleEvent)) {
@@ -53,6 +61,7 @@ public class StartScreenHandler implements ActionListener{
 				MasterMindGame s = new MasterMindGame(sampleTest, EASY_GUESSES, useDuplicate);
 				//System.out.println("Duplicates Selected:" + useDuplicate);
 				this.gui.setGame(s);
+				
 				this.gui.setNumPlayer(1);
 				//gui.createGUI();
 				//Hide start screen

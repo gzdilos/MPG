@@ -62,6 +62,8 @@ public class MiscHandler implements ActionListener{
 				}
 				//calling checkPuzzle method to determine whether puzzle is solved
 				boolean correct = gui.currGuess();
+				System.out.println("After guessing the cur (misc) is " + puzzle.getCurGuessAmt());
+				
 				//displaying appropriate message
 				if (correct == true) {
 					//JLabel correctText = new JLabel(new ImageIcon("images/success.png"));
@@ -107,7 +109,7 @@ public class MiscHandler implements ActionListener{
 						this.gui.disableTime();
 					} else {
 						
-						//System.out.println("Wrong");
+						System.out.println("Wrong hint then After guessing the cur is " + puzzle.getCurGuessAmt());
 						//gui.setHint(puzzle.getCurGuessAmt() - 1, puzzle.guessRes());
 						
 						if (puzzle.getCurGuessAmt() != 8) {
@@ -186,25 +188,28 @@ public class MiscHandler implements ActionListener{
 		if (event.getActionCommand() == "Exit")
 		{
 			//Send disconnect message to opponent
-			ArrayList<Integer> disconnectMessage = new ArrayList<Integer>();
-			disconnectMessage.add(-1);
-			disconnectMessage.add(-1);
-			disconnectMessage.add(-1);
-			disconnectMessage.add(-1);
-			try {
-				this.gui.getClient().makeMove(disconnectMessage);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			if (this.gui.getClient() != null) {
+				ArrayList<Integer> disconnectMessage = new ArrayList<Integer>();
+				disconnectMessage.add(-1);
+				disconnectMessage.add(-1);
+				disconnectMessage.add(-1);
+				disconnectMessage.add(-1);
+				try {
+					this.gui.getClient().makeMove(disconnectMessage);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				//Close connection //TODO
+				this.gui.getClient().closeConnection();
+				
+				this.gui.removeClient();
+				
 			}
-
+			
 			//Hide the puzzle
 			this.gui.hidePuzzle();
-			
-			//Close connection //TODO
-			this.gui.getClient().closeConnection();
-			
-			this.gui.removeClient();
 			
 			//Show start screen
 			this.gui.showStart();

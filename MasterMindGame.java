@@ -428,6 +428,9 @@ public class MasterMindGame {
 	//Check for invalid guesses.
 	 
 		if (theGuess.size() != solutionSize) {
+			System.out.println("My gues size is " + theGuess.size());
+			System.out.println("Solution size is " + solutionSize);
+			printArray(theGuess, false);
 			return false;
 		}
 		

@@ -449,7 +449,7 @@ public class GUI {
 			miscButtonHandler = new MiscHandler(mmg, this, null);	
 		}
 		
-		miscButtons.setLayout(new GridLayout(4,1));
+		miscButtons.setLayout(new GridLayout(5,1));
 		miscButtons.setPreferredSize(new Dimension(100, 180));
 		
 		button = new JButton("Check");	
@@ -474,15 +474,14 @@ public class GUI {
 			button.setToolTipText("Click on this button to reset the whole puzzle!");
 			button.addKeyListener(hotkey);
 			miscButtons.add(button);
-		} else {
-			button = new JButton("Exit");		
-			button.setPreferredSize(new Dimension(100, 50));		
-			button.addActionListener(miscButtonHandler);
-			button.setToolTipText("Click on this button to go back to start menu!");
-			button.addKeyListener(hotkey);
-			miscButtons.add(button);
 		}
 		
+		button = new JButton("Exit");		
+		button.setPreferredSize(new Dimension(100, 50));		
+		button.addActionListener(miscButtonHandler);
+		button.setToolTipText("Click on this button to go back to start menu!");
+		button.addKeyListener(hotkey);
+		miscButtons.add(button);
 		
 		//Add instructions button
 		button = new JButton("Rules");
@@ -703,6 +702,8 @@ public class GUI {
 		
 		answer = mmg.guessCheck();
 		
+		System.out.println("After guessing the cur (GUI) is " + mmg.getCurGuessAmt());
+		
 		return answer;
 	}
 	
@@ -780,6 +781,8 @@ public class GUI {
 		}
 		
 		x = 0;
+		
+		System.out.println("cur guess amt is " + curGuessAmt);
 		
 		while (x != 4) {
 			y = curGuessAmt - 1 + x;
