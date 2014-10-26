@@ -132,5 +132,15 @@ public class Client {
 		}
 		return receivedMove;		
 	}
+	
+	public static void closeConnection()
+	{
+		try {
+			clientSocket.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }

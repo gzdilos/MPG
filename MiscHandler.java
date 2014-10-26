@@ -132,11 +132,15 @@ public class MiscHandler implements ActionListener{
 				if (this.gui.getClient() != null)
 				{
 					try {
+						//now it is the opponents turn to guess
+						this.gui.setTurnLabel("Waiting for opponent to make a guess...");
 						//receive move from opponent
 						ArrayList<Integer> opponentMove = this.gui.getClient().receiveMove();
 						System.out.println("got guess from opponent: " + opponentMove);
 						//update our opponent's screen (on our end) accordingly
-						boolean opponentWon = this.gui.colourScreenMult(opponentMove); //TODO : get the hint 
+						boolean opponentWon = this.gui.colourScreenMult(opponentMove);
+						//now it is our turn
+						this.gui.setTurnLabel("Your turn to guess!");
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -176,7 +180,7 @@ public class MiscHandler implements ActionListener{
 			this.gui.hidePuzzle();
 			
 			//Close connection //TODO
-			
+			this.gui.getClient().closeConnection();
 			//Show start screen
 			this.gui.showStart();
 		}

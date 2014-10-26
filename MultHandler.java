@@ -3,6 +3,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 
 
 public class MultHandler implements ActionListener{
@@ -58,6 +59,7 @@ public class MultHandler implements ActionListener{
 				//if we're going second, we need to get the first move from opponent before we make ours
 				if (this.gui.getTurnOrder() != 0)
 				{
+					this.gui.setTurnLabel("waiting for opponent to send our answer");
 					try {
 						ArrayList<Integer> opponentMove = this.gui.getClient().receiveMove();
 						System.out.println("got guess from opponent: " + opponentMove);
@@ -68,6 +70,7 @@ public class MultHandler implements ActionListener{
 						exc.printStackTrace();
 					}
 				}
+				
 			}
 		} else if (s.contains("clear")) {
 			if (m.getFullGuess().size() == 0) {

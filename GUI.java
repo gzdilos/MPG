@@ -51,6 +51,9 @@ public class GUI {
 	//Holds buttons for multiplayer
 	private JPanel gridMult;
 	
+	//Label that indicates the status of the game (your turn, waiting on opponent, etc.)
+	private String turnIndicator;
+	
 	//Store the move of multiplayer
 	private int multMove = 0;
 	
@@ -143,6 +146,12 @@ public class GUI {
 	//Set single player
 	public void setNumPlayer(int num) {
 		player = num;
+	}
+	
+	//gets the turn indicator panel
+	public void setTurnLabel(String s)
+	{
+		turnIndicator = s;
 	}
 	
 	public void createStartScreen() {
@@ -529,10 +538,10 @@ public class GUI {
 			player2Panel.add(label, BorderLayout.SOUTH);
 			
 			//Create a space waster - no longer a space waster!!
-			JPanel temp = new JPanel();
-			JLabel t1 = new JLabel(); //TODO Modify this label to show whos turn it is!! 
-			temp.add(t1, BorderLayout.CENTER);
-			temp.setPreferredSize(new Dimension(200, 230));
+			JPanel turnIndicatorPanel = new JPanel();
+			JLabel turnIndicatorLabel = new JLabel(turnIndicator); //TODO Modify this label to show whos turn it is!! 
+			turnIndicatorPanel.add(turnIndicatorLabel, BorderLayout.CENTER);
+			turnIndicatorPanel.setPreferredSize(new Dimension(200, 230));
 			
 			
 			//Create space waster
@@ -548,7 +557,7 @@ public class GUI {
 			p2gameButtonGrid.setOpaque(false);
 			p2hintPanel.setOpaque(false);
 			player2Panel.setOpaque(false);
-			temp.setOpaque(false);
+			turnIndicatorPanel.setOpaque(false);
 			temp2.setOpaque(false);
 			p2Panel.setLayout(new BorderLayout());
 			
@@ -556,7 +565,7 @@ public class GUI {
 			p2Panel.add(p2gameButtonGrid, BorderLayout.CENTER);
 			p2Panel.add(p2hintPanel, BorderLayout.EAST);
 			p2Panel.add(player2Panel, BorderLayout.NORTH);
-			p2Panel.add(temp, BorderLayout.SOUTH);
+			p2Panel.add(turnIndicatorPanel, BorderLayout.SOUTH);
 			p2Panel.add(temp2, BorderLayout.WEST);
 			p2Panel.setSize(700,700);	
 		}
@@ -589,6 +598,21 @@ public class GUI {
 		
 		//Make the grid for mastermind
 		this.gameGrid.setVisible(true);
+		
+		//if we're going second, we need to get the first move from opponent before we make ours
+		if (this.getTurnOrder() != 0 && this.client != null)
+		{
+			this.setTurnLabel("waiting for opponent to send our answer");
+			try {
+				ArrayList<Integer> opponentMove = this.getClient().receiveMove();
+				System.out.println("got guess from opponent: " + opponentMove);
+				//update our opponent's screen (on our end) accordingly
+				boolean opponentWon = this.colourScreenMult(opponentMove); //TODO : get the hint 
+			} catch (Exception exc) {
+				// TODO Auto-generated catch block
+				exc.printStackTrace();
+			}
+		}
 	}
 
 	//Initialises the player 2 grid
