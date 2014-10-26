@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -442,19 +444,30 @@ public class GUI {
 		button.addKeyListener(hotkey);
 		miscButtons.add(button);		
 		
-		button = new JButton("Reset");		
-		button.setPreferredSize(new Dimension(100, 50));		
-		button.addActionListener(miscButtonHandler);
-		button.setToolTipText("Click on this button to reset the whole puzzle!");
-		button.addKeyListener(hotkey);
-		miscButtons.add(button);
-		
 		button = new JButton("Clear");		
 		button.setPreferredSize(new Dimension(100, 50));		
 		button.addActionListener(miscButtonHandler);
 		button.setToolTipText("Click on this button to clear your current guess!");
 		button.addKeyListener(hotkey);
 		miscButtons.add(button);
+		
+		//Check if multiplayer
+		if (this.getClient() == null) {
+			button = new JButton("Reset");		
+			button.setPreferredSize(new Dimension(100, 50));		
+			button.addActionListener(miscButtonHandler);
+			button.setToolTipText("Click on this button to reset the whole puzzle!");
+			button.addKeyListener(hotkey);
+			miscButtons.add(button);
+		} else {
+			button = new JButton("Exit");		
+			button.setPreferredSize(new Dimension(100, 50));		
+			button.addActionListener(miscButtonHandler);
+			button.setToolTipText("Click on this button to go back to start menu!");
+			button.addKeyListener(hotkey);
+			miscButtons.add(button);
+		}
+		
 		
 		//Add instructions button
 		button = new JButton("Rules");
@@ -955,8 +968,9 @@ public class GUI {
 		
 		//JPanel instPanel = new JPanel();
 		//instPanel.setLayout
+		
 		//May need to edit this for your computer!!!
-		ImageIcon img = new ImageIcon("src/images/Inst1P.png");
+		ImageIcon img = new ImageIcon("images/Inst1P.png");
 		JLabel icon = new JLabel(img);
 		//JButton next = new JButton("Next");
 		//next.setName("Next");

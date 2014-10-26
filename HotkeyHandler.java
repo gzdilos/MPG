@@ -12,12 +12,10 @@ public class HotkeyHandler implements KeyListener{
 		g = gui.getGame();
 	}
 
-	@Override
 	public void keyPressed(KeyEvent arg0) {
 		
 	}
 
-	@Override
 	public void keyReleased(KeyEvent arg0) {
 		int x = arg0.getKeyCode();
 		
@@ -56,7 +54,6 @@ public class HotkeyHandler implements KeyListener{
 //		}
 	}
 
-	@Override
 	public void keyTyped(KeyEvent arg0) {
 //		int x = arg0.getKeyCode();
 //		char c = arg0.getKeyChar();

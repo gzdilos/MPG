@@ -169,6 +169,18 @@ public class MiscHandler implements ActionListener{
 			this.gui.showPuzzle();
 		}
 		
+		//Exits the board
+		if (event.getActionCommand() == "Exit")
+		{
+			//Hide the puzzle
+			this.gui.hidePuzzle();
+			
+			//Close connection //TODO
+			
+			//Show start screen
+			this.gui.showStart();
+		}
+		
 		//Clears the row
 		if (event.getActionCommand() == "Clear")
 		{

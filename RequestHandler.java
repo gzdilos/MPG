@@ -20,7 +20,6 @@ public class RequestHandler implements Runnable {
 		this.otherClientMessages = opponentMessages;
 	}
 
-	@Override
 	public void run() {
 		Socket connectionSocket = connection;
 		//int serverPort = 25000; 
