@@ -120,7 +120,7 @@ public class GUI {
 	
 	//Create a new client
 	public void createClient() throws Exception {
-		client = new Client("localhost", 25000);
+		client = new Client("wagner.orchestra.cse.unsw.EDU.AU", 25000);
 	}
 	
 	//Return the client

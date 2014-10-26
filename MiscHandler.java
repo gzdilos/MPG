@@ -1,8 +1,8 @@
 import java.awt.BorderLayout;
-
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -51,6 +51,15 @@ public class MiscHandler implements ActionListener{
 					gui.guessError();
 				}
 			} else {
+				if (this.gui.getClient() != null)
+				{
+					try {
+						this.gui.getClient().makeMove(puzzle.getFullGuess());
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 				//calling checkPuzzle method to determine whether puzzle is solved
 				boolean correct = gui.currGuess();
 				//displaying appropriate message
@@ -118,6 +127,19 @@ public class MiscHandler implements ActionListener{
 						gui.setAIHint(ai.getAIHint(), ai.curHint());
 						gui.setAIMove(ai.getAIMove(), ai.curMove());
 					}
+				}
+			}
+			if (this.gui.getClient() != null)
+			{
+				//get the opponent's move
+				try {
+					ArrayList<Integer> opponentMove = this.gui.getClient().receiveMove();
+					System.out.println("got guess from opponent: " + opponentMove);
+					//update our opponent's screen (on our end) accordingly
+					this.gui.colourScreenMult(opponentMove, hint); //TODO : get the hint 
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
 		}
