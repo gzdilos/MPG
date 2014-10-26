@@ -32,15 +32,14 @@ public class AI {
 		curAIHint = 0;
 	}
 	
+	//Makes the ai play the complete game
 	public void playGame() {
 		if (difficulty == EASY) {
 			playEasyGame();
 		} else if (difficulty == MEDIUM) {
-			//g.setDuplicateTrue();
 			playMediumGame();
 		} else if (difficulty == HARD) {
 			playHardGame();
-			//playMediumGame();
 		}
 	}
 

@@ -49,6 +49,7 @@ public class StartScreenHandler implements ActionListener{
 			sampleTest.add(GREEN);
 			sampleTest.add(BLUE);
 		}
+		
 		Object source = event.getSource();
 		
 		if (source.getClass().isInstance(toggleEvent)) {

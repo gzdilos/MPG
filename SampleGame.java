@@ -1,10 +1,14 @@
+import java.io.File;
 import java.util.ArrayList;
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
+import javax.sound.sampled.Clip;
 
+/**
+ * @author Geoffrey
+ *
+ */
 public class SampleGame {
 
 	public final static int RED = 0;
@@ -36,48 +40,16 @@ public class SampleGame {
 			//Make  gui
 			GUI gui = new GUI();
 			
-			//boolean useDuplicate = true;
-			//May create difficulties 
-			//Easy = 10 guesses
-			//Medium = 8 guesses
-			//Hard = 6 guesses
-			//MasterMindGame s = new MasterMindGame(sampleTest, guessNum, useDuplicate);
-			
-//			s.addToEndGuess(0);
-//			s.addToEndGuess(0);
-//			s.addToEndGuess(0);
-//			s.addToEndGuess(0);
-//			
-//			s.guessCheck();
-//			
-//			printArray(s.guessRes());
-			//AI med = new AI(s, 1);
-			//med.playGame();
-//			MasterMindGame s2 = new MasterMindGame(sampleTest, guessNum, useDuplicate);
-			
-//			gui.setGame(s);
-
-			//Set AI as easy			
-//			AI ai = new AI(s2, 0);
-//			ai.playGame();
-			
-//			gui.setAI(ai);
-			//Gui gui = new Gui();
 			//CREATE START SCREEN GUI FIRST
 			gui.createStartScreen();
 			//gui.showStartScreen();
 			
-			//Create the gui
-			//CREATE GUI FROM START SCREEN OPTIONS
-			//gui.createGUI();
-			
-			
-			//System.out.println("Solution is");
 			printArray(sampleTest);
 		
 		}
 	}
 
+	//Test duplicate colour guesses and colour solutions
 	private static boolean runTestsDup() {
 		boolean answer = false;
 		
@@ -286,7 +258,7 @@ public class SampleGame {
 		return answer;
 	}
 
-	//Test the system
+	//Test the system with single colours
 	private static boolean runTests() {
 		boolean answer = false;
 		
@@ -512,15 +484,18 @@ public class SampleGame {
 //				
 //		return answer;
 //	}
+	/**
+	 * 
+	 */
 	public static void playSound() {
 	    try {
-	    	File soundFile = new File("bgm.wav");
+	    	File soundFile = new File("src/bgm.wav");
 	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
-	       
-	   
+
 	        Clip clip = AudioSystem.getClip();
 	        clip.open(audioInputStream);
 	        clip.start();
+	        clip.loop(Clip.LOOP_CONTINUOUSLY);
 	        System.out.println("Playing " + soundFile.getName());
 	    } catch(Exception ex) {
 	        System.out.println("Error with playing sound.");
@@ -530,6 +505,9 @@ public class SampleGame {
 	
 		
 	//Prints the array
+	/**
+	 * @param guess
+	 */
 	private static void printArray(ArrayList<Integer> guess) {
 		int i = 0;
 		
