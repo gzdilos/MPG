@@ -136,7 +136,7 @@ public class MiscHandler implements ActionListener{
 					ArrayList<Integer> opponentMove = this.gui.getClient().receiveMove();
 					System.out.println("got guess from opponent: " + opponentMove);
 					//update our opponent's screen (on our end) accordingly
-					this.gui.colourScreenMult(opponentMove, hint); //TODO : get the hint 
+					boolean opponentWon = this.gui.colourScreenMult(opponentMove); //TODO : get the hint 
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

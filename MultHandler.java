@@ -54,6 +54,20 @@ public class MultHandler implements ActionListener{
 				
 				//Create GUI
 				this.gui.createGUI();
+				
+				//if we're going second, we need to get the first move from opponent before we make ours
+				if (this.gui.getTurnOrder() != 0)
+				{
+					try {
+						ArrayList<Integer> opponentMove = this.gui.getClient().receiveMove();
+						System.out.println("got guess from opponent: " + opponentMove);
+						//update our opponent's screen (on our end) accordingly
+						boolean opponentWon = this.gui.colourScreenMult(opponentMove); //TODO : get the hint 
+					} catch (Exception exc) {
+						// TODO Auto-generated catch block
+						exc.printStackTrace();
+					}
+				}
 			}
 		} else if (s.contains("clear")) {
 			if (m.getFullGuess().size() == 0) {
