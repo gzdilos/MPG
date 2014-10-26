@@ -1164,13 +1164,17 @@ public class GUI {
 		multiplayerFrame.setVisible(false);
 	}
 	
-	//Used by multiplayer
-	public void colourScreenMult(ArrayList<Integer> guess, ArrayList<Integer> hint) {
+	//Used by multiplayer only requires guess
+	//Adds the guess to the opponents game and sets the screen to display it
+	public boolean colourScreenMult(ArrayList<Integer> guess) {
+		
+		boolean answer = false;
 		
 		int x = 0;
 		int y = 0;
 		
 		int last = mmg.getMaxGuessAmt() * 4 - 1;
+		
 		//Set the colours
 		while (x != 4) {
 			y = 4 * multMove + x;
@@ -1193,7 +1197,22 @@ public class GUI {
 			x++;
 		}
 		
-		//Set hints
+		//Try the guess on the opponents board
+		int j = 0;
+		
+		//Add the guess to the game
+		while (j != guess.size()) {
+			p2mmg.addToEndGuess(guess.get(j));
+			j++;
+		}
+		
+		//Make the guess
+		answer = p2mmg.guessCheck();
+		
+		//Grab hints
+		ArrayList<Integer> hint = p2mmg.guessRes();
+		
+		//Set hints (doesn't matter where to grab as both players have same difficulty/ same guess amount
 		int hintval = mmg.getMaxGuessAmt()*4 - 1;
 		
 		int i = 0;
@@ -1222,6 +1241,8 @@ public class GUI {
 		
 		//Increment other player's move
 		multMove++;
+		
+		return answer;
 	}
 
 	//Sets player 2 with a game
