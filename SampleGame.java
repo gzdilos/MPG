@@ -30,6 +30,7 @@ public class SampleGame {
 		
 		if (firstTest == true) {
 			//Make a random solution
+			//(for the demo we are hardcoding the solution so we know what it is)
 			ArrayList<Integer> sampleTest = new ArrayList<Integer>();
 		    
 			sampleTest.add(PINK);
