@@ -86,7 +86,7 @@ public class MiscHandler implements ActionListener{
 						this.gui.disableTime();
 					} 
 					
-				} else {
+				} else 	{
 					//Max guesses used
 					if (puzzle.getCurGuessAmt() >= 8) {
 						JPanel text = new JPanel();
@@ -128,20 +128,25 @@ public class MiscHandler implements ActionListener{
 						gui.setAIMove(ai.getAIMove(), ai.curMove());
 					}
 				}
-			}
-			if (this.gui.getClient() != null)
-			{
-				//get the opponent's move
-				try {
-					ArrayList<Integer> opponentMove = this.gui.getClient().receiveMove();
-					System.out.println("got guess from opponent: " + opponentMove);
-					//update our opponent's screen (on our end) accordingly
-					boolean opponentWon = this.gui.colourScreenMult(opponentMove); //TODO : get the hint 
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				//check if we are doing a multiplayer game
+				if (this.gui.getClient() != null)
+				{
+					try {
+						//send our move to opponent
+						this.gui.getClient().makeMove(puzzle.getFullGuess());
+
+						//receive move from opponent
+						ArrayList<Integer> opponentMove = this.gui.getClient().receiveMove();
+						System.out.println("got guess from opponent: " + opponentMove);
+						//update our opponent's screen (on our end) accordingly
+						boolean opponentWon = this.gui.colourScreenMult(opponentMove); //TODO : get the hint 
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
+			
 		}
 		
 		//Resets the board
